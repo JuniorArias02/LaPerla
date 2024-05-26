@@ -280,23 +280,17 @@
                      <children>
                         <TableView fx:id="tablaProductos" layoutX="119.0" layoutY="181.0" prefHeight="453.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css">
                           <columns>
-                            <TableColumn prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
-                                         maxWidth="520.0003051757812" minWidth="30.0"/>
-                            <TableColumn prefWidth="139.2000732421875" styleClass="table-column-header" text="Id"
-                                         maxWidth="1392.000732421875" minWidth="30.0"/>
-                              <TableColumn prefWidth="162.4000244140625" styleClass="table-column-header" text="Nombre"
-                                           maxWidth="1624.000244140625" minWidth="30.0"/>
-                              <TableColumn minWidth="30.0" prefWidth="208.79998779296875" styleClass="table-column-header" text="Categoria"
-                                           maxWidth="2087.9998779296875"/>
-                              <TableColumn minWidth="30.0" prefWidth="155.199951171875" styleClass="table-column-header" text="Precio"
-                                           maxWidth="1551.99951171875"/>
-                              <TableColumn prefWidth="191.2000732421875" styleClass="table-column-header" text="Stock"
-                                           maxWidth="1912.000732421875" minWidth="30.0"/>
+                            <TableColumn maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
+                            <TableColumn fx:id="ProductoCodigoColumna" maxWidth="1392.000732421875" minWidth="30.0" prefWidth="139.2000732421875" styleClass="table-column-header" text="Id" />
+                              <TableColumn fx:id="ProductoNombreColumna" maxWidth="1624.000244140625" minWidth="30.0" prefWidth="162.4000244140625" styleClass="table-column-header" text="Nombre" />
+                              <TableColumn fx:id="ProductoCategoriaColumna" maxWidth="2087.9998779296875" minWidth="30.0" prefWidth="208.79998779296875" styleClass="table-column-header" text="Categoria" />
+                              <TableColumn fx:id="ProductoPrecioColumna" maxWidth="1551.99951171875" minWidth="30.0" prefWidth="155.199951171875" styleClass="table-column-header" text="Precio" />
+                              <TableColumn fx:id="ProductoStockColumna" maxWidth="1912.000732421875" minWidth="30.0" prefWidth="191.2000732421875" styleClass="table-column-header" text="Stock" />
                           </columns>
                         </TableView>
                         <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
                            <children>
-                              <TextField layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
+                              <TextField fx:id="buscadorProductos" layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
                               <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="68.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/search.png" />
@@ -357,16 +351,11 @@
                         </Pane>
                         <TableView fx:id="tablaVentas" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css">
                            <columns>
-                              <TableColumn prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
-                                           maxWidth="520.0003051757812" minWidth="30.0"/>
-                              <TableColumn prefWidth="167.99993896484375" styleClass="table-column-header" text="Id"
-                                           maxWidth="1679.9993896484375" minWidth="30.0"/>
-                              <TableColumn prefWidth="210.39996337890625" styleClass="table-column-header" text="Fecha"
-                                           maxWidth="2103.9996337890625" minWidth="30.0"/>
-                              <TableColumn minWidth="30.0" prefWidth="243.20001220703125" styleClass="table-column-header" text="Total"
-                                           maxWidth="2432.0001220703125"/>
-                              <TableColumn minWidth="30.0" prefWidth="239.199951171875" styleClass="table-column-header" text="Cliente"
-                                           maxWidth="2391.99951171875"/>
+                              <TableColumn maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
+                              <TableColumn maxWidth="1679.9993896484375" minWidth="30.0" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id" />
+                              <TableColumn maxWidth="2103.9996337890625" minWidth="30.0" prefWidth="210.39996337890625" styleClass="table-column-header" text="Fecha" />
+                              <TableColumn maxWidth="2432.0001220703125" minWidth="30.0" prefWidth="243.20001220703125" styleClass="table-column-header" text="Total" />
+                              <TableColumn maxWidth="2391.99951171875" minWidth="30.0" prefWidth="239.199951171875" styleClass="table-column-header" text="Cliente" />
                            </columns>
                         </TableView>
                         <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
@@ -421,18 +410,12 @@
                         </Pane>
                         <TableView fx:id="tablaClientes" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css" tableMenuButtonVisible="true">
                            <columns>
-                              <TableColumn prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
-                                           maxWidth="520.0003051757812" minWidth="30.0"/>
-                              <TableColumn prefWidth="167.99993896484375" styleClass="table-column-header" text="Id"
-                                           maxWidth="1679.9993896484375" minWidth="30.0"/>
-                              <TableColumn prefWidth="118.4000244140625" styleClass="table-column-header" text="Nombre"
-                                           maxWidth="1184.000244140625" minWidth="30.0"/>
-                              <TableColumn minWidth="30.0" prefWidth="208.0" styleClass="table-column-header" text="Telefono"
-                                           maxWidth="2080.0"/>
-                              <TableColumn minWidth="30.0" prefWidth="240.39996337890625" styleClass="table-column-header" text="Deuda"
-                                           maxWidth="2403.9996337890625"/>
-                              <TableColumn prefWidth="122.800048828125" styleClass="table-column-header" text="Estado"
-                                           maxWidth="1228.00048828125" minWidth="30.0"/>
+                              <TableColumn maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
+                              <TableColumn maxWidth="1679.9993896484375" minWidth="30.0" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id" />
+                              <TableColumn maxWidth="1184.000244140625" minWidth="30.0" prefWidth="118.4000244140625" styleClass="table-column-header" text="Nombre" />
+                              <TableColumn maxWidth="2080.0" minWidth="30.0" prefWidth="208.0" styleClass="table-column-header" text="Telefono" />
+                              <TableColumn maxWidth="2403.9996337890625" minWidth="30.0" prefWidth="240.39996337890625" styleClass="table-column-header" text="Deuda" />
+                              <TableColumn maxWidth="1228.00048828125" minWidth="30.0" prefWidth="122.800048828125" styleClass="table-column-header" text="Estado" />
                            </columns>
                         </TableView>
                         <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
@@ -487,14 +470,10 @@
                         </Pane>
                         <TableView fx:id="tablaProveedor" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" stylesheets="@../../../modelo/diseñoVistaTabla.css">
                            <columns>
-                              <TableColumn fx:id="totalColumn" prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
-                                           maxWidth="520.0003051757812" minWidth="30.0"/>
-                              <TableColumn fx:id="ProveedorCodigoColumna" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id"
-                                           maxWidth="1679.9993896484375" minWidth="30.0"/>
-                              <TableColumn fx:id="ProveedorNombreColumna" prefWidth="375.199951171875" styleClass="table-column-header" text="Nombre"
-                                           maxWidth="3751.99951171875" minWidth="30.0"/>
-                              <TableColumn fx:id="ProveedorTelefonoColumna" minWidth="30.0" prefWidth="316.0" styleClass="table-column-header" text="Telefono"
-                                           maxWidth="3160.0"/>
+                              <TableColumn fx:id="totalColumn" maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
+                              <TableColumn fx:id="ProveedorCodigoColumna" maxWidth="1679.9993896484375" minWidth="30.0" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id" />
+                              <TableColumn fx:id="ProveedorNombreColumna" maxWidth="3751.99951171875" minWidth="30.0" prefWidth="375.199951171875" styleClass="table-column-header" text="Nombre" />
+                              <TableColumn fx:id="ProveedorTelefonoColumna" maxWidth="3160.0" minWidth="30.0" prefWidth="316.0" styleClass="table-column-header" text="Telefono" />
                            </columns>
                         </TableView>
                         <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
@@ -548,18 +527,12 @@
                         </Pane>
                         <TableView fx:id="tablaNuevaVentas" layoutX="119.0" layoutY="259.0" prefHeight="386.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css">
                            <columns>
-                              <TableColumn prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
-                                           maxWidth="520.0003051757812" minWidth="30.0"/>
-                              <TableColumn prefWidth="167.99993896484375" styleClass="table-column-header" text="Id"
-                                           maxWidth="1679.9993896484375" minWidth="30.0"/>
-                              <TableColumn prefWidth="134.4000244140625" styleClass="table-column-header" text="Nombre"
-                                           maxWidth="1344.000244140625" minWidth="30.0"/>
-                              <TableColumn minWidth="30.0" prefWidth="179.99993896484375" styleClass="table-column-header" text="Cantidad"
-                                           maxWidth="1799.9993896484375"/>
-                              <TableColumn minWidth="30.0" prefWidth="171.99993896484375" styleClass="table-column-header" text="Precio"
-                                           maxWidth="1719.9993896484375"/>
-                              <TableColumn prefWidth="203.20004882812498" styleClass="table-column-header" text="Total"
-                                           maxWidth="2032.0004882812498" minWidth="30.0"/>
+                              <TableColumn maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
+                              <TableColumn maxWidth="1679.9993896484375" minWidth="30.0" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id" />
+                              <TableColumn maxWidth="1344.000244140625" minWidth="30.0" prefWidth="134.4000244140625" styleClass="table-column-header" text="Nombre" />
+                              <TableColumn maxWidth="1799.9993896484375" minWidth="30.0" prefWidth="179.99993896484375" styleClass="table-column-header" text="Cantidad" />
+                              <TableColumn maxWidth="1719.9993896484375" minWidth="30.0" prefWidth="171.99993896484375" styleClass="table-column-header" text="Precio" />
+                              <TableColumn maxWidth="2032.0004882812498" minWidth="30.0" prefWidth="203.20004882812498" styleClass="table-column-header" text="Total" />
                            </columns>
                         </TableView>
                         <Label layoutX="119.0" layoutY="192.0" prefHeight="27.0" prefWidth="487.0" text="Total de la Venta Pago: 0.0">

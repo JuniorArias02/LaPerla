@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Controllers.ProductosController;
 import Controllers.ProveedorController;
 import CrudControllers.EliminarProveedorController;
 import CrudControllers.ModificarProveedorController;
@@ -52,7 +53,11 @@ public class PrincipalController implements Initializable {
     Proveedor prov = new Proveedor();
     ProveedorDao provDao = new ProveedorDao();
 
+    Productos pro = new Productos();
+    ProductosDao proDao = new ProductosDao();
+
     public ProveedorController proveedorController;
+    public ProductosController productosController;
 
 
     //    private ProveedorDao proveedorDao;
@@ -124,6 +129,18 @@ public class PrincipalController implements Initializable {
     public TableColumn<Proveedor, String> totalColumn;
     @FXML
     public TextField buscadorProveedor;
+    @FXML
+    public TextField buscadorProductos;
+    @FXML
+    public TableColumn<Productos, Integer> ProductoCodigoColumna;
+    @FXML
+    public TableColumn<Productos, String> ProductoNombreColumna;
+    @FXML
+    private TableColumn<Productos, String> ProductoCategoriaColumna;
+    @FXML
+    public TableColumn<Productos, Integer> ProductoPrecioColumna;
+    @FXML
+    public TableColumn<Productos, Integer> ProductoStockColumna;
 
 
     /**
@@ -138,11 +155,13 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         usDao = new UsuarioDao();
-
         mostrarNombreUsuario(usuarioSesion.getIdUsuario());
         proveedorController = new ProveedorController(prov, provDao, this);
+        productosController = new ProductosController(pro,proDao,this);
         inicializarColumnas();
+        inicializarColumnasProductos();
         proveedorController.iniciarCargaDatos();
+        productosController.iniciarCargaDatos();
     }
 
 
@@ -150,6 +169,14 @@ public class PrincipalController implements Initializable {
         ProveedorCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProveedor"));
         ProveedorNombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombreProveedor"));
         ProveedorTelefonoColumna.setCellValueFactory(new PropertyValueFactory<>("telefonoProveedor"));
+    }
+
+    public void inicializarColumnasProductos() {
+       ProductoCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProducto"));
+        ProductoNombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
+        ProductoCategoriaColumna.setCellValueFactory(new PropertyValueFactory<>("categoriaProducto"));
+        ProductoPrecioColumna.setCellValueFactory(new PropertyValueFactory<>("precioProducto"));
+        ProductoStockColumna.setCellValueFactory(new PropertyValueFactory<>("stockProducto"));
     }
 
     private void mostrarNombreUsuario(int id) {

@@ -1,5 +1,7 @@
 package Dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 import java.sql.Connection;
@@ -53,6 +55,40 @@ public class ProductosDao {
             }
         }
         return pro;
+    }
+    public ObservableList<Productos> ListaProductos(String valor) {
+        ObservableList<Productos> productoList = FXCollections.observableArrayList();
+        String sql = "SELECT codigo,nombre,categoria,precio,stock FROM productos ORDER BY codigo ASC";
+        String buscar = "SELECT codigo,nombre,categoria,precio,stock FROM proveedor WHERE codigo LIKE ? OR nombre LIKE ? OR categoria LIKE ?";
+        PreparedStatement ps;
+        ResultSet rs;
+        Connection con;
+        try {
+            con = cn.getConexion();
+            if (valor == null || valor.isEmpty()) {
+                ps = con.prepareStatement(sql);
+            } else {
+                ps = con.prepareStatement(buscar);
+                ps.setString(1, valor + "%");
+                ps.setString(2, valor + "%");
+                ps.setString(3, valor + "%");
+            }
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Productos pro = new Productos();
+                pro.setCodigoProducto(rs.getInt("codigo"));
+                pro.setNombreProducto(rs.getString("nombre"));
+                pro.setCategoriaProducto(rs.getString("categoria"));
+                pro.setPrecioProducto(rs.getInt("precio"));
+                pro.setStockProducto(rs.getInt("stock"));
+                productoList.add(pro);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Cambia esto a una alerta si es necesario
+        }
+        return productoList;
     }
 
 
