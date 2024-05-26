@@ -1,0 +1,15 @@
+CrudControllers\EliminarClienteController.class
+CrudControllers\NuevoClienteController.class
+Dao\Conexion.class
+CrudControllers\VistaPagoVentaController.class
+CrudControllers\NuevoProductoController.class
+CrudControllers\EliminarProveedorController.class
+CrudControllers\EliminarProductoController.class
+com\mycompany\la_perla\PrincipalController.class
+CrudControllers\NuevoProveedorController.class
+module-info.class
+com\mycompany\la_perla\App.class
+CrudControllers\ModificarProductoController.class
+com\mycompany\la_perla\LoginController.class
+CrudControllers\ModificarProveedorController.class
+CrudControllers\ModificarClienteController.class

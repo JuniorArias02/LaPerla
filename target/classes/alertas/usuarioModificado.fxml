@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="209.0" prefWidth="450.0" style="-fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AlertController.UsuarioModificado">
+    <children>
+        <Pane prefHeight="202.0" prefWidth="450.0" style="-fx-background-radius: 15px;">
+            <children>
+                <ImageView fitHeight="77.0" fitWidth="91.0" layoutX="187.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/perfil.png" />
+                    </image>
+                </ImageView>
+                <Label alignment="CENTER" layoutY="128.0" prefHeight="59.0" prefWidth="450.0" text="usuario modificado">
+                    <font>
+                        <Font name="Open Sans" size="41.0" />
+                    </font>
+                </Label>
+            </children></Pane>
+    </children>
+</AnchorPane>

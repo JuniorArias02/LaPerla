@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CrudControllers.EliminarProveedorController">
+   <stylesheets>
+      <URL value="@../modelo/estilosSubVentanas.css" />
+   </stylesheets>
+   <children>
+      <Pane prefHeight="46.0" prefWidth="800.0" style="-fx-background-color: F2F2F2;" stylesheets="@../modelo/estilosSubVentanas.css">
+         <children>
+            <Label alignment="CENTER" layoutX="-2.0" prefHeight="50.0" prefWidth="800.0" text="ELIMINAR PROVEEDOR" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Black" size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutY="42.0" prefHeight="559.0" prefWidth="800.0" stylesheets="@../modelo/estilosSubVentanas.css">
+         <children>
+            <Label alignment="BOTTOM_LEFT" layoutX="32.0" layoutY="33.0" prefHeight="50.0" prefWidth="300.0" text="codigo*" textFill="#707070">
+               <font>
+                  <Font name="Arial" size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="codigoProveedor" onKeyPressed="#handleCodigoProveedorKeyPressed" layoutX="32.0" layoutY="83.0" prefHeight="50.0" prefWidth="300.0" styleClass="txtField" />
+            <Label alignment="BOTTOM_LEFT" layoutX="444.0" layoutY="33.0" prefHeight="50.0" prefWidth="300.0" text="Nombre*" textFill="#707070">
+               <font>
+                  <Font name="Arial" size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nombreProveedor" layoutX="444.0" layoutY="83.0" prefHeight="50.0" prefWidth="300.0" styleClass="txtField" />
+            <Label alignment="BOTTOM_LEFT" layoutX="32.0" layoutY="134.0" prefHeight="50.0" prefWidth="300.0" text="Telefono*" textFill="#707070">
+               <font>
+                  <Font name="Arial" size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="telefonoProveedor" layoutX="32.0" layoutY="184.0" prefHeight="50.0" prefWidth="300.0" styleClass="txtField" />
+            <Button layoutX="119.0" layoutY="450.0" mnemonicParsing="false" onAction="#cancelarEliminarProveedor" prefHeight="50.0" prefWidth="200.0" text="CANCELAR" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btn_border" />
+                  <String fx:value="btn_cancelar_Eliminar" />
+               </styleClass>
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button layoutX="508.0" layoutY="449.0" mnemonicParsing="false" onAction="#confirmarEliminarProveedor" prefHeight="50.0" prefWidth="200.0" text="ELIMINAR" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btn_border" />
+                  <String fx:value="btn_eliminar" />
+               </styleClass>
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label layoutX="109.0" layoutY="73.0" text="Digite el codigo y presiona ENTER" textFill="#a1a1a1">
+               <font>
+                  <Font name="Arial" size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,26 @@
+/*
+ * Empty Stylesheet file.
+ */
+/* Estilos para la tabla */
+.table-view {
+    -fx-background-color: #f4f4f4; /* Color de fondo */
+}
+
+/* Estilos para las columnas */
+.table-column-header {
+    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-text-fill: #333; /* Color del texto */
+   /* Alineación del texto */
+}
+
+/* Estilos para las celdas */
+.table-cell {
+    -fx-alignment: CENTER; /* Alineación del contenido de la celda */
+    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-text-fill: #666; /* Color del texto */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #ffa500; /* Cambia el color a naranja */
+}

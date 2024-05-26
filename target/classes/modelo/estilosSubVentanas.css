@@ -1,0 +1,77 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.btn_border{
+    -fx-background-radius:30px;
+}
+
+.btn_eliminar{
+    -fx-background-color: #C62433;
+}
+.btn_cancelar{
+    -fx-background-color: #C62433;
+}
+.btn_cancelar_Eliminar{
+    -fx-background-color: #46A049;
+}
+.btn_modificar{
+    -fx-background-color: #E0A800;
+}
+.btn_agregar{
+    -fx-background-color: #46A049;
+}
+.btn_pagar{
+    -fx-background-color: #46A049;
+}
+.btn_fiado{
+    -fx-background-color: #E0A800;
+}
+.btn_eliminar:hover {
+    -fx-background-color: #B91F2D; /* Cambia ligeramente el color al pasar el cursor */
+}
+
+.btn_cancelar:hover {
+    -fx-background-color: #B91F2D; /* Cambia ligeramente el color al pasar el cursor */
+}
+
+.btn_cancelar_Eliminar:hover {
+    -fx-background-color: #57A45B; /* Cambia ligeramente el color al pasar el cursor */
+}
+
+.btn_modificar:hover {
+    -fx-background-color: #E5B700; /* Cambia ligeramente el color al pasar el cursor */
+}
+
+.btn_agregar:hover {
+    -fx-background-color: #57A45B; /* Cambia ligeramente el color al pasar el cursor */
+}
+
+.btn_pagar:hover {
+    -fx-background-color: #57A45B; /* Cambia ligeramente el color al pasar el cursor */
+}
+
+.btn_fiado:hover {
+    -fx-background-color: #E5B700; /* Cambia ligeramente el color al pasar el cursor */
+}
+/*para los combox*/
+
+.combo{
+  -fx-border-width: 0 0 1 0;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: black;
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 25px;
+    -fx-text-fill: #333333;
+}
+.txtField {
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 25px;
+    -fx-text-fill: #333333;
+}

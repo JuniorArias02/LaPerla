@@ -1,0 +1,66 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+/* Estilo para TableView */
+.PanelInicio:hover{
+    -fx-background-color:D9D9D9;
+
+}
+.PanelProductos:hover{
+   -fx-background-color:D9D9D9;
+
+}
+.PanelVentas:hover{
+    -fx-background-color:D9D9D9;
+    -fx-transition-duration:1s;
+}
+.PanelClientes:hover{
+    -fx-background-color:D9D9D9;
+    -fx-transition-duration:1s;
+}
+.PanelProveedor:hover{
+    -fx-background-color:D9D9D9;
+    -fx-transition-duration:1s;
+}
+.PanelSalir:hover{
+    -fx-background-color:C62433;
+    -fx-transition-duration:1s;
+}
+.carta {
+    -fx-background-color: #EDEDED;
+    -fx-background-radius: 10px; 
+    -fx-border-radius: 10px; 
+    -fx-border-width: 1px; 
+    -fx-border-color: transparent; 
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10,0,0,1 ); 
+    -fx-transition: background-color 0.3s;
+}
+
+.carta:hover {
+    -fx-background-color: #E2E2E2; 
+}
+
+.tab {
+    -fx-padding: 10px 20px; 
+    -fx-background-color: #f0f0f0; 
+}
+
+/* Estilo para las pestañas cuando están seleccionadas */
+.tab:selected {
+    -fx-background-color: #ffffff; 
+    -fx-border-color: blue; 
+    -fx-border-width: 0 0 2px 0;
+}
+.tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+.txtField{
+-fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-font-family: "Arial"; /* Cambia "Arial" por el nombre de la fuente que desees */
+    -fx-font-size: 18pt; /* Ajusta el tamaño de la fuente */
+    -fx-text-fill: #333; /* Color del texto */
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%); /* Color del texto de sugerencia */
+}

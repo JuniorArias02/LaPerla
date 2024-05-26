@@ -1,0 +1,23 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+
+
+.btn_iniciarSesion{
+    -fx-background-radius:40px;
+    -fx-background-color:#05321D;
+}
+.btn_iniciarSesion:hover {
+    -fx-background-color: #042B18; /* Cambia ligeramente el color al pasar el cursor */
+}
+.txtField{
+    -fx-border-width:0 0 0 0;
+    /*-fx-background-color: transparent;*/
+    -fx-border-color: black;
+    -fx-background-radius:40px;
+    -fx-background-color: F2F2F2;
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 25px;
+    -fx-text-fill: #333333;
+}

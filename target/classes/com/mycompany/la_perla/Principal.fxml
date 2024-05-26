@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="PanelPrincipal" prefHeight="800.0" prefWidth="1550.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.la_perla.PrincipalController">
+   <children>
+      <Pane layoutX="-1.0" layoutY="2.0" prefHeight="800.0" prefWidth="286.0" style="-fx-background-color: F2F2F2;">
+         <children>
+            <Pane fx:id="PanelInicio" layoutX="1.0" layoutY="80.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelInicio" stylesheets="@../../../modelo/Principal.css">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/home.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Inicio">
+                     <font>
+                        <Font name="Arial Black" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane fx:id="PanelProducto" layoutX="1.0" layoutY="140.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelProductos" stylesheets="@../../../modelo/Principal.css">
+               <children>
+                  <ImageView fitHeight="27.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/store-alt.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Productos">
+                     <font>
+                        <Font name="Arial Black" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane fx:id="PanelVenta" layoutX="1.0" layoutY="200.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelVentas" stylesheets="@../../../modelo/Principal.css">
+               <children>
+                  <ImageView fitHeight="27.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/shopping-cart.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Ventas">
+                     <font>
+                        <Font name="Arial Black" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane fx:id="PanelCliente" layoutX="1.0" layoutY="260.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelClientes" stylesheets="@../../../modelo/Principal.css">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/customer-care.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Clientes">
+                     <font>
+                        <Font name="Arial Black" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane fx:id="PanelProveedor" layoutX="1.0" layoutY="320.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelProveedor" stylesheets="@../../../modelo/Principal.css">
+               <children>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/supplier.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Proveedor">
+                     <font>
+                        <Font name="Arial Black" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane fx:id="PanelSalir" layoutX="1.0" layoutY="440.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelSalir" stylesheets="@../../../modelo/Principal.css">
+               <children>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/leave.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Salir">
+                     <font>
+                        <Font name="Arial Black" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane fx:id="PanelPerfil" layoutX="1.0" layoutY="380.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelProveedor" stylesheets="@../../../modelo/Principal.css">
+               <children>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/user.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Usuario">
+                     <font>
+                        <Font name="Arial Black" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="1.0" prefHeight="71.0" prefWidth="285.0">
+         <children>
+            <Label layoutX="-1.0" layoutY="-2.0" prefHeight="71.0" prefWidth="285.0" text="   LA PERLA" textFill="#636161">
+               <font>
+                  <Font name="Arial Black" size="40.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="281.0" layoutY="2.0" prefHeight="71.0" prefWidth="1270.0" style="-fx-background-color: F2F2F2;">
+         <children>
+            <Label fx:id="txtNombreUsuario" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="358.0" text="user" textFill="#717171">
+               <font>
+                  <Font name="Arial Bold" size="25.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <TabPane fx:id="ventana" focusTraversable="false" layoutX="284.0" layoutY="73.0" prefHeight="729.0" prefWidth="1264.0" stylesheets="@../../../modelo/Principal.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="INICIO">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="2.0" layoutY="-1.0" prefHeight="82.0" prefWidth="1264.0" text="Bienvenido. eliga una opcion" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Pane fx:id="inventario" layoutX="107.0" layoutY="115.0" onMouseClicked="#cambiarPestaña" prefHeight="250.0" prefWidth="200.0" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
+                           <children>
+                              <ImageView cache="true" fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/inventory.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" layoutY="124.0" prefHeight="47.0" prefWidth="200.0" text="Inventario" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="168.0" prefHeight="80.0" prefWidth="200.0" text="Registrar, eliminar o actualizar detalles productos" textAlignment="CENTER" textFill="#696969" wrapText="true">
+                                 <font>
+                                    <Font name="Arial" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                        <Pane fx:id="clientes" layoutX="387.0" layoutY="113.0" onMouseClicked="#cambiarPestaña" prefHeight="250.0" prefWidth="200.0" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
+                           <children>
+                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/customer-engagement.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" layoutY="124.0" prefHeight="47.0" prefWidth="200.0" text="Clientes" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_CENTER" layoutX="-3.0" layoutY="168.0" prefHeight="80.0" prefWidth="200.0" text="Registrar, eliminar o actualizar detalles clientes" textAlignment="CENTER" textFill="DIMGRAY" wrapText="true">
+                                 <font>
+                                    <Font name="Arial" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                        <Pane fx:id="ventas" layoutX="667.0" layoutY="113.0" onMouseClicked="#cambiarPestaña" prefHeight="250.0" prefWidth="200.0" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
+                           <children>
+                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/acquisition.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" layoutY="124.0" prefHeight="47.0" prefWidth="200.0" text="Ventas" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_CENTER" layoutX="-3.0" layoutY="168.0" prefHeight="80.0" prefWidth="200.0" text="Registrar ventas" textAlignment="CENTER" textFill="DIMGRAY" wrapText="true">
+                                 <font>
+                                    <Font name="Arial" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                        <Pane fx:id="proveedor" layoutX="947.0" layoutY="113.0" onMouseClicked="#cambiarPestaña" prefHeight="250.0" prefWidth="200.0" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
+                           <children>
+                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/delivery-courier.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" layoutY="124.0" prefHeight="47.0" prefWidth="200.0" text="Proveedor" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_CENTER" layoutX="-3.0" layoutY="168.0" prefHeight="80.0" prefWidth="200.0" text="Registrar, eliminar o actualizar proveedor" textAlignment="CENTER" textFill="DIMGRAY" wrapText="true">
+                                 <font>
+                                    <Font name="Arial" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                        <Pane fx:id="perfil" layoutX="107.0" layoutY="382.0" onMouseClicked="#cambiarPestaña" prefHeight="250.0" prefWidth="200.0" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
+                           <children>
+                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/office-man.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" layoutY="124.0" prefHeight="47.0" prefWidth="200.0" text="Perfil" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_CENTER" layoutX="-3.0" layoutY="168.0" prefHeight="80.0" prefWidth="200.0" text="Informacion" textAlignment="CENTER" textFill="DIMGRAY" wrapText="true">
+                                 <font>
+                                    <Font name="Arial" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="PRODUCTOS">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tablaProductos" layoutX="119.0" layoutY="181.0" prefHeight="453.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css">
+                          <columns>
+                            <TableColumn prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
+                                         maxWidth="520.0003051757812" minWidth="30.0"/>
+                            <TableColumn prefWidth="139.2000732421875" styleClass="table-column-header" text="Id"
+                                         maxWidth="1392.000732421875" minWidth="30.0"/>
+                              <TableColumn prefWidth="162.4000244140625" styleClass="table-column-header" text="Nombre"
+                                           maxWidth="1624.000244140625" minWidth="30.0"/>
+                              <TableColumn minWidth="30.0" prefWidth="208.79998779296875" styleClass="table-column-header" text="Categoria"
+                                           maxWidth="2087.9998779296875"/>
+                              <TableColumn minWidth="30.0" prefWidth="155.199951171875" styleClass="table-column-header" text="Precio"
+                                           maxWidth="1551.99951171875"/>
+                              <TableColumn prefWidth="191.2000732421875" styleClass="table-column-header" text="Stock"
+                                           maxWidth="1912.000732421875" minWidth="30.0"/>
+                          </columns>
+                        </TableView>
+                        <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
+                           <children>
+                              <TextField layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
+                              <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="68.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/search.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children></Pane>
+                        <Pane prefHeight="60.0" prefWidth="1264.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1030.0" layoutY="5.0" onMouseClicked="#abrirVentanaNuevoProducto" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-add.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1100.0" layoutY="5.0" onMouseClicked="#abrirVentanaModificarProducto" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-pen-square.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1170.0" layoutY="5.0" onMouseClicked="#abrirVentanaEliminarProducto" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-trash.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="VENTAS">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="60.0" prefWidth="1264.0">
+                           <children>
+                              <ImageView fx:id="NuevaVenta" fitHeight="50.0" fitWidth="50.0" layoutX="1170.0" layoutY="5.0" onMouseClicked="#cambiarPestaña" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-basket-shopping-simple.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <TableView fx:id="tablaVentas" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css">
+                           <columns>
+                              <TableColumn prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
+                                           maxWidth="520.0003051757812" minWidth="30.0"/>
+                              <TableColumn prefWidth="167.99993896484375" styleClass="table-column-header" text="Id"
+                                           maxWidth="1679.9993896484375" minWidth="30.0"/>
+                              <TableColumn prefWidth="210.39996337890625" styleClass="table-column-header" text="Fecha"
+                                           maxWidth="2103.9996337890625" minWidth="30.0"/>
+                              <TableColumn minWidth="30.0" prefWidth="243.20001220703125" styleClass="table-column-header" text="Total"
+                                           maxWidth="2432.0001220703125"/>
+                              <TableColumn minWidth="30.0" prefWidth="239.199951171875" styleClass="table-column-header" text="Cliente"
+                                           maxWidth="2391.99951171875"/>
+                           </columns>
+                        </TableView>
+                        <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
+                           <children>
+                              <TextField layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
+                              <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="68.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/search.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="CLIENTES">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="60.0" prefWidth="1264.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1030.0" layoutY="5.0" onMouseClicked="#abrirVentanaNuevoCliente" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-add.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1100.0" layoutY="5.0" onMouseClicked="#abrirVentanaModificarCliente" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-pen-square.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1170.0" layoutY="5.0" onMouseClicked="#abrirVentanaEliminarCliente" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-trash.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <TableView fx:id="tablaClientes" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css" tableMenuButtonVisible="true">
+                           <columns>
+                              <TableColumn prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
+                                           maxWidth="520.0003051757812" minWidth="30.0"/>
+                              <TableColumn prefWidth="167.99993896484375" styleClass="table-column-header" text="Id"
+                                           maxWidth="1679.9993896484375" minWidth="30.0"/>
+                              <TableColumn prefWidth="118.4000244140625" styleClass="table-column-header" text="Nombre"
+                                           maxWidth="1184.000244140625" minWidth="30.0"/>
+                              <TableColumn minWidth="30.0" prefWidth="208.0" styleClass="table-column-header" text="Telefono"
+                                           maxWidth="2080.0"/>
+                              <TableColumn minWidth="30.0" prefWidth="240.39996337890625" styleClass="table-column-header" text="Deuda"
+                                           maxWidth="2403.9996337890625"/>
+                              <TableColumn prefWidth="122.800048828125" styleClass="table-column-header" text="Estado"
+                                           maxWidth="1228.00048828125" minWidth="30.0"/>
+                           </columns>
+                        </TableView>
+                        <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
+                           <children>
+                              <TextField layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
+                              <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="68.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/search.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="PROVEEDOR">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="60.0" prefWidth="1264.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1030.0" layoutY="5.0" onMouseClicked="#abrirVentanaNuevoProveedor" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-add.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1100.0" layoutY="5.0" onMouseClicked="#abrirVentanaModificarProveedor" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-pen-square.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1170.0" layoutY="5.0" onMouseClicked="#abrirVentanaEliminarProveedor" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-trash.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <TableView fx:id="tablaProveedor" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" stylesheets="@../../../modelo/diseñoVistaTabla.css">
+                           <columns>
+                              <TableColumn fx:id="totalColumn" prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
+                                           maxWidth="520.0003051757812" minWidth="30.0"/>
+                              <TableColumn fx:id="ProveedorCodigoColumna" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id"
+                                           maxWidth="1679.9993896484375" minWidth="30.0"/>
+                              <TableColumn fx:id="ProveedorNombreColumna" prefWidth="375.199951171875" styleClass="table-column-header" text="Nombre"
+                                           maxWidth="3751.99951171875" minWidth="30.0"/>
+                              <TableColumn fx:id="ProveedorTelefonoColumna" minWidth="30.0" prefWidth="316.0" styleClass="table-column-header" text="Telefono"
+                                           maxWidth="3160.0"/>
+                           </columns>
+                        </TableView>
+                        <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
+                           <children>
+                              <TextField fx:id="buscadorProveedor" layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
+                              <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="68.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/search.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="NUEVA VENTA">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="60.0" prefWidth="1264.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1170.0" layoutY="5.0" onMouseClicked="#abrirVentaPago" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/iconizer-sack-dollar.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
+                           <children>
+                              <TextField layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
+                              <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="68.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/search.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <TableView fx:id="tablaNuevaVentas" layoutX="119.0" layoutY="259.0" prefHeight="386.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css">
+                           <columns>
+                              <TableColumn prefWidth="52.000030517578125" styleClass="table-column-header" text="#"
+                                           maxWidth="520.0003051757812" minWidth="30.0"/>
+                              <TableColumn prefWidth="167.99993896484375" styleClass="table-column-header" text="Id"
+                                           maxWidth="1679.9993896484375" minWidth="30.0"/>
+                              <TableColumn prefWidth="134.4000244140625" styleClass="table-column-header" text="Nombre"
+                                           maxWidth="1344.000244140625" minWidth="30.0"/>
+                              <TableColumn minWidth="30.0" prefWidth="179.99993896484375" styleClass="table-column-header" text="Cantidad"
+                                           maxWidth="1799.9993896484375"/>
+                              <TableColumn minWidth="30.0" prefWidth="171.99993896484375" styleClass="table-column-header" text="Precio"
+                                           maxWidth="1719.9993896484375"/>
+                              <TableColumn prefWidth="203.20004882812498" styleClass="table-column-header" text="Total"
+                                           maxWidth="2032.0004882812498" minWidth="30.0"/>
+                           </columns>
+                        </TableView>
+                        <Label layoutX="119.0" layoutY="192.0" prefHeight="27.0" prefWidth="487.0" text="Total de la Venta Pago: 0.0">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="USUARIO">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="60.0" prefWidth="1264.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1030.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1100.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView accessibleRole="BUTTON" fitHeight="50.0" fitWidth="50.0" layoutX="1170.0" layoutY="5.0" onMouseClicked="#modificarUsuario" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/modify-user.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </children></Pane>
+                        <Pane layoutY="60.0" prefHeight="619.0" prefWidth="1268.0">
+                           <children>
+                              <ImageView fitHeight="151.0" fitWidth="227.0" layoutX="863.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/user.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="394.0" layoutY="185.0" prefHeight="41.0" prefWidth="88.0" text="Usuario">
+                                 <font>
+                                    <Font name="Arial" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="usuarioUsuario" layoutX="490.0" layoutY="172.0" prefHeight="28.0" prefWidth="246.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="384.0" layoutY="268.0" prefHeight="41.0" prefWidth="108.0" text="Nombre">
+                                 <font>
+                                    <Font name="Arial" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="usuarioNombre" layoutX="490.0" layoutY="258.0" prefHeight="28.0" prefWidth="246.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="406.0" layoutY="357.0" prefHeight="41.0" prefWidth="76.0" text="Gmail">
+                                 <font>
+                                    <Font name="Arial" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="usuarioGmail" layoutX="490.0" layoutY="344.0" prefHeight="44.0" prefWidth="293.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="411.0" layoutY="436.0" prefHeight="41.0" prefWidth="81.0" text="Clave">
+                                 <font>
+                                    <Font name="Arial" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="usuarioClave" layoutX="490.0" layoutY="423.0" prefHeight="28.0" prefWidth="246.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="311.0" layoutY="511.0" prefHeight="41.0" prefWidth="190.0" text="Confirmar Clave">
+                                 <font>
+                                    <Font name="Arial" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="usuarioConfirmarClave" layoutX="490.0" layoutY="500.0" prefHeight="28.0" prefWidth="246.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+   <stylesheets>
+      <URL value="@../../../modelo/Principal.css" />
+      <URL value="@../../../modelo/Principal.css" />
+   </stylesheets>
+</Pane>
