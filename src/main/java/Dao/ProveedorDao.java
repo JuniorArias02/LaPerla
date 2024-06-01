@@ -56,9 +56,7 @@ public class ProveedorDao {
             rs.next();
             int countTelefono = rs.getInt(1);
             if (countTelefono > 0) {
-                // Teléfono ya existe, manejar según necesidad
                 mostrarErrorNumeroExistente();
-                //return null;
             }
             // Código y teléfono no existen, proceder con la inserción
             ps = con.prepareStatement(insertSql);
@@ -72,16 +70,14 @@ public class ProveedorDao {
             prov.setTelefonoProveedor(telefono);
         } catch (SQLException e) {
             mostrarAlerta("error", e.toString(), "");
-            // Manejo de errores de SQL
+
         } finally {
-            // Cerrar recursos
             try {
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
                 mostrarAlerta("error", e.toString(), "");
-                // Manejo de errores de cierre de recursos
             }
         }
         return prov;
@@ -105,7 +101,7 @@ public class ProveedorDao {
             }
 
         } catch (SQLException e) {
-            mostrarAlerta("error", e.toString(), ""); // Mostrar mensaje de error si hay una excepción SQL
+            mostrarAlerta("error", e.toString(), "");
         }
     }
 
@@ -118,9 +114,9 @@ public class ProveedorDao {
             ps.setInt(1, codigo);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
-                mostrarAlerta("error", "exito", ""); // Mostrar mensaje de éxito
+                mostrarAlerta("error", "exito", "");
             } else {
-                mostrarAlerta("error", "error", "");  // Mostrar mensaje de error si no se elimina ningún registro
+                mostrarAlerta("error", "error", "");
             }
         } catch (SQLException e) {
             mostrarAlerta("error", e.toString(), ""); // Mostrar mensaje de error si hay una excepción SQL
@@ -199,46 +195,7 @@ public class ProveedorDao {
         // Aquí iría tu lógica para obtener los proveedores de la base de datos
         return proveedores;
     }
-//    public ObservableList<Proveedor> cargarProveedores() {
-//        ObservableList<Proveedor> proveedores = FXCollections.observableArrayList();
-//        String sql = "SELECT codigo, nombre FROM proveedor";
-//
-//        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-//            while (rs.next()) {
-//                int codigo = rs.getInt("codigo");
-//                String nombre = rs.getString("nombre");
-//                proveedores.add(new Proveedor(codigo, nombre));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return proveedores;
-//    }
 
-//    public ObservableList<Proveedor> cargarProveedores() {
-//        ObservableList<Proveedor> proveedores = FXCollections.observableArrayList();
-//        String selectSQL = "SELECT codigo, nombre FROM proveedor";
-//        try {
-//            ps = con.prepareStatement(selectSQL);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                int codigo = rs.getInt("codigo");
-//                String nombre = rs.getString("nombre");
-//                proveedores.add(new Proveedor(codigo, nombre));
-//            }
-//        } catch (SQLException e) {
-//            mostrarAlerta("error", e.toString(), "");
-//        } finally {
-//            try {
-//                if (rs != null) rs.close();
-//                if (ps != null) ps.close();
-//            } catch (SQLException e) {
-//                mostrarAlerta("error", e.toString(), "");
-//            }
-//        }
-//        return proveedores;
-//    }
-//
 
     private void mostrarAlerta(String titulo, String mensaje, String detalles) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);

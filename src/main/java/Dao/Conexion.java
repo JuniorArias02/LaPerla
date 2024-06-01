@@ -19,24 +19,27 @@ import javafx.scene.control.Alert.AlertType;
 public class Conexion {
 
     static final String NAME = "la_perla";
-    static final String USER = "root";
-    static final String PASS = "";
+    static final String USER = "perla";
+    static final String PASS = "88173268Jr";
     static final String PORT = "3306";
+    static final String TIMEZONE = "UTC";
 
     Connection con;
 
     public Connection getConexion() throws SQLException {
         try {
-            String db = "jdbc:mysql://localhost:" + PORT + "/" + NAME;
+            String db = "jdbc:mysql://localhost:" + PORT + "/" + NAME + "?serverTimezone=" + TIMEZONE;
             con = DriverManager.getConnection(db, USER, PASS);
             return con;
         } catch (SQLException e) {
             // Lanzar la excepción
-            throw new SQLException("No se pudo establecer la conexión a la base de datos", e);
+//            throw new SQLException("No se pudo establecer la conexión a la base de datos", e);
+            mostrarAlerta("error",e.toString(),"");
         }
+        return null;
     }
     public static Connection getConnection() {
-        // Implementa la lógica para obtener y devolver la conexión a la base de datos
+
         return null; // Aquí debes devolver la conexión real
     }
     private void mostrarAlerta(String titulo, String mensaje, String detalles) {

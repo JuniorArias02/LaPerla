@@ -172,7 +172,7 @@ public class PrincipalController implements Initializable {
     }
 
     public void inicializarColumnasProductos() {
-       ProductoCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProducto"));
+        ProductoCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProducto"));
         ProductoNombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
         ProductoCategoriaColumna.setCellValueFactory(new PropertyValueFactory<>("categoriaProducto"));
         ProductoPrecioColumna.setCellValueFactory(new PropertyValueFactory<>("precioProducto"));
