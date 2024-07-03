@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import Controllers.ProductosController;
 import Dao.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -46,6 +47,10 @@ public class NuevoProductoController implements Initializable {
     private ProductosDao proDao;
     private ProveedorDao proveedorDao;
     private Map<String, Proveedor> proveedoresMap;
+    private ProductosController productosController;
+    public void setProductoController(ProductosController productosController) {
+        this.productosController = productosController;
+    }
 
     @javafx.fxml.FXML
     private TextField codigoProducto;
@@ -109,8 +114,12 @@ public class NuevoProductoController implements Initializable {
                 int stock = Integer.parseInt(this.stockProducto.getText());
 
                 pro = proDao.agregarProductos(codigo, nombre, precio, categoria, proveedorId, stock);
+                if(pro != null){
+                    productosController.iniciarCargaDatos();
+                    mostrarOperacionExitosa();
+                }
 
-                mostrarOperacionExitosa();
+//                mostrarOperacionExitosa();
             } catch (NumberFormatException num) {
                 mostrarAlerta("Error", "No se pudo agregar el producto: " + num.getMessage(), String.valueOf(Alert.AlertType.ERROR));
             } catch (SQLException e) {

@@ -11,9 +11,7 @@ import java.util.ResourceBundle;
 
 import Controllers.ProductosController;
 import Controllers.ProveedorController;
-import CrudControllers.EliminarProveedorController;
-import CrudControllers.ModificarProveedorController;
-import CrudControllers.NuevoProveedorController;
+import CrudControllers.*;
 import Dao.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -141,6 +139,8 @@ public class PrincipalController implements Initializable {
     public TableColumn<Productos, Integer> ProductoPrecioColumna;
     @FXML
     public TableColumn<Productos, Integer> ProductoStockColumna;
+    @FXML
+    private TableColumn ProductoProveedorColumna;
 
 
     /**
@@ -157,15 +157,15 @@ public class PrincipalController implements Initializable {
         usDao = new UsuarioDao();
         mostrarNombreUsuario(usuarioSesion.getIdUsuario());
         proveedorController = new ProveedorController(prov, provDao, this);
-        productosController = new ProductosController(pro,proDao,this);
-        inicializarColumnas();
+        productosController = new ProductosController(pro, proDao, this);
+        inicializarColumnasProveedor();
         inicializarColumnasProductos();
         proveedorController.iniciarCargaDatos();
         productosController.iniciarCargaDatos();
     }
 
 
-    public void inicializarColumnas() {
+    public void inicializarColumnasProveedor() {
         ProveedorCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProveedor"));
         ProveedorNombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombreProveedor"));
         ProveedorTelefonoColumna.setCellValueFactory(new PropertyValueFactory<>("telefonoProveedor"));
@@ -177,6 +177,7 @@ public class PrincipalController implements Initializable {
         ProductoCategoriaColumna.setCellValueFactory(new PropertyValueFactory<>("categoriaProducto"));
         ProductoPrecioColumna.setCellValueFactory(new PropertyValueFactory<>("precioProducto"));
         ProductoStockColumna.setCellValueFactory(new PropertyValueFactory<>("stockProducto"));
+        ProductoProveedorColumna.setCellValueFactory(new PropertyValueFactory<>("idProveedor"));
     }
 
     private void mostrarNombreUsuario(int id) {
@@ -240,6 +241,8 @@ public class PrincipalController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/NuevoProducto.fxml"));
         Parent root = loader.load();
 
+        NuevoProductoController nuevoProductoController = loader.getController();
+        nuevoProductoController.setProductoController(productosController);
 
         Scene scene = PanelPrincipal.getScene();
 
@@ -260,48 +263,66 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void abrirVentanaModificarProducto(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/ModificarProducto.fxml"));
-        Parent root = loader.load();
+        Productos selectedProducto = (Productos) tablaProductos.getSelectionModel().getSelectedItem();
+        if (selectedProducto != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/ModificarProducto.fxml"));
+            Parent root = loader.load();
 
 
-        Scene scene = PanelPrincipal.getScene();
+            ModificarProductoController modificarProductoController = loader.getController();
+            modificarProductoController.setProducto(selectedProducto);
+            modificarProductoController.setProductosController(productosController);
+//        modificarProductoController.setProductoController(productosController);
+
+            Scene scene = PanelPrincipal.getScene();
 
 
-        BoxBlur blurEffect = new BoxBlur(5, 5, 3);
-        scene.getRoot().setEffect(blurEffect);
+            BoxBlur blurEffect = new BoxBlur(5, 5, 3);
+            scene.getRoot().setEffect(blurEffect);
 
 
-        Stage nuevaVentana = new Stage();
-        nuevaVentana.setScene(new Scene(root));
-        nuevaVentana.setTitle("Modificar Producto");
-        nuevaVentana.initModality(Modality.APPLICATION_MODAL);
-        nuevaVentana.initStyle(StageStyle.UNDECORATED);
-        nuevaVentana.initOwner(((Node) event.getSource()).getScene().getWindow());
-        nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
-        nuevaVentana.show();
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setScene(new Scene(root));
+            nuevaVentana.setTitle("Modificar Producto");
+            nuevaVentana.initModality(Modality.APPLICATION_MODAL);
+            nuevaVentana.initStyle(StageStyle.UNDECORATED);
+            nuevaVentana.initOwner(((Node) event.getSource()).getScene().getWindow());
+            nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
+            nuevaVentana.show();
+        } else {
+            mostrarAlerta("Selección requerida", "Por favor selecciona un producto para modificar.", String.valueOf(Alert.AlertType.WARNING));
+        }
+
     }
 
     @FXML
     private void abrirVentanaEliminarProducto(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/EliminarProducto.fxml"));
-        Parent root = loader.load();
+        Productos selectedProducto = (Productos) tablaProductos.getSelectionModel().getSelectedItem();
+        if (selectedProducto != null){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/EliminarProducto.fxml"));
+            Parent root = loader.load();
+
+            EliminarProductoController eliminarProductoController = loader.getController();
+            eliminarProductoController.setProducto(selectedProducto);
+            eliminarProductoController.setProductosController(productosController);
+
+            Scene scene = PanelPrincipal.getScene();
 
 
-        Scene scene = PanelPrincipal.getScene();
+            BoxBlur blurEffect = new BoxBlur(5, 5, 3);
+            scene.getRoot().setEffect(blurEffect);
 
 
-        BoxBlur blurEffect = new BoxBlur(5, 5, 3);
-        scene.getRoot().setEffect(blurEffect);
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setScene(new Scene(root));
+            nuevaVentana.setTitle("Eliminar Producto");
+            nuevaVentana.initModality(Modality.APPLICATION_MODAL);
+            nuevaVentana.initStyle(StageStyle.UNDECORATED);
+            nuevaVentana.initOwner(((Node) event.getSource()).getScene().getWindow());
+            nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
+            nuevaVentana.show();
+        }
 
-
-        Stage nuevaVentana = new Stage();
-        nuevaVentana.setScene(new Scene(root));
-        nuevaVentana.setTitle("Eliminar Producto");
-        nuevaVentana.initModality(Modality.APPLICATION_MODAL);
-        nuevaVentana.initStyle(StageStyle.UNDECORATED);
-        nuevaVentana.initOwner(((Node) event.getSource()).getScene().getWindow());
-        nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
-        nuevaVentana.show();
     }
 
     //    sub-ventanas para proveedor

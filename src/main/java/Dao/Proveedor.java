@@ -49,4 +49,7 @@ public class Proveedor {
     public String toString() {
         return nombreProveedor; // Esto es importante para que el ComboBox muestre el nombre
     }
+
+
+
 }

@@ -6,10 +6,20 @@ package CrudControllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import Controllers.ProductosController;
+import Dao.Productos;
+import Dao.ProductosDao;
+import Dao.Proveedor;
+import Dao.ProveedorDao;
+import com.mycompany.la_perla.PrincipalController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +40,13 @@ import javafx.util.Duration;
  */
 public class EliminarProductoController implements Initializable {
 
+    private Productos pro;
+    private ProductosDao proDao = new ProductosDao();
+    private PrincipalController pc;
+    private ProductosController productosController;
+    private Map<String, Proveedor> proveedoresMap;
+    private ProveedorDao proveedorDao = new ProveedorDao();
+
     @javafx.fxml.FXML
     private TextField codigoProducto;
     @javafx.fxml.FXML
@@ -49,12 +66,54 @@ public class EliminarProductoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        try {
+            this.proveedoresMap = proveedorDao.obtenerProveedores();
+            ObservableList<String> nombresProveedores = FXCollections.observableArrayList(proveedoresMap.keySet());
+            proveedorProducto.setItems(nombresProveedores);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
+    public void setProductosController(ProductosController productosController) {
+        this.productosController = productosController;
+    }
+
+    public void setProducto(Productos pro) {
+        this.pro = pro;
+        if (pro != null) {
+            codigoProducto.setText(String.valueOf(pro.getCodigoProducto()));
+            nombreProducto.setText(pro.getNombreProducto());
+            categoriaProducto.setText(pro.getCategoriaProducto());
+            precioProducto.setText(String.valueOf(pro.getPrecioProducto()));
+            stockProducto.setText(String.valueOf(pro.getStockProducto()));
+
+            this.codigoProducto.setDisable(true);
+            this.nombreProducto.setDisable(true);
+            this.categoriaProducto.setDisable(true);
+            this.precioProducto.setDisable(true);
+            this.stockProducto.setDisable(true);
+            this.proveedorProducto.setDisable(true);
+
+            for (Map.Entry<String, Proveedor> entry : proveedoresMap.entrySet()) {
+                if (entry.getValue().getCodigoProveedor() == pro.getIdProveedor()) {
+                    proveedorProducto.setValue(entry.getKey());
+                    break;
+                }
+            }
+
+        }
+    }
 
     @javafx.fxml.FXML
     public void confirmarEliminarProducto(ActionEvent actionEvent) throws IOException {
-        mostrarOperacionExitosa();
+        int codigo = Integer.parseInt(this.codigoProducto.getText());
+        proDao.eliminarProducto(codigo);
+        if (proDao!=null){
+            productosController.iniciarCargaDatos();
+//            mostrarOperacionExitosa();
+//            cancelarEliminarProducto(actionEvent);
+        }
     }
 
     @javafx.fxml.FXML

@@ -6,10 +6,21 @@ package CrudControllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
+import Controllers.ProductosController;
+import Dao.Productos;
+import Dao.ProductosDao;
+import Dao.Proveedor;
+import Dao.ProveedorDao;
+import com.mycompany.la_perla.PrincipalController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,12 +33,20 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import javax.swing.*;
+
 /**
  * FXML Controller class
  *
  * @author Junior
  */
 public class ModificarProductoController implements Initializable {
+    private Productos pro;
+    private ProductosDao proDao = new ProductosDao();
+    private PrincipalController pc;
+    private ProductosController productosController;
+    private Map<String, Proveedor> proveedoresMap;
+    private ProveedorDao proveedorDao = new ProveedorDao();
 
     @javafx.fxml.FXML
     private TextField codigoProducto;
@@ -48,6 +67,38 @@ public class ModificarProductoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        try {
+            this.proveedoresMap = proveedorDao.obtenerProveedores();
+            ObservableList<String> nombresProveedores = FXCollections.observableArrayList(proveedoresMap.keySet());
+            proveedorProducto.setItems(nombresProveedores);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void setProductosController(ProductosController productosController) {
+        this.productosController = productosController;
+    }
+
+    public void setProducto(Productos pro) {
+        this.pro = pro;
+        if (pro != null) {
+            codigoProducto.setText(String.valueOf(pro.getCodigoProducto()));
+            nombreProducto.setText(pro.getNombreProducto());
+            categoriaProducto.setText(pro.getCategoriaProducto());
+            precioProducto.setText(String.valueOf(pro.getPrecioProducto()));
+            stockProducto.setText(String.valueOf(pro.getStockProducto()));
+
+            this.codigoProducto.setDisable(true);
+
+            // Seleccionar el proveedor correspondiente en el ComboBox
+            for (Map.Entry<String, Proveedor> entry : proveedoresMap.entrySet()) {
+                if (entry.getValue().getCodigoProveedor() == pro.getIdProveedor()) {
+                    proveedorProducto.setValue(entry.getKey());
+                    break;
+                }
+            }
+        }
     }
 
     @javafx.fxml.FXML
@@ -60,7 +111,34 @@ public class ModificarProductoController implements Initializable {
 
     @javafx.fxml.FXML
     public void confirmarModificacionProducto(ActionEvent actionEvent) throws IOException {
-        mostrarOperacionErronea();
+
+        int codigo = Integer.parseInt(this.codigoProducto.getText());
+        String nombre = this.nombreProducto.getText();
+        String categoria = this.categoriaProducto.getText();
+        int stock = Integer.parseInt(this.stockProducto.getText());
+        int precio = Integer.parseInt(this.precioProducto.getText());
+        String proveedorNombre = (String) this.proveedorProducto.getValue();
+
+        if (proveedorNombre != null && proveedoresMap.containsKey(proveedorNombre)) {
+            Proveedor proveedor = proveedoresMap.get(proveedorNombre);
+            int idProveedor = proveedor.getCodigoProveedor(); // Suponiendo que tienes un método getId() en Proveedor
+
+            // Actualizar el producto
+            pro.setCodigoProducto(codigo);
+            pro.setNombreProducto(nombre);
+            pro.setPrecioProducto(precio);
+            pro.setCategoriaProducto(categoria);
+            pro.setIdProveedor(idProveedor);
+            pro.setStockProducto(stock);
+
+            // Aquí llamas al método para actualizar el producto en la base de datos
+            proDao.modificarProducto(codigo,nombre,precio,categoria,idProveedor,stock);
+            productosController.iniciarCargaDatos();
+            mostrarOperacionExitosa();
+        }else{
+            mostrarOperacionErronea();
+        }
+
     }
 
     private void mostrarOperacionExitosa() throws IOException {

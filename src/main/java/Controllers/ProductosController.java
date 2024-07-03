@@ -18,11 +18,15 @@ public class ProductosController implements Initializable {
     private PrincipalController pc;
     private ObservableList<Productos> productosList;
 
+    public ProductosController () {
+
+    }
 
     public ProductosController(Productos pro, ProductosDao proDao, PrincipalController pc) {
         this.pro = pro;
         this.proDao = proDao;
         this.pc = pc;
+        this.pc.buscadorProductos.setOnKeyReleased(this::buscarProductos);
     }
 
     @Override
@@ -45,9 +49,9 @@ public class ProductosController implements Initializable {
         for (Productos productos : datos) {
             System.out.println("Productos - Código: " + productos.getCodigoProducto() +
                     ", Nombre: " + productos.getNombreProducto() +
-                    ", Categoria: " + productos.getCategoriaProducto()+
-                    ", Precio: "+ productos.getPrecioProducto()+
-                    ", Stock: "+ productos.getStockProducto());
+                    ", Categoria: " + productos.getCategoriaProducto() +
+                    ", Precio: " + productos.getPrecioProducto() +
+                    ", Stock: " + productos.getStockProducto());
         }
     }
 
@@ -55,7 +59,7 @@ public class ProductosController implements Initializable {
         cargarDatosEnTabla("");
     }
 
-    public void agregarProveedor(Productos producto) {
+    public void agregarProducto(Productos producto) {
         List<Productos> productos = proDao.ListaProductos("");
         productos.add(producto);
         ObservableList<Productos> datos = FXCollections.observableArrayList(productos);

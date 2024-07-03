@@ -7,6 +7,24 @@ public class Productos {
     private String categoriaProducto;
     private int codigoProveedorPro;
     private int stockProducto;
+    private int idProveedor;
+    private String nombreProveedor;
+
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
+    }
+
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
 
     public Productos(int codigoProducto, String nombreProducto, int precioProducto, String categoriaProducto, int codigoProveedorPro, int stockProducto) {
         this.codigoProducto = codigoProducto;
@@ -16,7 +34,8 @@ public class Productos {
         this.codigoProveedorPro = codigoProveedorPro;
         this.stockProducto = stockProducto;
     }
-    public Productos(){
+
+    public Productos() {
 
     }
 

@@ -1,9 +1,18 @@
 package Dao;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +24,7 @@ public class ProductosDao {
     PreparedStatement ps;
     ResultSet rs;
 
-    public ProductosDao( ) {
+    public ProductosDao() {
 
     }
 
@@ -56,10 +65,60 @@ public class ProductosDao {
         }
         return pro;
     }
+
+    public void modificarProducto(int codigo, String nombre, int precio, String categoria, Integer proveedor, int Stock) {
+        String modifySql = "UPDATE productos SET codigo = ?, nombre = ?, precio = ?, categoria = ?,proveedor = ?, stock = ? WHERE codigo = ?";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(modifySql);
+            ps.setInt(1, codigo);
+            ps.setString(2, nombre);
+            ps.setInt(3, precio);
+            ps.setString(4, categoria);
+            ps.setInt(5, proveedor);
+            ps.setInt(6, Stock);
+            ps.setInt(7, codigo);
+            int rowsUpdated = ps.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("producto modificado exitosamente.");
+            } else {
+                System.out.println("No se encontró el producto con el código especificado.");
+            }
+
+        } catch (SQLException e) {
+            mostrarAlerta("error", e.toString(), "");
+        }
+    }
+
+    public void eliminarProducto(int codigo) {
+        String deleteSql = "DELETE FROM productos WHERE codigo = ?";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(deleteSql);
+            ps.setInt(1, codigo);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                mostrarOperacionExitosa();
+            } else {
+                mostrarAlerta("error", "error", "");
+            }
+        } catch (SQLException | IOException e) {
+            mostrarAlerta("error", e.toString(), ""); // Mostrar mensaje de error si hay una excepción SQL
+        }
+    }
+
+
     public ObservableList<Productos> ListaProductos(String valor) {
         ObservableList<Productos> productoList = FXCollections.observableArrayList();
-        String sql = "SELECT codigo,nombre,categoria,precio,stock FROM productos ORDER BY codigo ASC";
-        String buscar = "SELECT codigo,nombre,categoria,precio,stock FROM proveedor WHERE codigo LIKE ? OR nombre LIKE ? OR categoria LIKE ?";
+        String sql = "SELECT productos.codigo, productos.nombre, productos.categoria, productos.precio, productos.stock, proveedor.codigo AS proveedorCodigo, proveedor.nombre AS proveedorNombre " +
+                "FROM productos " +
+                "INNER JOIN proveedor ON productos.proveedor = proveedor.codigo " +
+                "ORDER BY productos.codigo ASC";
+        String buscar = "SELECT productos.codigo, productos.nombre, productos.categoria, productos.precio, productos.stock, proveedor.codigo AS proveedorCodigo, proveedor.nombre AS proveedorNombre " +
+                "FROM productos " +
+                "INNER JOIN proveedor ON productos.proveedor = proveedor.codigo " +
+                "WHERE productos.codigo LIKE ? OR productos.nombre LIKE ? OR productos.categoria LIKE ?";
         PreparedStatement ps;
         ResultSet rs;
         Connection con;
@@ -83,6 +142,8 @@ public class ProductosDao {
                 pro.setCategoriaProducto(rs.getString("categoria"));
                 pro.setPrecioProducto(rs.getInt("precio"));
                 pro.setStockProducto(rs.getInt("stock"));
+                pro.setIdProveedor(rs.getInt("proveedorCodigo")); // Guarda el código del proveedor
+                pro.setNombreProveedor(rs.getString("proveedorNombre")); // Guarda el nombre del proveedor
                 productoList.add(pro);
             }
         } catch (SQLException e) {
@@ -99,4 +160,21 @@ public class ProductosDao {
         alerta.setContentText(detalles);
         alerta.showAndWait();
     }
+
+    private void mostrarOperacionExitosa() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/OperacionExitosa.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> stage.close()));
+        timeline.play();
+    }
+
 }
