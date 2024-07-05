@@ -9,8 +9,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Controllers.ClienteController;
 import Controllers.ProductosController;
 import Controllers.ProveedorController;
+import Controllers.VentasController;
 import CrudControllers.*;
 import Dao.*;
 import javafx.animation.KeyFrame;
@@ -54,8 +56,16 @@ public class PrincipalController implements Initializable {
     Productos pro = new Productos();
     ProductosDao proDao = new ProductosDao();
 
+    Cliente cli = new Cliente();
+    ClienteDao cliDao = new ClienteDao();
+
+    Ventas vent = new Ventas();
+    VentasDao ventDao = new VentasDao();
+
     public ProveedorController proveedorController;
     public ProductosController productosController;
+    public ClienteController clienteController;
+    public VentasController ventasController;
 
 
     //    private ProveedorDao proveedorDao;
@@ -141,6 +151,26 @@ public class PrincipalController implements Initializable {
     public TableColumn<Productos, Integer> ProductoStockColumna;
     @FXML
     private TableColumn ProductoProveedorColumna;
+    @FXML
+    private Pane menu;
+    @FXML
+    private TableColumn clienteNombreColumna;
+    @FXML
+    private TableColumn clienteTelefonoColumna;
+    @FXML
+    private TableColumn clienteCodigoColumna;
+    @FXML
+    public TextField buscadorCliente;
+    @FXML
+    public TextField buscadorVentas;
+    @FXML
+    private TableColumn ventaMontoColumna;
+    @FXML
+    private TableColumn ventaFechaColumna;
+    @FXML
+    private TableColumn ventaClienteColumna;
+    @FXML
+    private TableColumn ventaCodigoColumna;
 
 
     /**
@@ -158,10 +188,17 @@ public class PrincipalController implements Initializable {
         mostrarNombreUsuario(usuarioSesion.getIdUsuario());
         proveedorController = new ProveedorController(prov, provDao, this);
         productosController = new ProductosController(pro, proDao, this);
+        clienteController = new ClienteController(cli, cliDao, this);
+        ventasController = new VentasController(vent,ventDao,this);
         inicializarColumnasProveedor();
         inicializarColumnasProductos();
+        inicializarColumnasCliente();
+        inicializarColumnasVentas();
         proveedorController.iniciarCargaDatos();
         productosController.iniciarCargaDatos();
+        clienteController.iniciarCargaDatos();
+        ventasController.iniciarCargaDatos();
+
     }
 
 
@@ -169,6 +206,19 @@ public class PrincipalController implements Initializable {
         ProveedorCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProveedor"));
         ProveedorNombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombreProveedor"));
         ProveedorTelefonoColumna.setCellValueFactory(new PropertyValueFactory<>("telefonoProveedor"));
+    }
+
+    public void inicializarColumnasVentas() {
+        ventaCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        ventaFechaColumna.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        ventaClienteColumna.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+        ventaMontoColumna.setCellValueFactory(new PropertyValueFactory<>("monto"));
+    }
+
+    public void inicializarColumnasCliente() {
+        clienteCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        clienteNombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        clienteTelefonoColumna.setCellValueFactory(new PropertyValueFactory<>("telefono"));
     }
 
     public void inicializarColumnasProductos() {
@@ -298,7 +348,7 @@ public class PrincipalController implements Initializable {
     @FXML
     private void abrirVentanaEliminarProducto(MouseEvent event) throws IOException {
         Productos selectedProducto = (Productos) tablaProductos.getSelectionModel().getSelectedItem();
-        if (selectedProducto != null){
+        if (selectedProducto != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/EliminarProducto.fxml"));
             Parent root = loader.load();
 
@@ -414,6 +464,8 @@ public class PrincipalController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/NuevoCliente.fxml"));
         Parent root = loader.load();
 
+        NuevoClienteController nuevoClienteController = loader.getController();
+        nuevoClienteController.setClienteController(clienteController);
 
         Scene scene = PanelPrincipal.getScene();
 
@@ -434,43 +486,58 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void abrirVentanaModificarCliente(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/ModificarCliente.fxml"));
-        Parent root = loader.load();
+        Cliente selectedCliente = (Cliente) tablaClientes.getSelectionModel().getSelectedItem();
+        if (selectedCliente != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/ModificarCliente.fxml"));
+            Parent root = loader.load();
 
-        Scene scene = PanelPrincipal.getScene();
+            ModificarClienteController modificarClienteController = loader.getController();
+            modificarClienteController.setCliente(selectedCliente);
+            modificarClienteController.setClienteController(clienteController);
+            Scene scene = PanelPrincipal.getScene();
 
-        BoxBlur blurEffect = new BoxBlur(5, 5, 3);
-        scene.getRoot().setEffect(blurEffect);
+            BoxBlur blurEffect = new BoxBlur(5, 5, 3);
+            scene.getRoot().setEffect(blurEffect);
 
-        Stage nuevaVentana = new Stage();
-        nuevaVentana.setScene(new Scene(root));
-        nuevaVentana.setTitle("Modificar Cliente");
-        nuevaVentana.initModality(Modality.APPLICATION_MODAL);
-        nuevaVentana.initStyle(StageStyle.UNDECORATED);
-        nuevaVentana.initOwner(((Node) event.getSource()).getScene().getWindow());
-        nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
-        nuevaVentana.show();
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setScene(new Scene(root));
+            nuevaVentana.setTitle("Modificar Cliente");
+            nuevaVentana.initModality(Modality.APPLICATION_MODAL);
+            nuevaVentana.initStyle(StageStyle.UNDECORATED);
+            nuevaVentana.initOwner(((Node) event.getSource()).getScene().getWindow());
+            nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
+            nuevaVentana.show();
+        } else {
+            mostrarAlerta("Selección requerida", "Por favor selecciona un cliente para modificar.", String.valueOf(Alert.AlertType.WARNING));
+        }
 
     }
 
     @FXML
     private void abrirVentanaEliminarCliente(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/EliminarCliente.fxml"));
-        Parent root = loader.load();
+        Cliente selectedCliente = (Cliente) this.tablaClientes.getSelectionModel().getSelectedItem();
+        if (selectedCliente != null) {
 
-        Scene scene = PanelPrincipal.getScene();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/EliminarCliente.fxml"));
+            Parent root = loader.load();
 
-        BoxBlur blurEffect = new BoxBlur(5, 5, 3);
-        scene.getRoot().setEffect(blurEffect);
+            EliminarClienteController eliminarClienteController = loader.getController();
+            eliminarClienteController.setCliente(selectedCliente);
+            eliminarClienteController.setClienteController(clienteController);
+            Scene scene = PanelPrincipal.getScene();
 
-        Stage nuevaVentana = new Stage();
-        nuevaVentana.setScene(new Scene(root));
-        nuevaVentana.setTitle("Eliminar Cliente");
-        nuevaVentana.initModality(Modality.APPLICATION_MODAL);
-        nuevaVentana.initStyle(StageStyle.UNDECORATED);
-        nuevaVentana.initOwner(((Node) event.getSource()).getScene().getWindow());
-        nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
-        nuevaVentana.show();
+            BoxBlur blurEffect = new BoxBlur(5, 5, 3);
+            scene.getRoot().setEffect(blurEffect);
+
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setScene(new Scene(root));
+            nuevaVentana.setTitle("Eliminar Cliente");
+            nuevaVentana.initModality(Modality.APPLICATION_MODAL);
+            nuevaVentana.initStyle(StageStyle.UNDECORATED);
+            nuevaVentana.initOwner(((Node) event.getSource()).getScene().getWindow());
+            nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
+            nuevaVentana.show();
+        }
     }
 
     //    sub-ventanas  para pagar

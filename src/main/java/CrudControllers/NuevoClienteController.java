@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Controllers.ClienteController;
+import Dao.Cliente;
+import Dao.ClienteDao;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -27,7 +30,9 @@ import javafx.util.Duration;
  * @author Junior
  */
 public class NuevoClienteController implements Initializable {
-
+    Cliente cli;
+    ClienteDao cliDao;
+    ClienteController clienteController;
     @javafx.fxml.FXML
     private TextField nombreCliente;
     @javafx.fxml.FXML
@@ -41,11 +46,45 @@ public class NuevoClienteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        cliDao = new ClienteDao();
+    }
+
+    public void setClienteController(ClienteController clienteController) {
+        this.clienteController = clienteController;
     }
 
     @javafx.fxml.FXML
     public void confirmarAgregarCliente(ActionEvent actionEvent) throws IOException {
+        if (this.nombreCliente.getText().isEmpty() || this.nombreCliente.getText().isEmpty() || this.telefonoCliente.getText().isEmpty()) {
+            mostrarOperacionErronea();
+        } else {
+            Long codigo = Long.valueOf(this.codigoCliente.getText());
+            String nombre = this.nombreCliente.getText();
+            Long telefono = Long.valueOf(this.telefonoCliente.getText());
+
+            Cliente cli = new Cliente();
+            cli.setCodigo(codigo);
+            cli.setNombre(nombre);
+            cli.setTelefono(telefono);
+
+            cli = cliDao.agregarCliente(codigo, nombre, telefono);
+            if (cli != null) {
+                clienteController.iniciarCargaDatos();
+                mostrarOperacionExitosa();
+                limpiarCampos();
+            } else {
+                mostrarOperacionErronea();
+            }
+
+
+        }
         mostrarOperacionExitosa();
+    }
+
+    public void limpiarCampos() {
+        this.codigoCliente.setText("");
+        this.nombreCliente.setText("");
+        this.telefonoCliente.setText("");
     }
 
     @javafx.fxml.FXML

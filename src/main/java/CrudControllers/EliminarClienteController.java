@@ -4,6 +4,10 @@
  */
 package CrudControllers;
 
+import Controllers.ClienteController;
+import Dao.Cliente;
+import Dao.ClienteDao;
+import com.mycompany.la_perla.PrincipalController;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -32,6 +36,10 @@ import javafx.util.Duration;
  * @author Junior
  */
 public class EliminarClienteController implements Initializable {
+    Cliente cli;
+    ClienteDao cliDao = new ClienteDao();
+    ClienteController clienteController;
+    PrincipalController pc;
 
     @javafx.fxml.FXML
     private TextField nombreCliente;
@@ -50,10 +58,32 @@ public class EliminarClienteController implements Initializable {
         // TODO
     }
 
+    public void setClienteController(ClienteController clienteController) {
+        this.clienteController = clienteController;
+    }
+
+    public void setCliente(Cliente cli) {
+        this.cli = cli;
+        this.codigoCliente.setText(String.valueOf(cli.getCodigo()));
+        this.nombreCliente.setText(cli.getNombre());
+        this.telefonoCliente.setText(String.valueOf(cli.getTelefono()));
+//aqui desabilitamos el campo codigo
+        this.codigoCliente.setDisable(true);
+    }
+
 
     @FXML
     public void confirmarEliminarCliente(ActionEvent actionEvent) throws IOException {
         mostrarOperacionExitosa();
+        Long codigo = Long.valueOf(this.codigoCliente.getText());
+
+        cliDao.eliminarCliente(codigo);
+        if(cliDao!=null){
+        clienteController.iniciarCargaDatos();
+            mostrarOperacionExitosa();
+        }else {
+            mostrarOperacionErronea();
+        }
     }
 
     @FXML

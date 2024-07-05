@@ -9,7 +9,7 @@
 
 <Pane fx:id="PanelPrincipal" prefHeight="800.0" prefWidth="1550.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.la_perla.PrincipalController">
    <children>
-      <Pane layoutX="-1.0" layoutY="2.0" prefHeight="800.0" prefWidth="286.0" style="-fx-background-color: F2F2F2;">
+      <Pane fx:id="menu" layoutX="-1.0" layoutY="2.0" prefHeight="800.0" prefWidth="286.0" style="-fx-background-color: F2F2F2;">
          <children>
             <Pane fx:id="PanelInicio" layoutX="1.0" layoutY="80.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelInicio" stylesheets="@../../../modelo/Principal.css">
                <children>
@@ -278,7 +278,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tablaProductos" layoutX="119.0" layoutY="181.0" prefHeight="453.0" prefWidth="1049.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css">
+                        <TableView fx:id="tablaProductos" layoutX="119.0" layoutY="181.0" prefHeight="453.0" prefWidth="1049.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css" tableMenuButtonVisible="true">
                           <columns>
                             <TableColumn maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
                             <TableColumn fx:id="ProductoCodigoColumna" maxWidth="1392.000732421875" minWidth="30.0" prefWidth="139.2000732421875" styleClass="table-column-header" text="Id" />
@@ -353,15 +353,15 @@
                         <TableView fx:id="tablaVentas" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css">
                            <columns>
                               <TableColumn maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
-                              <TableColumn maxWidth="1679.9993896484375" minWidth="30.0" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id" />
-                              <TableColumn maxWidth="2103.9996337890625" minWidth="30.0" prefWidth="210.39996337890625" styleClass="table-column-header" text="Fecha" />
-                              <TableColumn maxWidth="2432.0001220703125" minWidth="30.0" prefWidth="243.20001220703125" styleClass="table-column-header" text="Total" />
-                              <TableColumn maxWidth="2391.99951171875" minWidth="30.0" prefWidth="239.199951171875" styleClass="table-column-header" text="Cliente" />
+                              <TableColumn fx:id="ventaCodigoColumna" maxWidth="1679.9993896484375" minWidth="30.0" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id" />
+                              <TableColumn fx:id="ventaFechaColumna" maxWidth="2103.9996337890625" minWidth="30.0" prefWidth="210.39996337890625" styleClass="table-column-header" text="Fecha" />
+                              <TableColumn fx:id="ventaClienteColumna" maxWidth="2432.0001220703125" minWidth="30.0" prefWidth="243.20001220703125" styleClass="table-column-header" text="Cliente" />
+                              <TableColumn fx:id="ventaMontoColumna" maxWidth="2391.99951171875" minWidth="30.0" prefWidth="239.199951171875" styleClass="table-column-header" text="Total" />
                            </columns>
                         </TableView>
                         <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
                            <children>
-                              <TextField layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
+                              <TextField fx:id="buscadorVentas" layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
                               <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="68.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/search.png" />
@@ -412,16 +412,14 @@
                         <TableView fx:id="tablaClientes" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css" tableMenuButtonVisible="true">
                            <columns>
                               <TableColumn maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
-                              <TableColumn maxWidth="1679.9993896484375" minWidth="30.0" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id" />
-                              <TableColumn maxWidth="1184.000244140625" minWidth="30.0" prefWidth="118.4000244140625" styleClass="table-column-header" text="Nombre" />
-                              <TableColumn maxWidth="2080.0" minWidth="30.0" prefWidth="208.0" styleClass="table-column-header" text="Telefono" />
-                              <TableColumn maxWidth="2403.9996337890625" minWidth="30.0" prefWidth="240.39996337890625" styleClass="table-column-header" text="Deuda" />
-                              <TableColumn maxWidth="1228.00048828125" minWidth="30.0" prefWidth="122.800048828125" styleClass="table-column-header" text="Estado" />
+                              <TableColumn fx:id="clienteCodigoColumna" maxWidth="1679.9993896484375" minWidth="30.0" prefWidth="239.0" styleClass="table-column-header" text="Id" />
+                              <TableColumn fx:id="clienteNombreColumna" maxWidth="1184.000244140625" minWidth="30.0" prefWidth="291.0" styleClass="table-column-header" text="Nombre" />
+                              <TableColumn fx:id="clienteTelefonoColumna" maxWidth="2080.0" minWidth="26.0" prefWidth="299.0" styleClass="table-column-header" text="Telefono" />
                            </columns>
                         </TableView>
                         <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
                            <children>
-                              <TextField layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
+                              <TextField fx:id="buscadorCliente" layoutX="117.0" layoutY="22.0" prefHeight="43.0" prefWidth="916.0" />
                               <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="68.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/search.png" />
@@ -469,7 +467,7 @@
                               </ImageView>
                            </children>
                         </Pane>
-                        <TableView fx:id="tablaProveedor" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" stylesheets="@../../../modelo/diseñoVistaTabla.css">
+                        <TableView fx:id="tablaProveedor" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" stylesheets="@../../../modelo/diseñoVistaTabla.css" tableMenuButtonVisible="true">
                            <columns>
                               <TableColumn fx:id="totalColumn" maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
                               <TableColumn fx:id="ProveedorCodigoColumna" maxWidth="1679.9993896484375" minWidth="30.0" prefWidth="167.99993896484375" styleClass="table-column-header" text="Id" />
