@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CrudControllers.VistaPagoVentaController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CrudControllers.VistaPagoVentaController">
    <stylesheets>
       <URL value="@../modelo/estilosSubVentanas.css" />
    </stylesheets>
@@ -36,19 +36,7 @@
                </font>
             </Label>
             <TextField fx:id="nombreCliente" layoutX="159.0" layoutY="184.0" prefHeight="50.0" prefWidth="500.0" styleClass="txtField" stylesheets="@../modelo/estilosSubVentanas.css" />
-            <Button layoutX="281.0" layoutY="449.0" mnemonicParsing="false" onAction="#realizarVentaFiado" prefHeight="50.0" prefWidth="200.0" stylesheets="@../modelo/estilosSubVentanas.css" text="FIADO" textFill="WHITE">
-               <styleClass>
-                  <String fx:value="btn_border" />
-                  <String fx:value="btn_fiado" />
-               </styleClass>
-               <font>
-                  <Font name="Arial Black" size="20.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button layoutX="508.0" layoutY="449.0" mnemonicParsing="false" onAction="#realizarVentaEfectivo" prefHeight="50.0" prefWidth="200.0" stylesheets="@../modelo/estilosSubVentanas.css" text="PAGAR" textFill="WHITE">
+            <Button layoutX="425.0" layoutY="449.0" mnemonicParsing="false" onAction="#realizarVentaEfectivo" prefHeight="50.0" prefWidth="200.0" stylesheets="@../modelo/estilosSubVentanas.css" text="PAGAR" textFill="WHITE">
                <styleClass>
                   <String fx:value="btn_border" />
                   <String fx:value="btn_pagar" />
@@ -65,7 +53,7 @@
                   <Image url="@../img/dollar.png" />
                </image>
             </ImageView>
-            <Button layoutX="59.0" layoutY="449.0" mnemonicParsing="false" onAction="#operacionCancelarVenta" prefHeight="50.0" prefWidth="200.0" stylesheets="@../modelo/estilosSubVentanas.css" text="cancelar" textFill="WHITE">
+            <Button layoutX="174.0" layoutY="449.0" mnemonicParsing="false" onAction="#operacionCancelarVenta" prefHeight="50.0" prefWidth="200.0" stylesheets="@../modelo/estilosSubVentanas.css" text="cancelar" textFill="WHITE">
                <styleClass>
                   <String fx:value="btn_border" />
                   <String fx:value="btn_cancelar" />

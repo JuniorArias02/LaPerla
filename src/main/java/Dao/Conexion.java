@@ -19,8 +19,8 @@ import javafx.scene.control.Alert.AlertType;
 public class Conexion {
 
     static final String NAME = "la_perla";
-    static final String USER = "perla";
-    static final String PASS = "88173268Jr";
+    static final String USER = "root";
+    static final String PASS = "";
     static final String PORT = "3306";
     static final String TIMEZONE = "UTC";
 

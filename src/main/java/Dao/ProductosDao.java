@@ -28,7 +28,32 @@ public class ProductosDao {
 
     }
 
-    public Productos agregarProductos(int codigo, String nombre, int precio, String categoria, int proveedorId, int stock) throws SQLException {
+    public Productos buscarProducto(int id) throws SQLException {
+        Productos producto = null;
+        String query = "SELECT codigo,nombre,precio,stock FROM productos WHERE codigo = ?";
+        Connection con = cn.getConexion();
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    producto = new Productos();
+                    producto.setCodigoProducto(rs.getInt("codigo"));
+                    producto.setNombreProducto(rs.getString("nombre"));
+                    producto.setPrecioProducto(rs.getInt("precio"));
+                    producto.setStockProducto(rs.getInt(1));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error al buscar el producto", e);
+        }
+
+        return producto;
+    }
+
+    public Productos agregarProductos(int codigo, String nombre, int precio, String categoria, int proveedorId,
+                                      int stock) throws SQLException {
         String insertSQL = "INSERT INTO productos(codigo, nombre, precio, categoria, proveedor, stock) VALUES (?,?,?,?,?,?)";
         Productos pro = new Productos();
         con = cn.getConexion();
@@ -66,7 +91,8 @@ public class ProductosDao {
         return pro;
     }
 
-    public void modificarProducto(int codigo, String nombre, int precio, String categoria, Integer proveedor, int Stock) {
+    public void modificarProducto(int codigo, String nombre, int precio, String categoria, Integer proveedor,
+                                  int Stock) {
         String modifySql = "UPDATE productos SET codigo = ?, nombre = ?, precio = ?, categoria = ?,proveedor = ?, stock = ? WHERE codigo = ?";
         try {
             con = cn.getConexion();
@@ -104,7 +130,7 @@ public class ProductosDao {
                 mostrarAlerta("error", "error", "");
             }
         } catch (SQLException | IOException e) {
-            mostrarAlerta("error", e.toString(), ""); // Mostrar mensaje de error si hay una excepción SQL
+            mostrarAlerta("error", e.toString(), "");
         }
     }
 
@@ -147,7 +173,7 @@ public class ProductosDao {
                 productoList.add(pro);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Cambia esto a una alerta si es necesario
+            e.printStackTrace();
         }
         return productoList;
     }

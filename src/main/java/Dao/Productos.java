@@ -9,6 +9,24 @@ public class Productos {
     private int stockProducto;
     private int idProveedor;
     private String nombreProveedor;
+    private int cantidadProducto;
+    private int total;
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getCantidadProducto() {
+        return cantidadProducto;
+    }
+
+    public void setCantidadProducto(int cantidadProducto) {
+        this.cantidadProducto = cantidadProducto;
+    }
 
     public String getNombreProveedor() {
         return nombreProveedor;

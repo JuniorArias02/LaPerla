@@ -6,13 +6,11 @@ package com.mycompany.la_perla;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Controllers.ClienteController;
-import Controllers.ProductosController;
-import Controllers.ProveedorController;
-import Controllers.VentasController;
+import Controllers.*;
 import CrudControllers.*;
 import Dao.*;
 import javafx.animation.KeyFrame;
@@ -66,6 +64,7 @@ public class PrincipalController implements Initializable {
     public ProductosController productosController;
     public ClienteController clienteController;
     public VentasController ventasController;
+    public NuevaVentaController nuevaVentaController;
 
 
     //    private ProveedorDao proveedorDao;
@@ -106,7 +105,7 @@ public class PrincipalController implements Initializable {
     @FXML
     private Pane perfil;
     @FXML
-    private TableView tablaNuevaVentas;
+    public TableView tablaNuevaVentas;
     @FXML
     public TableView tablaClientes;
     @FXML
@@ -171,6 +170,20 @@ public class PrincipalController implements Initializable {
     private TableColumn ventaClienteColumna;
     @FXML
     private TableColumn ventaCodigoColumna;
+    @FXML
+    public TextField agregarProductoVenta;
+    @FXML
+    public TableColumn<Productos, Integer> productoCantidadColumna;
+    @FXML
+    public TableColumn productoPrecioColumna;
+    @FXML
+    public TableColumn productoNombreColumna;
+    @FXML
+    public TableColumn productoIdColumna;
+    @FXML
+    public TableColumn productoTotalColumna;
+    @FXML
+    public Label TotalVentaPago;
 
 
     /**
@@ -186,10 +199,25 @@ public class PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         usDao = new UsuarioDao();
         mostrarNombreUsuario(usuarioSesion.getIdUsuario());
+        mostrarInformacionUsuario(usuarioSesion.getIdUsuario());
         proveedorController = new ProveedorController(prov, provDao, this);
         productosController = new ProductosController(pro, proDao, this);
         clienteController = new ClienteController(cli, cliDao, this);
         ventasController = new VentasController(vent,ventDao,this);
+        nuevaVentaController = new NuevaVentaController(tablaNuevaVentas, productoIdColumna, productoNombreColumna, productoCantidadColumna, productoPrecioColumna, productoTotalColumna, TotalVentaPago);
+
+        agregarProductoVenta.setOnAction(event -> {
+            String idText = agregarProductoVenta.getText();
+            if (!idText.isEmpty()) {
+                int id = Integer.parseInt(idText);
+                try {
+                    nuevaVentaController.agregarProductoATabla(id);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
         inicializarColumnasProveedor();
         inicializarColumnasProductos();
         inicializarColumnasCliente();
@@ -259,6 +287,15 @@ public class PrincipalController implements Initializable {
         alerta.setHeaderText(mensaje);
         alerta.setContentText(detalles);
         alerta.showAndWait();
+    }
+
+    @FXML
+    public void eliminarProductoHandler(MouseEvent mouseEvent) {
+        if (nuevaVentaController != null) {
+            nuevaVentaController.eliminarProductoSeleccionado();
+        } else {
+            System.out.println("NuevaVentaController no inicializado.");
+        }
     }
 
     @FXML
@@ -634,6 +671,7 @@ public class PrincipalController implements Initializable {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
         timeline.play();
     }
+
 
 
 }
