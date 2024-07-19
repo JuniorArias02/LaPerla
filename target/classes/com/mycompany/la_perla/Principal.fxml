@@ -588,7 +588,7 @@
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioGmail" layoutX="149.0" layoutY="364.0" prefHeight="44.0" prefWidth="293.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <TextField fx:id="usuarioGmail" layoutX="149.0" layoutY="364.0" prefHeight="44.0" prefWidth="518.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
                               <Label layoutX="400.0" layoutY="509.0" prefHeight="41.0" prefWidth="81.0" text="Clave">
                                  <font>
                                     <Font name="Arial" size="24.0" />

@@ -111,35 +111,42 @@ public class ModificarProductoController implements Initializable {
 
     @javafx.fxml.FXML
     public void confirmarModificacionProducto(ActionEvent actionEvent) throws IOException {
+        try {
+            int codigo = Integer.parseInt(this.codigoProducto.getText());
+            String nombre = this.nombreProducto.getText();
+            String categoria = this.categoriaProducto.getText();
+            int stock = Integer.parseInt(this.stockProducto.getText());
+            int precio = Integer.parseInt(this.precioProducto.getText());
+            String proveedorNombre = (String) this.proveedorProducto.getValue();
 
-        int codigo = Integer.parseInt(this.codigoProducto.getText());
-        String nombre = this.nombreProducto.getText();
-        String categoria = this.categoriaProducto.getText();
-        int stock = Integer.parseInt(this.stockProducto.getText());
-        int precio = Integer.parseInt(this.precioProducto.getText());
-        String proveedorNombre = (String) this.proveedorProducto.getValue();
+            if (proveedorNombre != null && proveedoresMap.containsKey(proveedorNombre)) {
+                Proveedor proveedor = proveedoresMap.get(proveedorNombre);
+                int idProveedor = proveedor.getCodigoProveedor(); // Suponiendo que tienes un método getId() en Proveedor
 
-        if (proveedorNombre != null && proveedoresMap.containsKey(proveedorNombre)) {
-            Proveedor proveedor = proveedoresMap.get(proveedorNombre);
-            int idProveedor = proveedor.getCodigoProveedor(); // Suponiendo que tienes un método getId() en Proveedor
+                // Actualizar el producto
+                pro.setCodigoProducto(codigo);
+                pro.setNombreProducto(nombre);
+                pro.setPrecioProducto(precio);
+                pro.setCategoriaProducto(categoria);
+                pro.setIdProveedor(idProveedor);
+                pro.setStockProducto(stock);
 
-            // Actualizar el producto
-            pro.setCodigoProducto(codigo);
-            pro.setNombreProducto(nombre);
-            pro.setPrecioProducto(precio);
-            pro.setCategoriaProducto(categoria);
-            pro.setIdProveedor(idProveedor);
-            pro.setStockProducto(stock);
+                // Aquí llamas al método para actualizar el producto en la base de datos
+                proDao.modificarProducto(codigo, nombre, precio, categoria, idProveedor, stock);
+                productosController.iniciarCargaDatos();
+                mostrarOperacionExitosa();
+            } else {
+                mostrarOperacionErronea();
+            }
+        } catch (NumberFormatException e) {
 
-            // Aquí llamas al método para actualizar el producto en la base de datos
-            proDao.modificarProducto(codigo,nombre,precio,categoria,idProveedor,stock);
-            productosController.iniciarCargaDatos();
-            mostrarOperacionExitosa();
-        }else{
+            mostrarOperacionErronea();
+        } catch (Exception e) {
             mostrarOperacionErronea();
         }
-
     }
+
+
 
     private void mostrarOperacionExitosa() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/OperacionExitosa.fxml"));

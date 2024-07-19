@@ -94,6 +94,7 @@ public class NuevaVentaController {
             tablaNuevaVentas.refresh();
             actualizarTotalVenta();
         } else {
+
             System.out.println("No hay producto seleccionado para eliminar.");
         }
     }

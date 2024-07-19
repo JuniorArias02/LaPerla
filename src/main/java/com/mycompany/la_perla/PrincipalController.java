@@ -583,7 +583,8 @@ public class PrincipalController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/vistaPagoVenta.fxml"));
         Parent root = loader.load();
 
-
+        VistaPagoVentaController vistaPagoVentaController = loader.getController();
+        vistaPagoVentaController.setMontoTotal(TotalVentaPago.getText());
         Scene scene = PanelPrincipal.getScene();
 
 

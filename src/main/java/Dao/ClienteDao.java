@@ -24,6 +24,37 @@ public class ClienteDao {
     PreparedStatement ps;
     ResultSet rs;
 
+    public Cliente buscarCliente(Long codigo) {
+        Cliente cliente = null;
+        String query = "SELECT * FROM cliente WHERE codigo = ?";
+
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(query);
+            ps.setLong(1, codigo);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                cliente = new Cliente();
+                cliente.setCodigo(rs.getLong("codigo"));
+                cliente.setNombre(rs.getString("nombre"));
+                // Completa con los demás campos de la tabla
+            }
+        } catch (SQLException e) {
+            mostrarAlerta("error", e.toString(), "");
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                mostrarAlerta("error", e.toString(), "");
+            }
+        }
+
+        return cliente;
+    }
+
 
     public Cliente agregarCliente(Long codigo, String nombre, Long telefono) throws IOException {
         System.out.println("agregarCliente llamado");

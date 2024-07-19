@@ -89,7 +89,13 @@ public class ModificarProveedorController implements Initializable {
                 String telefonoTexto = this.telefonoProveedor.getText();
                 Long telefono;
 
-                telefono = valueOf(telefonoTexto);
+                // Validar que el nombre solo contenga letras
+                if (!nombre.matches("[a-zA-Z]+")) {
+                    mostrarAlerta("Error de formato", "El nombre del proveedor solo debe contener letras.", "");
+                    return;
+                }
+
+                telefono = Long.valueOf(telefonoTexto);
 
                 prov.setCodigoProveedor(codigo);
                 prov.setNombreProveedor(nombre);
@@ -109,9 +115,10 @@ public class ModificarProveedorController implements Initializable {
                 stage.close();
             }
         } catch (NumberFormatException e) {
-            mostrarAlerta("Error de formato", "el telefono del proveedor debe ser un número.", "");
+            mostrarAlerta("Error de formato", "El teléfono del proveedor debe ser un número.", "");
         }
     }
+
 
     private void limpiarCampos() {
         this.codigoProveedor.setText("");
