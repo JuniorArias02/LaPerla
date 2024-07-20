@@ -521,7 +521,7 @@
                            <children>
                               <ImageView fitHeight="151.0" fitWidth="227.0" layoutX="682.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/usuario.png" />
+                                    <Image url="@../../../img/usuario (1).png" />
                                  </image>
                               </ImageView>
                               <Label layoutX="526.0" layoutY="202.0" prefHeight="41.0" prefWidth="98.0" text="Usuario" textFill="#fcfcfc">
