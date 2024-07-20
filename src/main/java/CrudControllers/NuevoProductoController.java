@@ -87,8 +87,6 @@ public class NuevoProductoController implements Initializable {
         }
     }
 
-
-
     @FXML
     public void confirmarAgregarProducto(ActionEvent actionEvent) throws IOException {
         if (this.codigoProducto.getText().isEmpty() ||
@@ -110,6 +108,17 @@ public class NuevoProductoController implements Initializable {
                     mostrarAlerta("Error", "Debe seleccionar un proveedor.", String.valueOf(Alert.AlertType.ERROR));
                     return;
                 }
+
+                if (!esTextoValido(nombre)) {
+                    mostrarAlerta("Error", "El nombre del producto solo puede contener letras y espacios.", String.valueOf(Alert.AlertType.ERROR));
+                    return;
+                }
+
+                if (!esTextoValido(categoria)) {
+                    mostrarAlerta("Error", "La categoría del producto solo puede contener letras y espacios.", String.valueOf(Alert.AlertType.ERROR));
+                    return;
+                }
+
                 int proveedorId = proveedorSeleccionado.getCodigoProveedor();
                 int stock = Integer.parseInt(this.stockProducto.getText());
 
@@ -118,8 +127,6 @@ public class NuevoProductoController implements Initializable {
                     productosController.iniciarCargaDatos();
                     mostrarOperacionExitosa();
                 }
-
-//                mostrarOperacionExitosa();
             } catch (NumberFormatException num) {
                 mostrarAlerta("Error", "No se pudo agregar el producto: " + num.getMessage(), String.valueOf(Alert.AlertType.ERROR));
             } catch (SQLException e) {
@@ -128,13 +135,16 @@ public class NuevoProductoController implements Initializable {
         }
     }
 
-
     @javafx.fxml.FXML
     public void cancelarAgregarProducto(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Parent root = stage.getOwner().getScene().getRoot();
         root.setEffect(null);
         stage.close();
+    }
+
+    private boolean esTextoValido(String texto) {
+        return texto.matches("[a-zA-Z\\s]+"); // Solo permite letras y espacios
     }
 
     private void mostrarAlerta(String titulo, String mensaje, String detalles) {
@@ -156,7 +166,6 @@ public class NuevoProductoController implements Initializable {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
-
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
         timeline.play();
     }
@@ -172,7 +181,6 @@ public class NuevoProductoController implements Initializable {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
-
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
         timeline.play();
     }
@@ -187,7 +195,6 @@ public class NuevoProductoController implements Initializable {
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
         timeline.play();

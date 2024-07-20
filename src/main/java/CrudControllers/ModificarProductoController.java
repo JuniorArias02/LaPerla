@@ -119,6 +119,16 @@ public class ModificarProductoController implements Initializable {
             int precio = Integer.parseInt(this.precioProducto.getText());
             String proveedorNombre = (String) this.proveedorProducto.getValue();
 
+            if (!esTextoValido(nombre)) {
+                mostrarMensajeError("El nombre del producto solo puede contener letras y espacios.");
+                return;
+            }
+
+            if (!esTextoValido(categoria)) {
+                mostrarMensajeError("La categoría del producto solo puede contener letras y espacios.");
+                return;
+            }
+
             if (proveedorNombre != null && proveedoresMap.containsKey(proveedorNombre)) {
                 Proveedor proveedor = proveedoresMap.get(proveedorNombre);
                 int idProveedor = proveedor.getCodigoProveedor(); // Suponiendo que tienes un método getId() en Proveedor
@@ -139,14 +149,19 @@ public class ModificarProductoController implements Initializable {
                 mostrarOperacionErronea();
             }
         } catch (NumberFormatException e) {
-
             mostrarOperacionErronea();
         } catch (Exception e) {
             mostrarOperacionErronea();
         }
     }
 
+    private boolean esTextoValido(String texto) {
+        return texto.matches("[a-zA-Z\\s]+"); // Solo permite letras y espacios
+    }
 
+    private void mostrarMensajeError(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, "Error de Validación", JOptionPane.ERROR_MESSAGE);
+    }
 
     private void mostrarOperacionExitosa() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/OperacionExitosa.fxml"));
@@ -158,7 +173,6 @@ public class ModificarProductoController implements Initializable {
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
         timeline.play();
@@ -174,7 +188,6 @@ public class ModificarProductoController implements Initializable {
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
         timeline.play();
