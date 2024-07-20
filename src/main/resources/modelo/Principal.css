@@ -64,3 +64,10 @@
     -fx-text-fill: #333; /* Color del texto */
     -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%); /* Color del texto de sugerencia */
 }
+
+}
+/* esta parte es para poner imagen de fondo*/
+.PanelPrincipal{
+-fx-background-image: url("/img/fondo1.png");
+    -fx-background-size: cover;
+}

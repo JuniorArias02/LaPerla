@@ -152,7 +152,7 @@ INSERT INTO `usuario` (`id_usuario`, `usuario`, `nombre`, `gmail`, `clave`) VALU
 --
 
 CREATE TABLE `ventas` (
-  `codigo` int(11) NOT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   `cliente` int(11) DEFAULT NULL,
   `monto` double NOT NULL,

@@ -4,6 +4,7 @@
 /* Estilos para la tabla */
 .table-view {
     -fx-background-color: #f4f4f4; /* Color de fondo */
+    -fx-border-color: transparent;
 }
 
 /* Estilos para las columnas */
@@ -11,7 +12,9 @@
     -fx-font-size: 14px; /* Tamaño de fuente */
     -fx-font-weight: bold; /* Negrita */
     -fx-text-fill: #333; /* Color del texto */
-   /* Alineación del texto */
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #ddd; /* Color del borde */
+    -fx-alignment: CENTER; /* Alineación del texto */
 }
 
 /* Estilos para las celdas */
@@ -19,8 +22,21 @@
     -fx-alignment: CENTER; /* Alineación del contenido de la celda */
     -fx-font-size: 14px; /* Tamaño de fuente */
     -fx-text-fill: #666; /* Color del texto */
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #ddd; /* Color del borde */
+    -fx-padding: 8px; /* Espaciado interno */
 }
 
 .table-row-cell:selected {
     -fx-background-color: #ffa500; /* Cambia el color a naranja */
+    -fx-text-fill: white; /* Cambia el color del texto a blanco */
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #fafafa; /* Color de fondo para filas impares */
 }
