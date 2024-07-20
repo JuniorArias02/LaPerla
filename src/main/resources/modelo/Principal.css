@@ -4,46 +4,48 @@
 
 /* Estilo para TableView */
 .PanelInicio:hover{
-    -fx-background-color:D9D9D9;
+    -fx-background-color:#000C25;
 
 }
 .PanelProductos:hover{
-   -fx-background-color:D9D9D9;
+   -fx-background-color:#000C25;
 
 }
 .PanelVentas:hover{
-    -fx-background-color:D9D9D9;
+    -fx-background-color:#000C25;
     -fx-transition-duration:1s;
 }
 .PanelClientes:hover{
-    -fx-background-color:D9D9D9;
+    -fx-background-color:#000C25;
     -fx-transition-duration:1s;
 }
 .PanelProveedor:hover{
-    -fx-background-color:D9D9D9;
+    -fx-background-color:#000C25;
     -fx-transition-duration:1s;
 }
 .PanelSalir:hover{
-    -fx-background-color:C62433;
+    -fx-background-color:#C62433;
     -fx-transition-duration:1s;
 }
 .carta {
-    -fx-background-color: #EDEDED;
-    -fx-background-radius: 10px; 
-    -fx-border-radius: 10px; 
-    -fx-border-width: 1px; 
-    -fx-border-color: transparent; 
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10,0,0,1 ); 
+    -fx-background-color: #000C54;
+    -fx-background-radius: 60px;
+    -fx-border-radius: 60px;
+    -fx-border-width: 3px;
+    -fx-border-color: white;
+    /*-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10,0,0,1 );*/
     -fx-transition: background-color 0.3s;
 }
 
 .carta:hover {
-    -fx-background-color: #E2E2E2; 
+    -fx-border-radius: 60px;
+      -fx-transition: background-color 0.3s;
+    -fx-background-color: #000CFF;
 }
 
 .tab {
-    -fx-padding: 10px 20px; 
-    -fx-background-color: #f0f0f0; 
+    -fx-padding: 10px 20px;
+    -fx-background-color: #f0f0f0;
 }
 
 /* Estilo para las pestañas cuando están seleccionadas */
@@ -68,6 +70,6 @@
 }
 /* esta parte es para poner imagen de fondo*/
 .PanelPrincipal{
--fx-background-image: url("/img/fondo1.png");
+    -fx-background-image: url("@../../../img/fondo.png");
     -fx-background-size: cover;
 }

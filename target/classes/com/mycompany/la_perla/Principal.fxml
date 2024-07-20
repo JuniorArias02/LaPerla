@@ -9,16 +9,16 @@
 
 <Pane fx:id="PanelPrincipal" prefHeight="800.0" prefWidth="1550.0" style="-fx-background-color: FFFFFF;" styleClass="PanelPrincipal" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.la_perla.PrincipalController">
    <children>
-      <Pane fx:id="menu" layoutX="-1.0" layoutY="2.0" prefHeight="800.0" prefWidth="286.0" style="-fx-background-color: F2F2F2;">
+      <Pane fx:id="menu" layoutX="-1.0" layoutY="2.0" prefHeight="800.0" prefWidth="286.0" style="-fx-background-color: #000C54;">
          <children>
             <Pane fx:id="PanelInicio" layoutX="1.0" layoutY="264.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelInicio" stylesheets="@../../../modelo/Principal.css">
                <children>
                   <ImageView fitHeight="24.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/home.png" />
+                        <Image url="@../../../img/iniciop.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Inicio">
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Inicio" textFill="WHITE">
                      <font>
                         <Font name="Arial Black" size="20.0" />
                      </font>
@@ -30,12 +30,12 @@
             </Pane>
             <Pane fx:id="PanelProducto" layoutX="1.0" layoutY="324.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelProductos" stylesheets="@../../../modelo/Principal.css">
                <children>
-                  <ImageView fitHeight="27.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/store-alt.png" />
+                        <Image url="@../../../img/icon4.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Productos">
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Productos" textFill="WHITE">
                      <font>
                         <Font name="Arial Black" size="20.0" />
                      </font>
@@ -49,10 +49,10 @@
                <children>
                   <ImageView fitHeight="27.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/shopping-cart.png" />
+                        <Image url="@../../../img/ventas.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Ventas">
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Ventas" textFill="WHITE">
                      <font>
                         <Font name="Arial Black" size="20.0" />
                      </font>
@@ -66,10 +66,10 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/customer-care.png" />
+                        <Image url="@../../../img/cliente.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Clientes">
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Clientes" textFill="WHITE">
                      <font>
                         <Font name="Arial Black" size="20.0" />
                      </font>
@@ -83,10 +83,10 @@
                <children>
                   <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/supplier.png" />
+                        <Image url="@../../../img/cadena-de-suministro.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Proveedor">
+                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Proveedor" textFill="WHITE">
                      <font>
                         <Font name="Arial Black" size="20.0" />
                      </font>
@@ -96,14 +96,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Pane fx:id="PanelSalir" layoutX="1.0" layoutY="564.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelSalir" stylesheets="@../../../modelo/Principal.css">
+            <Pane fx:id="PanelSalir" layoutX="2.0" layoutY="743.0" onMouseClicked="#cambiarPestaña" prefHeight="50.0" prefWidth="285.0" styleClass="PanelSalir" stylesheets="@../../../modelo/Principal.css">
                <children>
-                  <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="38.0" fitWidth="30.0" layoutX="27.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/leave.png" />
+                        <Image url="@../../../img/cerrar-sesion.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="67.0" layoutY="-1.0" prefHeight="51.0" prefWidth="218.0" text="Salir">
+                  <Label layoutX="67.0" prefHeight="51.0" prefWidth="218.0" text="Salir" textFill="WHITE">
                      <font>
                         <Font name="Arial Black" size="20.0" />
                      </font>
@@ -115,16 +115,11 @@
             </Pane>
             <Pane fx:id="perfil" layoutX="43.0" layoutY="61.0" onMouseClicked="#cambiarPestaña" prefHeight="203.0" prefWidth="202.0" styleClass="cart" stylesheets="@../../../modelo/Principal.css">
                <children>
-                  <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="186.0" fitWidth="189.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/office-man.png" />
+                        <Image url="@../../../img/user1.png" />
                      </image>
                   </ImageView>
-                  <Label alignment="CENTER" layoutX="1.0" layoutY="128.0" prefHeight="47.0" prefWidth="200.0" text="USUARIO" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial Bold" size="28.0" />
-                     </font>
-                  </Label>
                </children>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -134,16 +129,16 @@
       </Pane>
       <Pane layoutX="1.0" prefHeight="71.0" prefWidth="285.0">
          <children>
-            <Label layoutX="-1.0" layoutY="-2.0" prefHeight="71.0" prefWidth="285.0" text="   LA PERLA" textFill="#636161">
+            <Label layoutX="-1.0" layoutY="-2.0" prefHeight="71.0" prefWidth="285.0" text="   LA PERLA" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="40.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="281.0" layoutY="2.0" prefHeight="71.0" prefWidth="1270.0" style="-fx-background-color: F2F2F2;">
+      <Pane layoutX="281.0" layoutY="2.0" prefHeight="71.0" prefWidth="1270.0" style="-fx-background-color: trasparent;">
          <children>
-            <Label fx:id="txtNombreUsuario" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="358.0" text="user" textFill="#717171">
+            <Label fx:id="txtNombreUsuario" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="358.0" text="user" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="25.0" />
                </font>
@@ -155,19 +150,19 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER" layoutX="2.0" layoutY="-1.0" prefHeight="82.0" prefWidth="1264.0" text="Bienvenido. eliga una opcion" textAlignment="CENTER">
+                        <Label alignment="CENTER" layoutX="2.0" layoutY="-1.0" prefHeight="82.0" prefWidth="1264.0" text="Bienvenido. eliga una opcion" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="36.0" />
                            </font>
                         </Label>
-                        <Pane fx:id="inventario" layoutX="106.0" layoutY="246.0" onMouseClicked="#cambiarPestaña" prefHeight="232.0" prefWidth="200.0" style="-fx-background-color: #000C54;" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
+                        <Pane fx:id="inventario" layoutX="106.0" layoutY="246.0" onMouseClicked="#cambiarPestaña" prefHeight="232.0" prefWidth="200.0" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
                            <children>
-                              <ImageView cache="true" fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView cache="true" fitHeight="125.0" fitWidth="121.0" layoutX="44.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/inventory.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="CENTER" layoutY="124.0" prefHeight="47.0" prefWidth="200.0" text="Inventario" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" layoutY="149.0" prefHeight="47.0" prefWidth="200.0" text="Inventario" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Bold" size="36.0" />
                                  </font>
@@ -177,14 +172,14 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Pane>
-                        <Pane fx:id="clientes" layoutX="386.0" layoutY="246.0" onMouseClicked="#cambiarPestaña" prefHeight="232.0" prefWidth="200.0" style="-fx-background-color: #000C54;" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
+                        <Pane fx:id="clientes" layoutX="386.0" layoutY="246.0" onMouseClicked="#cambiarPestaña" prefHeight="232.0" prefWidth="200.0" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
                            <children>
-                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/customer-engagement.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="CENTER" layoutY="124.0" prefHeight="47.0" prefWidth="200.0" text="Clientes" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" layoutY="145.0" prefHeight="47.0" prefWidth="200.0" text="Clientes" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Bold" size="36.0" />
                                  </font>
@@ -194,14 +189,14 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Pane>
-                        <Pane fx:id="ventas" layoutX="666.0" layoutY="246.0" onMouseClicked="#cambiarPestaña" prefHeight="232.0" prefWidth="200.0" style="-fx-background-color: #000C54;" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
+                        <Pane fx:id="ventas" layoutX="666.0" layoutY="246.0" onMouseClicked="#cambiarPestaña" prefHeight="232.0" prefWidth="200.0" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
                            <children>
-                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="35.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/acquisition.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="CENTER" layoutY="124.0" prefHeight="47.0" prefWidth="200.0" text="Ventas" textAlignment="CENTER" textFill="#fffdfd">
+                              <Label alignment="CENTER" layoutY="139.0" prefHeight="47.0" prefWidth="200.0" text="Ventas" textAlignment="CENTER" textFill="#fffdfd">
                                  <font>
                                     <Font name="Arial Bold" size="36.0" />
                                  </font>
@@ -211,14 +206,14 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Pane>
-                        <Pane fx:id="proveedor" layoutX="946.0" layoutY="246.0" onMouseClicked="#cambiarPestaña" prefHeight="232.0" prefWidth="200.0" style="-fx-background-color: #000C54;" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
+                        <Pane fx:id="proveedor" layoutX="946.0" layoutY="246.0" onMouseClicked="#cambiarPestaña" prefHeight="232.0" prefWidth="200.0" styleClass="carta" stylesheets="@../../../modelo/Principal.css">
                            <children>
-                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/icon1.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="CENTER" layoutY="124.0" prefHeight="47.0" prefWidth="200.0" text="Proveedor" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" layoutY="138.0" prefHeight="47.0" prefWidth="200.0" text="Proveedor" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Bold" size="36.0" />
                                  </font>
@@ -255,7 +250,7 @@
                                     <Image url="@../../../img/search.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
@@ -325,7 +320,7 @@
                                     <Image url="@../../../img/search.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
@@ -383,7 +378,7 @@
                                     <Image url="@../../../img/search.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
@@ -441,7 +436,7 @@
                                     <Image url="@../../../img/search.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
@@ -479,7 +474,7 @@
                                     <Image url="@../../../img/search.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="#8e8e8e">
+                              <Label layoutX="117.0" layoutY="5.0" prefHeight="17.0" prefWidth="254.0" text="Digite el código o nombre y presione ENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
@@ -496,7 +491,7 @@
                               <TableColumn fx:id="productoTotalColumna" maxWidth="2032.0004882812498" minWidth="30.0" prefWidth="203.20004882812498" styleClass="table-column-header" text="Total" />
                            </columns>
                         </TableView>
-                        <Label fx:id="TotalVentaPago" layoutX="119.0" layoutY="192.0" prefHeight="27.0" prefWidth="913.0" text="Total de la Venta Pago: 0.0">
+                        <Label fx:id="TotalVentaPago" layoutX="119.0" layoutY="192.0" prefHeight="27.0" prefWidth="913.0" text="Total de la Venta Pago: 0.0" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="24.0" />
                            </font>
@@ -524,41 +519,41 @@
                            </children></Pane>
                         <Pane layoutY="60.0" prefHeight="619.0" prefWidth="1268.0">
                            <children>
-                              <ImageView fitHeight="151.0" fitWidth="227.0" layoutX="863.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="151.0" fitWidth="227.0" layoutX="682.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/user.png" />
+                                    <Image url="@../../../img/usuario.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="58.0" layoutY="182.0" prefHeight="41.0" prefWidth="88.0" text="Usuario">
+                              <Label layoutX="526.0" layoutY="202.0" prefHeight="41.0" prefWidth="98.0" text="Usuario" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioUsuario" layoutX="154.0" layoutY="169.0" prefHeight="28.0" prefWidth="246.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
-                              <Label layoutX="48.0" layoutY="273.0" prefHeight="41.0" prefWidth="108.0" text="Nombre">
+                              <TextField fx:id="usuarioUsuario" layoutX="632.0" layoutY="200.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="520.0" layoutY="264.0" prefHeight="41.0" prefWidth="88.0" text="Nombre" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioNombre" layoutX="154.0" layoutY="263.0" prefHeight="28.0" prefWidth="246.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
-                              <Label layoutX="65.0" layoutY="377.0" prefHeight="41.0" prefWidth="76.0" text="Gmail">
+                              <TextField fx:id="usuarioNombre" layoutX="632.0" layoutY="262.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="546.0" layoutY="333.0" prefHeight="41.0" prefWidth="76.0" text="Gmail" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioGmail" layoutX="149.0" layoutY="364.0" prefHeight="44.0" prefWidth="518.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
-                              <Label layoutX="65.0" layoutY="502.0" prefHeight="41.0" prefWidth="81.0" text="Clave">
+                              <TextField fx:id="usuarioGmail" layoutX="632.0" layoutY="333.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 1 1 1 1; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="548.0" layoutY="409.0" prefHeight="41.0" prefWidth="77.0" text="Clave" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioClave" layoutX="156.0" layoutY="513.0" prefHeight="28.0" prefWidth="246.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
-                              <Label layoutX="742.0" layoutY="502.0" prefHeight="41.0" prefWidth="190.0" text="Confirmar Clave">
+                              <TextField fx:id="usuarioClave" layoutX="632.0" layoutY="407.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="438.0" layoutY="477.0" prefHeight="41.0" prefWidth="190.0" text="Confirmar Clave" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioConfirmarClave" layoutX="921.0" layoutY="491.0" prefHeight="28.0" prefWidth="246.0" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <TextField fx:id="usuarioConfirmarClave" layoutX="632.0" layoutY="475.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
                            </children>
                         </Pane>
                      </children>

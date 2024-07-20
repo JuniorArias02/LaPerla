@@ -21,3 +21,7 @@
     -fx-font-size: 25px;
     -fx-text-fill: #333333;
 }
+.panelSesion{
+-fx-background-image: url("@../../../img/fondo.png");
+    -fx-background-size: cover;
+}
