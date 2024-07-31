@@ -7,6 +7,7 @@ package com.mycompany.la_perla;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -195,6 +196,16 @@ public class PrincipalController implements Initializable {
         usuarioSesion = sesion;
     }
 
+
+
+    public List<DetalleVenta> obtenerDetallesVenta() {
+        return new ArrayList<>(tablaNuevaVentas.getItems());
+    }
+
+    public TableView<Productos> getTablaNuevaVentas() {
+        return tablaNuevaVentas;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         usDao = new UsuarioDao();
@@ -203,7 +214,7 @@ public class PrincipalController implements Initializable {
         proveedorController = new ProveedorController(prov, provDao, this);
         productosController = new ProductosController(pro, proDao, this);
         clienteController = new ClienteController(cli, cliDao, this);
-        ventasController = new VentasController(vent,ventDao,this);
+        ventasController = new VentasController(vent, ventDao, this);
         nuevaVentaController = new NuevaVentaController(tablaNuevaVentas, productoIdColumna, productoNombreColumna, productoCantidadColumna, productoPrecioColumna, productoTotalColumna, TotalVentaPago);
 
         agregarProductoVenta.setOnAction(event -> {
@@ -229,6 +240,13 @@ public class PrincipalController implements Initializable {
 
     }
 
+    public void inicializarColumnasNuevaVenta(){
+        productoIdColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProducto"));
+        productoNombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
+        productoCantidadColumna.setCellValueFactory(new PropertyValueFactory<>("cantidadProducto"));
+        productoPrecioColumna.setCellValueFactory(new PropertyValueFactory<>("precioProducto"));
+        productoTotalColumna.setCellValueFactory(new PropertyValueFactory<>("total"));
+    }
 
     public void inicializarColumnasProveedor() {
         ProveedorCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProveedor"));
@@ -237,7 +255,7 @@ public class PrincipalController implements Initializable {
     }
 
     public void inicializarColumnasVentas() {
-        ventaCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        ventaCodigoColumna.setCellValueFactory(new PropertyValueFactory<>("codigoVenta"));
         ventaFechaColumna.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         ventaClienteColumna.setCellValueFactory(new PropertyValueFactory<>("cliente"));
         ventaMontoColumna.setCellValueFactory(new PropertyValueFactory<>("monto"));
@@ -266,6 +284,10 @@ public class PrincipalController implements Initializable {
             mostrarAlerta("Error", "No se encontró información para el usuario con ID: " + id, "");
         }
 
+    }
+
+    public String getTotalVentaPago() {
+        return TotalVentaPago.getText();
     }
 
     private void mostrarInformacionUsuario(int id_usuario) {
@@ -584,6 +606,10 @@ public class PrincipalController implements Initializable {
         Parent root = loader.load();
 
         VistaPagoVentaController vistaPagoVentaController = loader.getController();
+        vistaPagoVentaController.setPrincipalController(this);
+
+        // Pasar la referencia de NuevaVentaController a VistaPagoVentaController
+        vistaPagoVentaController.setNuevaVentaController(nuevaVentaController);
         vistaPagoVentaController.setMontoTotal(TotalVentaPago.getText());
         Scene scene = PanelPrincipal.getScene();
 
@@ -601,6 +627,9 @@ public class PrincipalController implements Initializable {
         nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
         nuevaVentana.show();
     }
+
+
+
 
     //modificar usuario
     @FXML
@@ -672,7 +701,6 @@ public class PrincipalController implements Initializable {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
         timeline.play();
     }
-
 
 
 }

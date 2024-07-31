@@ -3,13 +3,19 @@ package Controllers;
 import Dao.Productos;
 import Dao.ProductosDao;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class NuevaVentaController {
@@ -41,6 +47,10 @@ public class NuevaVentaController {
         initialize();
     }
 
+    public List<Productos> obtenerProductosSeleccionados() {
+        return new ArrayList<>(tablaNuevaVentas.getItems());
+    }
+
     private void initialize() {
         productoIdColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProducto"));
         productoNombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
@@ -49,6 +59,17 @@ public class NuevaVentaController {
         productoTotalColumna.setCellValueFactory(new PropertyValueFactory<>("total"));
     }
 
+    public ObservableList<Productos> getProductosEnVenta() {
+        return tablaNuevaVentas.getItems();
+    }
+
+    public String getTotalVentaPago() {
+        return TotalVentaPago.getText();
+    }
+
+    public TableView<Productos> getTablaNuevaVentas() {
+        return tablaNuevaVentas;
+    }
     public void agregarProductoATabla(int id) throws SQLException {
         try {
             Productos productoExistente = null;

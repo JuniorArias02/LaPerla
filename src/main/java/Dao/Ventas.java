@@ -1,30 +1,34 @@
 package Dao;
 
 import java.util.Date;
+import java.util.List;
 
 public class Ventas {
-    private Long codigo;
+    private Long codigoVenta;
     private Date fecha;
     private Long cliente;
     private Long monto;
+    private List<DetalleVenta> detalles;
 
     public Ventas() {
 
     }
 
-    public Ventas(Long codigo, Date fecha, Long cliente, Long monto) {
-        this.codigo = codigo;
+    public Ventas(Long codigoVenta, Date fecha, Long cliente, Long monto) {
+        this.codigoVenta = codigoVenta;
         this.fecha = fecha;
         this.cliente = cliente;
         this.monto = monto;
+
     }
 
-    public Long getCodigo() {
-        return codigo;
+
+    public Long getCodigoVenta() {
+        return codigoVenta;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setCodigoVenta(Long codigoVenta) {
+        this.codigoVenta = codigoVenta;
     }
 
     public Date getFecha() {
@@ -49,5 +53,15 @@ public class Ventas {
 
     public void setMonto(Long monto) {
         this.monto = monto;
+    }
+
+
+
+    public List<DetalleVenta> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleVenta> detalles) {
+        this.detalles = detalles;
     }
 }

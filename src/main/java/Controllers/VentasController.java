@@ -47,7 +47,7 @@ public class VentasController implements Initializable {
         Platform.runLater(() -> pc.tablaVentas.setItems(datos));
 
         for (Ventas ventas : datos) {
-            System.out.println("Ventas - Código: " + ventas.getCodigo() +
+            System.out.println("Ventas - Código: " + ventas.getCodigoVenta() +
                     ", cleinte: " + ventas.getCliente() +
                     ", fecha: " + ventas.getFecha() +
                     ", monto: " + ventas.getMonto());

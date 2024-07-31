@@ -70,6 +70,6 @@
 }
 /* esta parte es para poner imagen de fondo*/
 .PanelPrincipal{
-    -fx-background-image: url("@../../../img/fondo.png");
+    /*-fx-background-image: url("@../../../img/fondo.png");*/
     -fx-background-size: cover;
 }
