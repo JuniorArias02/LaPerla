@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Controllers.NuevaVentaController;
+import Controllers.VentasController;
 import Dao.*;
 import com.mycompany.la_perla.PrincipalController;
 import javafx.animation.KeyFrame;
@@ -40,12 +41,16 @@ public class VistaPagoVentaController implements Initializable {
     ClienteDao clienteDao = new ClienteDao();
     VentasDao ventasDao = new VentasDao();
     PrincipalController principalController;
+
+    VentasController ventasController ;
     @javafx.fxml.FXML
     private TextField nombreCliente;
     @javafx.fxml.FXML
     private TextField cantidadRecibida;
     @javafx.fxml.FXML
     private Label montoTotal;
+
+    private double ventaTotal;
 
     private long id_cliente;
 
@@ -56,6 +61,9 @@ public class VistaPagoVentaController implements Initializable {
         this.principalController = principalController;
     }
 
+    public void setVentasController(VentasController ventasController){
+        this.ventasController = ventasController;
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nombreCliente.setOnAction(this::buscarClientePorCedula);
@@ -68,6 +76,8 @@ public class VistaPagoVentaController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+
+
     }
 
 
@@ -100,9 +110,9 @@ public class VistaPagoVentaController implements Initializable {
     public void realizarVentaEfectivo(ActionEvent actionEvent) throws IOException, SQLException {
         long cliente = id_cliente;
         double montoDouble = Double.parseDouble(this.montoTotal.getText());
-        long monto = (long) montoDouble; // Convertir a long si es necesario
+        double monto =  montoDouble;
 
-        // Registrar la venta
+
         Ventas nuevaVenta = ventasDao.nuevaVenta(cliente, monto);
 
         // Obtener los productos desde NuevaVentaController
@@ -113,7 +123,16 @@ public class VistaPagoVentaController implements Initializable {
             ventasDao.detalle_venta(producto.getCodigoProducto(), producto.getCantidadProducto());
         }
 
+        ventasController.iniciarCargaDatos();
         limpiarTablaYCampos();
+
+        // Actualizar la tabla después de agregar un nuevo proveedor
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//        PrincipalController principalController = (PrincipalController) stage.getUserData();
+  //      principalController.proveedorController.cargarDatosEnTabla("");
+        Parent root = stage.getOwner().getScene().getRoot();
+        root.setEffect(null);
+        stage.close();
 }
 
 
@@ -134,34 +153,41 @@ public void operacionCancelarVenta(ActionEvent actionEvent) throws IOException {
 }
 
 
-
+//metodo del motno
 public void setMontoTotal(String total) {
     try {
         double parsedTotal = Double.parseDouble(total);
+        ventaTotal = (long) parsedTotal;
         montoTotal.setText(String.valueOf(parsedTotal));
+        System.out.println(montoTotal);
     } catch (NumberFormatException e) {
-        montoTotal.setText("0");
+        //montoTotal.setText("0");
+        System.out.println("no se pued agregar letras");
     }
 }
 
-private void actualizarMontoTotal() throws IOException {
-    try {
-        double total = Double.parseDouble(montoTotal.getText());
-        double recibido = Double.parseDouble(cantidadRecibida.getText());
+    private void actualizarMontoTotal() throws IOException {
+        double recibido = 0;
+        try {
+            String cantidadRecibidaTexto = cantidadRecibida.getText();
 
-        // Resta el valor recibido del total
-        double nuevoTotal = total - recibido;
+            if (cantidadRecibidaTexto == null || cantidadRecibidaTexto.trim().isEmpty()) {
+                cantidadRecibidaTexto = "0";
+            }
 
-        // Actualiza el monto total
-        montoTotal.setText(String.valueOf(nuevoTotal));
-    } catch (NumberFormatException e) {
-        // Manejar la excepción y mostrar un mensaje de error
-        montoTotal.setText("0");
-        mostrarOperacionErronea();
+            recibido = Double.parseDouble(cantidadRecibidaTexto);
+
+        } catch (NumberFormatException e) {
+
+            recibido = 0;
+            cantidadRecibida.setText("");
+            mostrarOperacionErronea();
+        }
+
+
+        double precioTotal = ventaTotal;
+        montoTotal.setText(String.valueOf(  recibido - precioTotal));
     }
-
-
-}
 
     private void limpiarTablaYCampos() {
         // Vaciar la tabla

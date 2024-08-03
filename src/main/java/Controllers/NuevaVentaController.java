@@ -70,7 +70,10 @@ public class NuevaVentaController {
     public TableView<Productos> getTablaNuevaVentas() {
         return tablaNuevaVentas;
     }
-    public void agregarProductoATabla(int id) throws SQLException {
+
+
+    public Productos agregarProductoATabla(int id) throws SQLException {
+        Productos productoDevuelto = null; // Variable para almacenar el producto a devolver
         try {
             Productos productoExistente = null;
             for (Productos producto : tablaNuevaVentas.getItems()) {
@@ -81,17 +84,21 @@ public class NuevaVentaController {
             }
 
             if (productoExistente != null) {
+                // Si el producto ya existe en la tabla, actualiza la cantidad
                 int nuevaCantidad = productoExistente.getCantidadProducto() + 1;
                 productoExistente.setCantidadProducto(nuevaCantidad);
                 productoExistente.setTotal(productoExistente.getPrecioProducto() * nuevaCantidad);
 
                 tablaNuevaVentas.refresh();
+                productoDevuelto = productoExistente; // Devuelve el producto actualizado
             } else {
+                // Si el producto no existe en la tabla, búscalo en la base de datos
                 Productos productoNuevo = productosDao.buscarProducto(id);
                 if (productoNuevo != null) {
                     productoNuevo.setCantidadProducto(1);
                     productoNuevo.setTotal(productoNuevo.getPrecioProducto() * productoNuevo.getCantidadProducto());
                     tablaNuevaVentas.getItems().add(productoNuevo);
+                    productoDevuelto = productoNuevo; // Devuelve el nuevo producto agregado
                 } else {
                     System.out.println("Producto no encontrado");
                 }
@@ -102,7 +109,10 @@ public class NuevaVentaController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return productoDevuelto; // Devuelve el producto o null si no se encontró
     }
+
     public void eliminarProductoSeleccionado() {
         Productos productoSeleccionado = tablaNuevaVentas.getSelectionModel().getSelectedItem();
         if (productoSeleccionado != null) {

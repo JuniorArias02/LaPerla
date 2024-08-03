@@ -52,7 +52,8 @@ INSERT INTO `cliente` (`codigo`, `nombre`, `telefono`) VALUES
 
 CREATE TABLE `detalle_venta` (
   `codigo` int(11) NOT NULL,
-  `producto` int(11) NOT NULL
+  `producto` int(11) NOT NULL,
+  `cantidad` int(11)  NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --

@@ -19,6 +19,9 @@ public class VentasController implements Initializable {
     PrincipalController pc;
     private ObservableList<Ventas> ventasList;
 
+    public VentasController() {
+
+    }
 
     public VentasController(Ventas ventas, VentasDao ventasDao, PrincipalController pc) {
         this.ventas = ventas;
@@ -33,6 +36,7 @@ public class VentasController implements Initializable {
         ventasDao = new VentasDao();
         ventasList = FXCollections.observableArrayList();
         pc.tablaVentas.setItems(ventasList);
+        iniciarCargaDatos();
     }
 
 
@@ -57,6 +61,7 @@ public class VentasController implements Initializable {
 
     public void iniciarCargaDatos() {
         cargarDatosEnTabla("");
+        System.out.println("deberia cargar datos de tabla");
     }
 
     public void agregarVentas(Ventas ventas) {

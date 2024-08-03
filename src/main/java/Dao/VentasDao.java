@@ -14,17 +14,17 @@ public class VentasDao {
 
 
 
-    public Ventas nuevaVenta(long cliente, long monto) throws SQLException {
+    public Ventas nuevaVenta(long cliente, double monto) throws SQLException {
         String insertSQL = "INSERT INTO ventas (cliente,monto) VALUES(?,?)";
         con = cn.getConexion();
         Ventas ventas = new Ventas();
         try {
             ps = con.prepareStatement(insertSQL);
             ps.setLong(1, cliente);
-            ps.setLong(2, monto);
+            ps.setLong(2, (long) monto);
 
             ventas.setCliente(cliente);
-            ventas.setMonto(monto);
+            ventas.setMonto((long)monto);
 
             ps.executeUpdate();
 

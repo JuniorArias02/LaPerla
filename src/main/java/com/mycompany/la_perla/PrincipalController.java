@@ -7,6 +7,7 @@ package com.mycompany.la_perla;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -66,6 +67,7 @@ public class PrincipalController implements Initializable {
     public ClienteController clienteController;
     public VentasController ventasController;
     public NuevaVentaController nuevaVentaController;
+
 
 
     //    private ProveedorDao proveedorDao;
@@ -222,8 +224,18 @@ public class PrincipalController implements Initializable {
             if (!idText.isEmpty()) {
                 int id = Integer.parseInt(idText);
                 try {
-                    nuevaVentaController.agregarProductoATabla(id);
+                    Productos producto = nuevaVentaController.agregarProductoATabla(id);
+                    if (producto == null) {
+                        // Maneja el caso donde el producto no se encontró
+                        ErrorProductoNoEncontrado();
+                    } else {
+                        // Maneja el caso donde se encontró y/o se actualizó el producto
+                        System.out.println("Producto agregado/actualizado: " + producto);
+                    }
+                    agregarProductoVenta.setText("");
                 } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -611,6 +623,7 @@ public class PrincipalController implements Initializable {
         // Pasar la referencia de NuevaVentaController a VistaPagoVentaController
         vistaPagoVentaController.setNuevaVentaController(nuevaVentaController);
         vistaPagoVentaController.setMontoTotal(TotalVentaPago.getText());
+        vistaPagoVentaController.setVentasController(ventasController);
         Scene scene = PanelPrincipal.getScene();
 
 
@@ -688,6 +701,22 @@ public class PrincipalController implements Initializable {
 
     private void mostrarOperacionExitosa() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/OperacionExitosa.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
+        timeline.play();
+    }
+
+    private void ErrorProductoNoEncontrado() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/ErrorProductoNoEncontrado.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

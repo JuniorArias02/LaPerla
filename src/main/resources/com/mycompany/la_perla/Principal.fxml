@@ -491,7 +491,7 @@
                               <TableColumn fx:id="productoTotalColumna" maxWidth="2032.0004882812498" minWidth="30.0" prefWidth="203.20004882812498" styleClass="table-column-header" text="Total" />
                            </columns>
                         </TableView>
-                        <Label fx:id="TotalVentaPago" layoutX="119.0" layoutY="192.0" prefHeight="27.0" prefWidth="913.0" text="Total de la Venta Pago: 0.0" textFill="WHITE">
+                        <Label fx:id="TotalVentaPago" layoutX="119.0" layoutY="192.0" prefHeight="27.0" prefWidth="913.0" text="Total de la Venta Pago: 0.0">
                            <font>
                               <Font name="Arial Bold" size="24.0" />
                            </font>
