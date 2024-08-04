@@ -614,6 +614,8 @@ public class PrincipalController implements Initializable {
     //    sub-ventanas  para pagar
     @FXML
     private void abrirVentaPago(MouseEvent event) throws IOException {
+        String texto = "-";
+        String totalVentas = TotalVentaPago.getText();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/vistaPagoVenta.fxml"));
         Parent root = loader.load();
 
@@ -622,7 +624,7 @@ public class PrincipalController implements Initializable {
 
         // Pasar la referencia de NuevaVentaController a VistaPagoVentaController
         vistaPagoVentaController.setNuevaVentaController(nuevaVentaController);
-        vistaPagoVentaController.setMontoTotal(TotalVentaPago.getText());
+        vistaPagoVentaController.setMontoTotal(texto+totalVentas);
         vistaPagoVentaController.setVentasController(ventasController);
         Scene scene = PanelPrincipal.getScene();
 

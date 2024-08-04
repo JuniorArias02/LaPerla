@@ -18,15 +18,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -38,15 +36,19 @@ import javafx.util.Duration;
  * @author Junior
  */
 public class VistaPagoVentaController implements Initializable {
+
     ClienteDao clienteDao = new ClienteDao();
     VentasDao ventasDao = new VentasDao();
     PrincipalController principalController;
+    NuevaVentaController nuevaVentaController;
+    VentasController ventasController;
 
-    VentasController ventasController ;
     @javafx.fxml.FXML
     private TextField nombreCliente;
-    @javafx.fxml.FXML
+
+    @FXML
     private TextField cantidadRecibida;
+
     @javafx.fxml.FXML
     private Label montoTotal;
 
@@ -54,23 +56,19 @@ public class VistaPagoVentaController implements Initializable {
 
     private long id_cliente;
 
+
     /**
      * Initializes the controller class.
      */
-    public void setPrincipalController(PrincipalController principalController) {
-        this.principalController = principalController;
-    }
 
-    public void setVentasController(VentasController ventasController){
-        this.ventasController = ventasController;
-    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nombreCliente.setOnAction(this::buscarClientePorCedula);
-        cantidadRecibida.setText("0");
-
+        cantidadRecibida.setText("");
         cantidadRecibida.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
+
                 actualizarMontoTotal();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -81,7 +79,72 @@ public class VistaPagoVentaController implements Initializable {
     }
 
 
-    private NuevaVentaController nuevaVentaController;
+    @javafx.fxml.FXML
+    public void realizarVentaEfectivo(ActionEvent actionEvent) throws IOException, SQLException {
+        String nombre = nombreCliente.getText();
+
+        if (nombre.isEmpty()) {
+            ErrorCampoClienteVacioVenta();
+            System.out.println("Identidad del cliente vacía");
+        } else if (esNumero(nombre)) {
+            SugerenciaBuscarCliente();
+            System.out.println("No olvides presionar enter para buscar el cliente");
+        } else {
+            long cliente = id_cliente;
+            String montoTotalStr = this.montoTotal.getText();
+            String cantidadRecibidaStr = cantidadRecibida.getText();
+
+            if (validarPrecioVenta(montoTotalStr, cantidadRecibidaStr) == false) {
+                System.out.println("El monto recibido debe ser mayor o igual al monto total.");
+                mostrarOperacionErronea();
+                return;
+            }
+
+            double montoTotal = Double.parseDouble(montoTotalStr);
+            Ventas nuevaVenta = ventasDao.nuevaVenta(cliente, montoTotal);
+
+            // Obtener los productos desde NuevaVentaController
+            List<Productos> productos = nuevaVentaController.obtenerProductosSeleccionados();
+
+            if (productos.isEmpty()) {
+                ErrorNoHayProductoTabla();
+                return;
+            }
+
+            // Registrar cada detalle de venta
+            for (Productos producto : productos) {
+                ventasDao.detalle_venta(producto.getCodigoProducto(), producto.getCantidadProducto());
+            }
+            mostrarOperacionExitosa();
+            ventasController.iniciarCargaDatos();
+            limpiarTablaYCampos();
+
+            // Actualizar la tabla después de agregar un nuevo proveedor
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Parent root = stage.getOwner().getScene().getRoot();
+            root.setEffect(null);
+            stage.close();
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void operacionCancelarVenta(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Parent root = stage.getOwner().getScene().getRoot();
+        root.setEffect(null);
+        stage.close();
+    }
+
+
+//    metodos de las clases
+
+    public void setPrincipalController(PrincipalController principalController) {
+        this.principalController = principalController;
+    }
+
+    public void setVentasController(VentasController ventasController) {
+        this.ventasController = ventasController;
+    }
 
     public void setNuevaVentaController(NuevaVentaController nuevaVentaController) {
         this.nuevaVentaController = nuevaVentaController;
@@ -106,65 +169,57 @@ public class VistaPagoVentaController implements Initializable {
         }
     }
 
-    @javafx.fxml.FXML
-    public void realizarVentaEfectivo(ActionEvent actionEvent) throws IOException, SQLException {
-        long cliente = id_cliente;
-        double montoDouble = Double.parseDouble(this.montoTotal.getText());
-        double monto =  montoDouble;
+    private boolean validarPrecioVenta(String montoTotalStr, String cantidadRecibidaStr) {
+        try {
+            double montoTotal = Double.parseDouble(montoTotalStr);
+            double cantidadRecibida = Double.parseDouble(cantidadRecibidaStr);
 
-
-        Ventas nuevaVenta = ventasDao.nuevaVenta(cliente, monto);
-
-        // Obtener los productos desde NuevaVentaController
-        List<Productos> productos = nuevaVentaController.obtenerProductosSeleccionados();
-
-        // Registrar cada detalle de venta
-        for (Productos producto : productos) {
-            ventasDao.detalle_venta(producto.getCodigoProducto(), producto.getCantidadProducto());
+            if (montoTotal >= 0) {
+                System.out.println("verdadero");
+                return true;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error al convertir el monto o la cantidad recibida: " + e.getMessage());
+            return false;
         }
-
-        ventasController.iniciarCargaDatos();
-        limpiarTablaYCampos();
-
-        // Actualizar la tabla después de agregar un nuevo proveedor
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-//        PrincipalController principalController = (PrincipalController) stage.getUserData();
-  //      principalController.proveedorController.cargarDatosEnTabla("");
-        Parent root = stage.getOwner().getScene().getRoot();
-        root.setEffect(null);
-        stage.close();
-}
-
-
-private void mostrarAlerta(String titulo, String mensaje, String detalles) {
-    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle(titulo);
-    alerta.setHeaderText(mensaje);
-    alerta.setContentText(detalles);
-    alerta.showAndWait();
-}
-
-@javafx.fxml.FXML
-public void operacionCancelarVenta(ActionEvent actionEvent) throws IOException {
-    Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    Parent root = stage.getOwner().getScene().getRoot();
-    root.setEffect(null);
-    stage.close();
-}
-
-
-//metodo del motno
-public void setMontoTotal(String total) {
-    try {
-        double parsedTotal = Double.parseDouble(total);
-        ventaTotal = (long) parsedTotal;
-        montoTotal.setText(String.valueOf(parsedTotal));
-        System.out.println(montoTotal);
-    } catch (NumberFormatException e) {
-        //montoTotal.setText("0");
-        System.out.println("no se pued agregar letras");
+        return false;
     }
-}
+
+    private boolean esNumero(String texto) {
+        if (texto == null || texto.isEmpty()) {
+            return false;
+        }
+        try {
+            Double.parseDouble(texto);
+            System.out.println("es numero");
+//            System.out.println(texto);
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("no numero");
+//            System.out.println(texto);
+            return false;
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje, String detalles) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(mensaje);
+        alerta.setContentText(detalles);
+        alerta.showAndWait();
+    }
+
+    public void setMontoTotal(String total) {
+        try {
+            double parsedTotal = Double.parseDouble(total);
+            ventaTotal = (long) parsedTotal;
+            montoTotal.setText(String.valueOf(parsedTotal));
+            System.out.println(montoTotal);
+        } catch (NumberFormatException e) {
+            //montoTotal.setText("0");
+            System.out.println("no se pued agregar letras");
+        }
+    }
 
     private void actualizarMontoTotal() throws IOException {
         double recibido = 0;
@@ -184,48 +239,107 @@ public void setMontoTotal(String total) {
             mostrarOperacionErronea();
         }
 
-
         double precioTotal = ventaTotal;
-        montoTotal.setText(String.valueOf(  recibido - precioTotal));
+        montoTotal.setText(String.valueOf(precioTotal + recibido));
     }
 
     private void limpiarTablaYCampos() {
-        // Vaciar la tabla
         nuevaVentaController.getTablaNuevaVentas().getItems().clear();
 
-        // Limpiar los campos
         montoTotal.setText("");
         cantidadRecibida.setText("");
         nombreCliente.setText("");
     }
 
-private void mostrarOperacionExitosa() throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/OperacionExitosa.fxml"));
-    Parent root = loader.load();
+//    alertas personalizadas
 
-    Scene scene = new Scene(root);
-    Stage stage = new Stage();
-    stage.setScene(scene);
+    private void mostrarOperacionExitosa() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/OperacionExitosa.fxml"));
+        Parent root = loader.load();
 
-    stage.initStyle(StageStyle.UNDECORATED);
-    stage.show();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
 
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
-    timeline.play();
-}
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
 
-private void mostrarOperacionErronea() throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/OperacionErronea.fxml"));
-    Parent root = loader.load();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> stage.close()));
+        timeline.play();
+    }
 
-    Scene scene = new Scene(root);
-    Stage stage = new Stage();
-    stage.setScene(scene);
+    private void mostrarOperacionErronea() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/OperacionErronea.fxml"));
+        Parent root = loader.load();
 
-    stage.initStyle(StageStyle.UNDECORATED);
-    stage.show();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
 
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
-    timeline.play();
-}
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
+        timeline.play();
+    }
+
+    private void ErrorCamposVacios() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/ErrorCamposVacios.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.9), event -> stage.close()));
+        timeline.play();
+    }
+
+    private void ErrorNoHayProductoTabla() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/ErrorNoHayProductoTabla.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.9), event -> stage.close()));
+        timeline.play();
+    }
+
+    private void ErrorCampoClienteVacioVenta() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/ErrorCampoClienteVacioVenta.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.9), event -> stage.close()));
+        timeline.play();
+    }
+
+    private void SugerenciaBuscarCliente() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/SugerenciaBuscarCliente.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.9), event -> stage.close()));
+        timeline.play();
+    }
 }
