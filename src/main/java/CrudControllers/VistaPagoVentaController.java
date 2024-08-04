@@ -96,12 +96,13 @@ public class VistaPagoVentaController implements Initializable {
 
             if (validarPrecioVenta(montoTotalStr, cantidadRecibidaStr) == false) {
                 System.out.println("El monto recibido debe ser mayor o igual al monto total.");
-                mostrarOperacionErronea();
+                ErrorMontoIncorrecto();
                 return;
             }
 
             double montoTotal = Double.parseDouble(montoTotalStr);
-            Ventas nuevaVenta = ventasDao.nuevaVenta(cliente, montoTotal);
+            double montoTotalDao = Double.parseDouble(principalController.TotalVentaPago.getText());
+            Ventas nuevaVenta = ventasDao.nuevaVenta(cliente, montoTotalDao);
 
             // Obtener los productos desde NuevaVentaController
             List<Productos> productos = nuevaVentaController.obtenerProductosSeleccionados();
@@ -163,8 +164,9 @@ public class VistaPagoVentaController implements Initializable {
                 nombreCliente.setText(cliente.getNombre());
             } else {
                 nombreCliente.setText("");
+                ErrorClienteNoEncontrado();
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IOException e) {
             nombreCliente.setText("");
         }
     }
@@ -280,6 +282,36 @@ public class VistaPagoVentaController implements Initializable {
         stage.show();
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
+        timeline.play();
+    }
+
+    private void ErrorMontoIncorrecto() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/ErrorMontoIncorrecto.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.5), event -> stage.close()));
+        timeline.play();
+    }
+
+    private void ErrorClienteNoEncontrado() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/ErrorClienteNoEncontrado.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.5), event -> stage.close()));
         timeline.play();
     }
 

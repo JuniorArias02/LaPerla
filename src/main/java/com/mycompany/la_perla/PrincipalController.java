@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import Controllers.*;
 import CrudControllers.*;
 import Dao.*;
+import com.itextpdf.text.DocumentException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -103,8 +104,6 @@ public class PrincipalController implements Initializable {
     private TabPane ventana;
     @FXML
     private ImageView NuevaVenta;
-    @FXML
-    private Pane PanelPerfil;
     @FXML
     private Pane perfil;
     @FXML
@@ -346,7 +345,7 @@ public class PrincipalController implements Initializable {
             ventana.getSelectionModel().select(4);
         } else if (event.getSource() == this.NuevaVenta) {
             ventana.getSelectionModel().select(5);
-        } else if (event.getSource() == this.perfil || event.getSource() == this.PanelPerfil) {
+        } else if (event.getSource() == this.perfil ) {
             ventana.getSelectionModel().select(6);
             mostrarInformacionUsuario(usuarioSesion.getIdUsuario());
         } else if (event.getSource() == this.PanelSalir) {
@@ -355,6 +354,9 @@ public class PrincipalController implements Initializable {
         }
     }
 
+
+
+//    || event.getSource() == this.PerfilUsuario
 
     //    sub-ventanas para productos
     @FXML
@@ -734,4 +736,39 @@ public class PrincipalController implements Initializable {
     }
 
 
+    private void FacturaGenerada() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/FacturaGenerada.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> stage.close()));
+        timeline.play();
+    }
+
+
+    public void GenerarFacturaVenta(MouseEvent mouseEvent) {
+        Ventas ventaSeleccionada = (Ventas) tablaVentas.getSelectionModel().getSelectedItem();
+
+        if (ventaSeleccionada != null) {
+            long codigoVenta = ventaSeleccionada.getCodigoVenta();
+            try {
+                VentasDao ventasDao = new VentasDao();
+                ventasDao.generarFacturaPDF(codigoVenta);
+                FacturaGenerada();
+//                mostrarAlerta("Éxito", "Factura generada exitosamente", "");
+            } catch (SQLException | IOException | DocumentException e) {
+                mostrarAlerta("Error", "No se pudo generar la factura: " + e.getMessage(), "");
+                e.printStackTrace();
+            }
+        } else {
+            mostrarAlerta("Advertencia", "Selecciona una venta para generar la factura", "");
+        }
+    }
 }

@@ -9,6 +9,15 @@ public class Ventas {
     private Long cliente;
     private Long monto;
     private List<DetalleVenta> detalles;
+    private String nombreCliente;
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
 
     public Ventas() {
 

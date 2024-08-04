@@ -17,6 +17,7 @@ module com.mycompany.la_perla {
     requires java.sql;
     requires java.desktop;
     requires jdk.jfr;
+    requires itextpdf;
 
     exports com.mycompany.la_perla;
     exports CrudControllers;
