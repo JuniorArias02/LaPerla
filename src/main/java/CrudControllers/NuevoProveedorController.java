@@ -54,6 +54,13 @@ public class NuevoProveedorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         provDao = new ProveedorDao();
+
+        // Añadir un filtro para permitir solo letras en el campo de nombre del proveedor
+        nombreProveedor.addEventFilter(javafx.scene.input.KeyEvent.KEY_TYPED, event -> {
+            if (!event.getCharacter().matches("[a-zA-Z\\s]")) {
+                event.consume();
+            }
+        });
     }
 
     @javafx.fxml.FXML
