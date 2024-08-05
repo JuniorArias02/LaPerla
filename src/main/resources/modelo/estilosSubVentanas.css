@@ -3,7 +3,8 @@
  */
 
 .mainFxmlClass {
-
+ -fx-border-color: black;
+  -fx-border-width:2px;
 }
 .btn_border{
     -fx-background-radius:30px;

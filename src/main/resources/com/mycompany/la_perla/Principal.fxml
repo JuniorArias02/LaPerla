@@ -162,7 +162,7 @@
                                     <Image url="@../../../img/inventory.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="CENTER" layoutY="149.0" prefHeight="47.0" prefWidth="200.0" text="Inventario" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" layoutY="149.0" prefHeight="47.0" prefWidth="200.0" styleClass="texto-carta" stylesheets="@../../../modelo/Principal.css" text="Inventario" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Bold" size="36.0" />
                                  </font>
@@ -179,7 +179,7 @@
                                     <Image url="@../../../img/customer-engagement.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="CENTER" layoutY="145.0" prefHeight="47.0" prefWidth="200.0" text="Clientes" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" layoutY="145.0" prefHeight="47.0" prefWidth="200.0" styleClass="texto-carta" text="Clientes" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Bold" size="36.0" />
                                  </font>
@@ -196,7 +196,7 @@
                                     <Image url="@../../../img/acquisition.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="CENTER" layoutY="139.0" prefHeight="47.0" prefWidth="200.0" text="Ventas" textAlignment="CENTER" textFill="#fffdfd">
+                              <Label alignment="CENTER" layoutY="139.0" prefHeight="47.0" prefWidth="200.0" styleClass="texto-carta" text="Ventas" textAlignment="CENTER" textFill="#fffdfd">
                                  <font>
                                     <Font name="Arial Bold" size="36.0" />
                                  </font>
@@ -213,7 +213,7 @@
                                     <Image url="@../../../img/icon1.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="CENTER" layoutY="138.0" prefHeight="47.0" prefWidth="200.0" text="Proveedor" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" layoutY="138.0" prefHeight="47.0" prefWidth="200.0" styleClass="texto-carta" text="Proveedor" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Bold" size="36.0" />
                                  </font>
@@ -526,39 +526,39 @@
                            <children>
                               <ImageView fitHeight="151.0" fitWidth="227.0" layoutX="682.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/usuario (1).png" />
+                                    <Image url="@../../../img/circle-user.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="526.0" layoutY="202.0" prefHeight="41.0" prefWidth="98.0" text="Usuario" textFill="#fcfcfc">
+                              <Label layoutX="526.0" layoutY="202.0" prefHeight="41.0" prefWidth="98.0" styleClass="texto-carta" text="Usuario" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioUsuario" layoutX="632.0" layoutY="200.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
-                              <Label layoutX="520.0" layoutY="264.0" prefHeight="41.0" prefWidth="88.0" text="Nombre" textFill="#fcfcfc">
+                              <TextField fx:id="usuarioUsuario" layoutX="632.0" layoutY="200.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: black; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: black;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="520.0" layoutY="264.0" prefHeight="41.0" prefWidth="88.0" styleClass="texto-carta" text="Nombre" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioNombre" layoutX="632.0" layoutY="262.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
-                              <Label layoutX="546.0" layoutY="333.0" prefHeight="41.0" prefWidth="76.0" text="Gmail" textFill="#fcfcfc">
+                              <TextField fx:id="usuarioNombre" layoutX="632.0" layoutY="262.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: black; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: black;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="546.0" layoutY="333.0" prefHeight="41.0" prefWidth="76.0" styleClass="texto-carta" text="Gmail" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioGmail" layoutX="632.0" layoutY="333.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 1 1 1 1; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
-                              <Label layoutX="548.0" layoutY="409.0" prefHeight="41.0" prefWidth="77.0" text="Clave" textFill="#fcfcfc">
+                              <TextField fx:id="usuarioGmail" layoutX="632.0" layoutY="333.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: black; -fx-border-radius: 15; -fx-border-width: 1 1 1 1; -fx-text-fill: black;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="548.0" layoutY="409.0" prefHeight="41.0" prefWidth="77.0" styleClass="texto-carta" text="Clave" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioClave" layoutX="632.0" layoutY="407.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
-                              <Label layoutX="438.0" layoutY="477.0" prefHeight="41.0" prefWidth="190.0" text="Confirmar Clave" textFill="#fcfcfc">
+                              <TextField fx:id="usuarioClave" layoutX="632.0" layoutY="407.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: black; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: black;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <Label layoutX="438.0" layoutY="477.0" prefHeight="41.0" prefWidth="190.0" styleClass="texto-carta" text="Confirmar Clave" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="usuarioConfirmarClave" layoutX="632.0" layoutY="475.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: white; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: white;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
+                              <TextField fx:id="usuarioConfirmarClave" layoutX="632.0" layoutY="475.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: black; -fx-border-width: 1 1 1 1; -fx-border-radius: 15; -fx-text-fill: black;" styleClass="txtField" stylesheets="@../../../modelo/Principal.css" />
                            </children>
                         </Pane>
                      </children>

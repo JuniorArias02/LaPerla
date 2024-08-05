@@ -12,7 +12,7 @@
       <URL value="@../modelo/estilosSubVentanas.css" />
    </stylesheets>
    <children>
-      <Pane prefHeight="46.0" prefWidth="800.0" style="-fx-background-color: F2F2F2;" stylesheets="@../modelo/estilosSubVentanas.css">
+      <Pane layoutX="13.0" layoutY="19.0" prefHeight="46.0" prefWidth="775.0" style="-fx-background-color: F2F2F2;" stylesheets="@../modelo/estilosSubVentanas.css">
          <children>
             <Label alignment="CENTER" layoutX="-2.0" prefHeight="50.0" prefWidth="800.0" text="ELIMINAR PROVEEDOR" textAlignment="CENTER">
                <font>
@@ -28,7 +28,7 @@
                   <Font name="Arial" size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="codigoProveedor" onKeyPressed="#handleCodigoProveedorKeyPressed" layoutX="32.0" layoutY="83.0" prefHeight="50.0" prefWidth="300.0" styleClass="txtField" />
+            <TextField fx:id="codigoProveedor" layoutX="32.0" layoutY="83.0" onKeyPressed="#handleCodigoProveedorKeyPressed" prefHeight="50.0" prefWidth="300.0" styleClass="txtField" />
             <Label alignment="BOTTOM_LEFT" layoutX="444.0" layoutY="33.0" prefHeight="50.0" prefWidth="300.0" text="Nombre*" textFill="#707070">
                <font>
                   <Font name="Arial" size="22.0" />

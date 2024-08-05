@@ -6,28 +6,28 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1550.0" styleClass="panelSesion" stylesheets="@../../../modelo/Login.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.la_perla.LoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1550.0" styleClass="panelSesion" stylesheets="@../../../modelo/Login.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.la_perla.LoginController">
    <children>
-      <Pane layoutX="487.0" layoutY="272.0" prefHeight="483.0" prefWidth="526.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 30;" stylesheets="@../../../modelo/Login.css">
+      <Pane layoutX="512.0" layoutY="101.0" prefHeight="597.0" prefWidth="526.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 30;" stylesheets="@../../../modelo/Login.css">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="65.0" prefHeight="91.0" prefWidth="558.0" text="Iniciar Sesión">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="176.0" prefHeight="91.0" prefWidth="558.0" text="Iniciar Sesión">
                <font>
                   <Font name="Arial Black" size="34.0" />
                </font>
             </Label>
-            <Label layoutX="61.0" layoutY="144.0" prefHeight="54.0" prefWidth="436.0" text="Usuario">
+            <Label layoutX="61.0" layoutY="255.0" prefHeight="54.0" prefWidth="436.0" text="Usuario">
                <font>
                   <Font name="Verdana Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="usuario" layoutX="61.0" layoutY="198.0" prefHeight="40.0" prefWidth="437.0" styleClass="txtField" />
-            <Label layoutX="57.0" layoutY="256.0" prefHeight="54.0" prefWidth="444.0" text="Contraseña">
+            <TextField fx:id="usuario" layoutX="61.0" layoutY="309.0" prefHeight="40.0" prefWidth="437.0" styleClass="txtField" />
+            <Label layoutX="57.0" layoutY="367.0" prefHeight="54.0" prefWidth="444.0" text="Contraseña">
                <font>
                   <Font name="Verdana Bold" size="12.0" />
                </font>
             </Label>
-            <PasswordField fx:id="clave" layoutX="57.0" layoutY="309.0" prefHeight="40.0" prefWidth="442.0" styleClass="txtField" />
-            <Button fx:id="btniniciarSesion" layoutX="147.0" layoutY="371.0" mnemonicParsing="false" onAction="#IniciarSesion" prefHeight="68.0" prefWidth="232.0" styleClass="btn_iniciarSesion" text="Iniciar Sesión" textFill="WHITE">
+            <PasswordField fx:id="clave" layoutX="57.0" layoutY="420.0" prefHeight="40.0" prefWidth="442.0" styleClass="txtField" />
+            <Button fx:id="btniniciarSesion" layoutX="147.0" layoutY="482.0" mnemonicParsing="false" onAction="#IniciarSesion" prefHeight="68.0" prefWidth="232.0" styleClass="btn_iniciarSesion" text="Iniciar Sesión" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="20.0" />
                </font>
@@ -35,17 +35,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="140.0" layoutY="439.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="246.0" style="-fx-background-color: FFFFFF;" text="¿Olvidaste la contraseña?">
+            <Button layoutX="140.0" layoutY="550.0" mnemonicParsing="false" onMouseClicked="#OlvidasteLaContrasena" prefHeight="30.0" prefWidth="246.0" style="-fx-background-color: FFFFFF;" text="¿Olvidaste la contraseña?">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="200.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/circle-user.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
-      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="675.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../img/usuario%20(1).png" />
-         </image>
-      </ImageView>
    </children>
 </Pane>

@@ -28,11 +28,11 @@
     -fx-transition-duration:1s;
 }
 .carta {
-    -fx-background-color: #000C54;
+    -fx-background-color: #F1F6F9;
     -fx-background-radius: 60px;
-    -fx-border-radius: 60px;
+    -fx-border-radius: 59px;
     -fx-border-width: 3px;
-    -fx-border-color: white;
+    -fx-border-color: black;
     /*-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10,0,0,1 );*/
     -fx-transition: background-color 0.3s;
 }
@@ -40,7 +40,10 @@
 .carta:hover {
     -fx-border-radius: 60px;
       -fx-transition: background-color 0.3s;
-    -fx-background-color: #000CFF;
+    -fx-background-color: #E5E5E5;
+}
+.texto-carta{
+    -fx-text-fill: black;
 }
 
 .tab {
@@ -50,7 +53,7 @@
 
 /* Estilo para las pestañas cuando están seleccionadas */
 .tab:selected {
-    -fx-background-color: #ffffff; 
+    -fx-background-color: #F1F6F9;
     -fx-border-color: blue; 
     -fx-border-width: 0 0 2px 0;
 }
@@ -73,3 +76,4 @@
     /*-fx-background-image: url("@../../../img/fondo.png");*/
     -fx-background-size: cover;
 }
+

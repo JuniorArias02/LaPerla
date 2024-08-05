@@ -12,16 +12,16 @@
       <URL value="@../modelo/estilosSubVentanas.css" />
    </stylesheets>
    <children>
-      <Pane prefHeight="46.0" prefWidth="800.0" style="-fx-background-color: F2F2F2;">
+      <Pane layoutX="13.0" layoutY="14.0" prefHeight="46.0" prefWidth="774.0" style="-fx-background-color: F2F2F2;">
          <children>
-            <Label alignment="CENTER" layoutX="-2.0" prefHeight="50.0" prefWidth="800.0" text="MODIFICAR CLIENTE" textAlignment="CENTER">
+            <Label alignment="CENTER" layoutX="-2.0" layoutY="-10.0" prefHeight="63.0" prefWidth="800.0" text="MODIFICAR CLIENTE" textAlignment="CENTER">
                <font>
                   <Font name="Arial Black" size="25.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane layoutY="42.0" prefHeight="559.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../modelo/estilosSubVentanas.css">
+      <Pane layoutY="68.0" prefHeight="533.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../modelo/estilosSubVentanas.css">
          <children>
             <Label alignment="BOTTOM_LEFT" layoutX="32.0" layoutY="33.0" prefHeight="50.0" prefWidth="300.0" text="codigo*" textFill="#707070">
                <font>

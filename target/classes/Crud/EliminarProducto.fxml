@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CrudControllers.EliminarProductoController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CrudControllers.EliminarProductoController">
    <stylesheets>
       <URL value="@../modelo/estilosSubVentanas.css" />
    </stylesheets>
    <children>
-      <Pane prefHeight="46.0" prefWidth="800.0" style="-fx-background-color: F2F2F2;" stylesheets="@../modelo/estilosSubVentanas.css">
+      <Pane layoutX="24.0" layoutY="14.0" prefHeight="46.0" prefWidth="752.0" style="-fx-background-color: F2F2F2;" stylesheets="@../modelo/estilosSubVentanas.css">
          <children>
-            <Label alignment="CENTER" layoutX="-2.0" prefHeight="50.0" prefWidth="800.0" text="ELIMINAR PRODUCTO" textAlignment="CENTER">
+            <Label alignment="CENTER" layoutY="-2.0" prefHeight="50.0" prefWidth="787.0" text="ELIMINAR PRODUCTO" textAlignment="CENTER">
                <font>
                   <Font name="Arial Black" size="25.0" />
                </font>

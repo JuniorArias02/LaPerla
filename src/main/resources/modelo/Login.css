@@ -3,7 +3,6 @@
  */
 
 
-
 .btn_iniciarSesion{
     -fx-background-radius:40px;
     -fx-background-color:#05321D;
@@ -22,6 +21,17 @@
     -fx-text-fill: #333333;
 }
 .panelSesion{
--fx-background-image: url("@../../../img/fondo.png");
+-fx-background-image: url("@../../../img/fondoLogin.png");
     -fx-background-size: cover;
+}
+
+.panelRestablecer{
+-fx-background-image: url("@../../../img/fondoRest.png");
+    -fx-background-size: cover;
+}
+
+.panelRestablecerContra{
+-fx-background-image: url("@../../../img/fondo6.png");
+    -fx-background-size: cover;
+    -fx-border-color: black;
 }
