@@ -108,11 +108,11 @@ public class NuevoProductoController implements Initializable {
                     mostrarAlerta("Error", "Debe seleccionar un proveedor.", String.valueOf(Alert.AlertType.ERROR));
                     return;
                 }
-
-                if (!esTextoValido(nombre)) {
-                    mostrarAlerta("Error", "El nombre del producto solo puede contener letras y espacios.", String.valueOf(Alert.AlertType.ERROR));
-                    return;
-                }
+// apartir de aqui dejara ingresar numeros al nombre producto
+//                if (!esTextoValido(nombre)) {
+//                    mostrarAlerta("Error", "El nombre del producto solo puede contener letras y espacios.", String.valueOf(Alert.AlertType.ERROR));
+//                    return;
+//                }
 
                 if (!esTextoValido(categoria)) {
                     mostrarAlerta("Error", "La categoría del producto solo puede contener letras y espacios.", String.valueOf(Alert.AlertType.ERROR));
@@ -126,7 +126,12 @@ public class NuevoProductoController implements Initializable {
                 if(pro != null){
                     productosController.iniciarCargaDatos();
                     mostrarOperacionExitosa();
+                    Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    Parent root = stage.getOwner().getScene().getRoot();
+                    root.setEffect(null);
+                    stage.close();
                 }
+
             } catch (NumberFormatException num) {
                 mostrarAlerta("Error", "No se pudo agregar el producto: " + num.getMessage(), String.valueOf(Alert.AlertType.ERROR));
             } catch (SQLException e) {

@@ -231,7 +231,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tablaProductos" layoutX="119.0" layoutY="181.0" prefHeight="453.0" prefWidth="1049.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css" tableMenuButtonVisible="true">
+                        <TableView fx:id="tablaProductos" layoutX="119.0" layoutY="181.0" prefHeight="453.0" prefWidth="1049.0" stylesheets="@../../../modelo/diseñoVistaTabla.css" tableMenuButtonVisible="true">
                           <columns>
                             <TableColumn maxWidth="520.0003051757812" minWidth="30.0" prefWidth="52.000030517578125" styleClass="table-column-header" text="#" />
                             <TableColumn fx:id="ProductoCodigoColumna" maxWidth="1392.000732421875" minWidth="30.0" prefWidth="139.2000732421875" styleClass="table-column-header" text="Id" />
@@ -239,7 +239,7 @@
                               <TableColumn fx:id="ProductoCategoriaColumna" maxWidth="2087.9998779296875" minWidth="30.0" prefWidth="208.79998779296875" styleClass="table-column-header" text="Categoria" />
                               <TableColumn fx:id="ProductoPrecioColumna" maxWidth="1551.99951171875" minWidth="30.0" prefWidth="155.199951171875" styleClass="table-column-header" text="Precio" />
                               <TableColumn fx:id="ProductoStockColumna" maxWidth="1912.000732421875" minWidth="30.0" prefWidth="191.2000732421875" styleClass="table-column-header" text="Stock" />
-                              <TableColumn fx:id="ProductoProveedorColumna" prefWidth="128.0" text="Proveedor" />
+                              <TableColumn fx:id="ProductoProveedorColumna" prefWidth="128.0" styleClass="table-column-header" text="Proveedor" />
                           </columns>
                         </TableView>
                         <Pane layoutY="74.0" prefHeight="87.0" prefWidth="1264.0">
@@ -266,7 +266,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1100.0" layoutY="5.0" onMouseClicked="#abrirVentanaModificarProducto" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="50.0" fitWidth="56.0" layoutX="1094.0" layoutY="5.0" onMouseClicked="#abrirVentanaModificarProducto" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/iconizer-pen-square.png" />
                                  </image>

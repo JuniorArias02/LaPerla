@@ -17,26 +17,19 @@
     -fx-alignment: CENTER; /* Alineación del texto */
 }
 
-/* Estilos para las celdas */
-.table-cell {
-    -fx-alignment: CENTER; /* Alineación del contenido de la celda */
-    -fx-font-size: 14px; /* Tamaño de fuente */
-    -fx-text-fill: #666; /* Color del texto */
-    -fx-border-width: 0 0 1px 0;
-    -fx-border-color: #ddd; /* Color del borde */
-    -fx-padding: 8px; /* Espaciado interno */
-}
-
+/* Estilo para filas seleccionadas */
 .table-row-cell:selected {
     -fx-background-color: #ffa500; /* Cambia el color a naranja */
     -fx-text-fill: white; /* Cambia el color del texto a blanco */
 }
 
+/* Estilo para filas normales */
 .table-row-cell {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
 }
 
+/* Estilo para filas impares */
 .table-row-cell:odd {
-    -fx-background-color: #fafafa; /* Color de fondo para filas impares */
+ /*   -fx-background-color: #fafafa;*/ /* Color de fondo para filas impares */
 }

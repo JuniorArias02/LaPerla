@@ -118,11 +118,11 @@ public class ModificarProductoController implements Initializable {
             int stock = Integer.parseInt(this.stockProducto.getText());
             int precio = Integer.parseInt(this.precioProducto.getText());
             String proveedorNombre = (String) this.proveedorProducto.getValue();
-
-            if (!esTextoValido(nombre)) {
-                mostrarMensajeError("El nombre del producto solo puede contener letras y espacios.");
-                return;
-            }
+//lo mismo de aqui
+//            if (!esTextoValido(nombre)) {
+//                mostrarMensajeError("El nombre del producto solo puede contener letras y espacios.");
+//                return;
+//            }
 
             if (!esTextoValido(categoria)) {
                 mostrarMensajeError("La categoría del producto solo puede contener letras y espacios.");
