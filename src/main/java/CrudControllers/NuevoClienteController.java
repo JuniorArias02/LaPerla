@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -33,10 +34,13 @@ public class NuevoClienteController implements Initializable {
     Cliente cli;
     ClienteDao cliDao;
     ClienteController clienteController;
+
     @javafx.fxml.FXML
     private TextField nombreCliente;
+
     @javafx.fxml.FXML
     private TextField codigoCliente;
+
     @javafx.fxml.FXML
     private TextField telefonoCliente;
 
@@ -47,6 +51,27 @@ public class NuevoClienteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         cliDao = new ClienteDao();
+
+        // Filtro para permitir solo números en el campo código del cliente
+        codigoCliente.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                codigoCliente.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        // Filtro para permitir solo números en el campo teléfono del cliente
+        telefonoCliente.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                telefonoCliente.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        // Filtro para permitir solo letras y espacios en el campo nombre del cliente
+        nombreCliente.addEventFilter(javafx.scene.input.KeyEvent.KEY_TYPED, event -> {
+            if (!event.getCharacter().matches("[a-zA-Z\\s]")) {
+                event.consume();
+            }
+        });
     }
 
     public void setClienteController(ClienteController clienteController) {
@@ -55,17 +80,12 @@ public class NuevoClienteController implements Initializable {
 
     @javafx.fxml.FXML
     public void confirmarAgregarCliente(ActionEvent actionEvent) throws IOException {
-        if (this.nombreCliente.getText().isEmpty() || this.nombreCliente.getText().isEmpty() || this.telefonoCliente.getText().isEmpty()) {
+        if (this.codigoCliente.getText().isEmpty() || this.nombreCliente.getText().isEmpty() || this.telefonoCliente.getText().isEmpty()) {
             mostrarOperacionErronea();
         } else {
             Long codigo = Long.valueOf(this.codigoCliente.getText());
             String nombre = this.nombreCliente.getText();
             Long telefono = Long.valueOf(this.telefonoCliente.getText());
-
-            Cliente cli = new Cliente();
-            cli.setCodigo(codigo);
-            cli.setNombre(nombre);
-            cli.setTelefono(telefono);
 
             cli = cliDao.agregarCliente(codigo, nombre, telefono);
             if (cli != null) {
@@ -75,10 +95,7 @@ public class NuevoClienteController implements Initializable {
             } else {
                 mostrarOperacionErronea();
             }
-
-
         }
-        mostrarOperacionExitosa();
     }
 
     public void limpiarCampos() {
@@ -106,7 +123,6 @@ public class NuevoClienteController implements Initializable {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
-
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
         timeline.play();
     }
@@ -122,9 +138,7 @@ public class NuevoClienteController implements Initializable {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
-
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> stage.close()));
         timeline.play();
     }
-
 }
