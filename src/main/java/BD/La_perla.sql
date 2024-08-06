@@ -1,8 +1,11 @@
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: la_perla
+-- Host: 127.0.0.1    Database: tienda
 -- ------------------------------------------------------
 -- Server version	9.0.0
+
+CREATE DATABASE la_perla;
+USE la_perla;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +19,41 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `caja`
+--
+
+
+
+DROP TABLE IF EXISTS `caja`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `caja` (
+  `caja_id` int NOT NULL AUTO_INCREMENT,
+  `caja_numero` int NOT NULL,
+  `caja_nombre` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `caja_estado` varchar(17) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `caja_efectivo` decimal(30,2) NOT NULL,
+  PRIMARY KEY (`caja_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `categoria`
+--
+
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categoria` (
+  `categoria_id` int NOT NULL AUTO_INCREMENT,
+  `categoria_nombre` varchar(50) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `categoria_descripcion` text COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `categoria_estado` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  PRIMARY KEY (`categoria_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `cliente`
 --
 
@@ -23,112 +61,112 @@ DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cliente` (
-  `codigo` int NOT NULL,
-  `nombre` varchar(250) NOT NULL,
-  `telefono` varchar(20) NOT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `cliente_id` int NOT NULL AUTO_INCREMENT,
+  `cliente_nombre` varchar(37) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_apellido` varchar(37) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_genero` varchar(10) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_telefono` varchar(22) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_provincia` varchar(30) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_ciudad` varchar(30) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_direccion` varchar(70) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_email` varchar(50) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_clave` varchar(535) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_foto` varchar(200) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_cuenta_estado` varchar(17) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `cliente_cuenta_verificada` varchar(17) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  PRIMARY KEY (`cliente_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cliente`
+-- Table structure for table `empresa`
 --
 
-LOCK TABLES `cliente` WRITE;
-/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (0,'CLIENTE GENERAL','0'),(12,'yeferson SUEn','3133153114'),(123,'1232','123'),(124,'grt','12323'),(1232,'ye','12323'),(1000322243,'Cliente C','3203333333'),(1000511111,'Cliente E','3205555555'),(1002311104,'Cliente D','3204444444'),(1034422453,'Cliente B','3202222222'),(1093900012,'Cliente A','3201111111');
-/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detalle_venta`
---
-
-DROP TABLE IF EXISTS `detalle_venta`;
+DROP TABLE IF EXISTS `empresa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_venta` (
-<<<<<<< HEAD
-  `codigo` int(11) NOT NULL,
-  `producto` int(11) NOT NULL,
-  `cantidad` int(11)  NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-=======
-  `codigo` int NOT NULL,
-  `producto` int NOT NULL,
-  `cantidad` int NOT NULL,
-  KEY `producto` (`producto`),
-  KEY `codigo` (`codigo`),
-  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`codigo`) REFERENCES `ventas` (`codigo`),
-  CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`producto`) REFERENCES `productos` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `empresa` (
+  `empresa_id` int NOT NULL AUTO_INCREMENT,
+  `empresa_tipo_documento` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `empresa_numero_documento` varchar(35) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `empresa_nombre` varchar(90) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `empresa_telefono` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `empresa_email` varchar(50) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `empresa_direccion` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `empresa_impuesto_nombre` varchar(10) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `empresa_impuesto_porcentaje` int NOT NULL,
+  `empresa_factura_impuestos` varchar(3) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  PRIMARY KEY (`empresa_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
->>>>>>> 75b049ce917caadf69088eafd4e7a2e15947570f
 
 --
--- Dumping data for table `detalle_venta`
+-- Table structure for table `favorito`
 --
 
-LOCK TABLES `detalle_venta` WRITE;
-/*!40000 ALTER TABLE `detalle_venta` DISABLE KEYS */;
-INSERT INTO `detalle_venta` VALUES (2,9,0),(2,11,0),(2,11,0),(2,14,0),(3,16,0),(4,9,0),(4,9,0),(4,10,0),(4,10,0),(4,15,0),(4,16,0),(27,9,0),(28,9,2),(28,10,1),(29,9,1),(29,12,1);
-/*!40000 ALTER TABLE `detalle_venta` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `productos`
---
-
-DROP TABLE IF EXISTS `productos`;
+DROP TABLE IF EXISTS `favorito`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `productos` (
-  `codigo` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(250) NOT NULL,
-  `precio` int NOT NULL,
-  `categoria` varchar(250) NOT NULL,
-  `proveedor` int NOT NULL,
-  `stock` int NOT NULL,
-  PRIMARY KEY (`codigo`),
-  KEY `proveedor` (`proveedor`),
-  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`proveedor`) REFERENCES `proveedor` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=1235 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `favorito` (
+  `favorito_id` int NOT NULL AUTO_INCREMENT,
+  `favorito_fecha` date NOT NULL,
+  `cliente_id` int NOT NULL,
+  `producto_id` int NOT NULL,
+  PRIMARY KEY (`favorito_id`),
+  KEY `cliente_id` (`cliente_id`),
+  KEY `producto_id` (`producto_id`),
+  CONSTRAINT `favorito_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`producto_id`),
+  CONSTRAINT `favorito_ibfk_2` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`cliente_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `productos`
+-- Table structure for table `imagen`
 --
 
-LOCK TABLES `productos` WRITE;
-/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (9,'Producto 11',15000,'Electrónicos',1,50),(10,'Producto 2',25000,'Electrodomésticos',2,100),(11,'Producto 3',35000,'Ropa',3,75),(12,'Producto 4',45000,'Hogar',4,30),(13,'Producto 5',55000,'Electrónicos',5,60),(14,'Producto 6',65000,'Electrodomésticos',1,25),(15,'Producto 7',75000,'Ropa',2,80),(16,'Producto 8',85000,'Hogar',3,40),(1234,'int',1000,'int',1234,100);
-/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `proveedor`
---
-
-DROP TABLE IF EXISTS `proveedor`;
+DROP TABLE IF EXISTS `imagen`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `proveedor` (
-  `codigo` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(250) NOT NULL,
-  `telefono` varchar(20) NOT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=1235 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `imagen` (
+  `imagen_id` int NOT NULL AUTO_INCREMENT,
+  `imagen_nombre` varchar(200) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_id` int NOT NULL,
+  PRIMARY KEY (`imagen_id`),
+  KEY `producto_id` (`producto_id`),
+  CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`producto_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `proveedor`
+-- Table structure for table `producto`
 --
 
-LOCK TABLES `proveedor` WRITE;
-/*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
-INSERT INTO `proveedor` VALUES (1,'Proveedor A','3201234567'),(2,'Proveedor B','3202345678'),(3,'Proveedor C','3203456789'),(4,'Proveedor D','3204567890'),(5,'Proveedor E','3205678901'),(12,'123','122'),(123,'tef','3'),(1234,'tefere','121313');
-/*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `producto` (
+  `producto_id` int NOT NULL AUTO_INCREMENT,
+  `producto_codigo` varchar(50) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_sku` varchar(50) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_nombre` varchar(200) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_descripcion` varchar(535) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_stock` int NOT NULL,
+  `producto_stock_minimo` int NOT NULL,
+  `producto_precio_compra` decimal(30,2) NOT NULL,
+  `producto_precio_venta` decimal(30,2) NOT NULL,
+  `producto_descuento` int NOT NULL,
+  `producto_tipo` varchar(10) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_presentacion` varchar(30) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_marca` varchar(50) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_modelo` varchar(70) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_estado` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_portada` varchar(300) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `categoria_id` int NOT NULL,
+  PRIMARY KEY (`producto_id`),
+  KEY `categoria_id` (`categoria_id`),
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`categoria_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `usuario`
@@ -138,52 +176,87 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `id_usuario` int NOT NULL AUTO_INCREMENT,
-  `usuario` varchar(30) NOT NULL,
-  `nombre` varchar(30) NOT NULL,
-  `gmail` varchar(250) NOT NULL,
-  `clave` varchar(15) NOT NULL,
-  PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `usuario_id` int NOT NULL AUTO_INCREMENT,
+  `usuario_nombre` varchar(37) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `usuario_apellido` varchar(37) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `usuario_telefono` varchar(22) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `usuario_genero` varchar(10) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `usuario_cargo` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `usuario_usuario` varchar(30) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `usuario_email` varchar(50) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `usuario_clave` varchar(535) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `usuario_cuenta_estado` varchar(17) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `usuario_foto` varchar(200) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  PRIMARY KEY (`usuario_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usuario`
+-- Table structure for table `venta`
 --
 
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'admi','administrador','administrador@gmail.com','12345');
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ventas`
---
-
-DROP TABLE IF EXISTS `ventas`;
+DROP TABLE IF EXISTS `venta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ventas` (
-  `codigo` int NOT NULL AUTO_INCREMENT,
-  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `cliente` int DEFAULT NULL,
-  `monto` double NOT NULL,
-  PRIMARY KEY (`codigo`),
-  KEY `cliente` (`cliente`),
-  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cliente`) REFERENCES `cliente` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `venta` (
+  `venta_id` int NOT NULL AUTO_INCREMENT,
+  `venta_codigo` varchar(200) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `venta_fecha` date NOT NULL,
+  `venta_hora` varchar(17) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `venta_tipo_envio` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `venta_impuesto_nombre` varchar(10) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `venta_impuesto_porcentaje` int NOT NULL,
+  `venta_estado_envio` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `venta_estado_pagado` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `venta_subtotal` decimal(30,2) NOT NULL,
+  `venta_impuestos` decimal(30,2) NOT NULL,
+  `venta_total` decimal(30,2) NOT NULL,
+  `venta_costo` decimal(30,2) NOT NULL,
+  `venta_utilidad` decimal(30,2) NOT NULL,
+  `venta_pagado` decimal(30,2) NOT NULL,
+  `venta_cambio` decimal(30,2) NOT NULL,
+  `cliente_id` int NOT NULL,
+  `usuario_id` int NOT NULL,
+  `empresa_id` int NOT NULL,
+  `caja_id` int NOT NULL,
+  PRIMARY KEY (`venta_id`),
+  UNIQUE KEY `venta_codigo` (`venta_codigo`),
+  KEY `cliente_id` (`cliente_id`),
+  KEY `empresa_id` (`empresa_id`),
+  KEY `usuario_id` (`usuario_id`),
+  KEY `caja_id` (`caja_id`),
+  CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`cliente_id`),
+  CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`),
+  CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`empresa_id`) REFERENCES `empresa` (`empresa_id`),
+  CONSTRAINT `venta_ibfk_4` FOREIGN KEY (`caja_id`) REFERENCES `caja` (`caja_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ventas`
+-- Table structure for table `venta_detalle`
 --
 
-LOCK TABLES `ventas` WRITE;
-/*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-INSERT INTO `ventas` VALUES (2,'2024-05-15 22:17:01',NULL,150000),(3,'2024-05-15 22:21:08',1093900012,85000),(4,'2024-05-15 22:22:50',1034422453,215000),(5,'2024-07-22 12:03:50',0,-1666),(6,'2024-07-22 12:06:28',0,-23158),(7,'2024-07-22 12:10:23',0,-33091),(8,'2024-07-22 12:15:34',0,-127125),(9,'2024-07-22 12:26:16',0,-65082303),(10,'2024-07-22 12:27:19',0,11186),(11,'2024-07-22 12:27:23',0,11186),(12,'2024-07-22 12:27:23',0,11186),(13,'2024-07-22 12:27:23',0,11186),(14,'2024-07-22 12:27:24',0,11186),(15,'2024-07-22 12:27:24',0,11186),(16,'2024-07-22 12:27:24',0,11186),(17,'2024-07-22 12:27:24',0,11186),(23,'2024-07-31 19:42:13',0,13413413),(24,'2024-07-31 19:57:36',0,-226),(25,'2024-07-31 20:37:20',0,-225),(26,'2024-07-31 20:37:44',12,-136),(27,'2024-07-31 21:05:08',12,13893),(28,'2024-07-31 21:10:47',12,53630),(29,'2024-07-31 21:18:27',12,-1310135);
-/*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `venta_detalle`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `venta_detalle` (
+  `venta_detalle_id` int NOT NULL,
+  `venta_detalle_cantidad` int NOT NULL,
+  `venta_detalle_precio_compra` decimal(30,2) NOT NULL,
+  `venta_detalle_precio_regular` decimal(30,2) NOT NULL,
+  `venta_detalle_precio_venta` decimal(30,2) NOT NULL,
+  `venta_detalle_total` decimal(30,2) NOT NULL,
+  `venta_detalle_costo` decimal(30,2) NOT NULL,
+  `venta_detalle_utilidad` decimal(30,2) NOT NULL,
+  `venta_detalle_descripcion` varchar(200) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `venta_codigo` varchar(200) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `producto_id` int NOT NULL,
+  KEY `venta_id` (`venta_codigo`),
+  KEY `producto_id` (`producto_id`),
+  CONSTRAINT `venta_detalle_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`producto_id`),
+  CONSTRAINT `venta_detalle_ibfk_3` FOREIGN KEY (`venta_codigo`) REFERENCES `venta` (`venta_codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -194,4 +267,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-02 15:06:31
+-- Dump completed on 2024-08-06 10:31:39

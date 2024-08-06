@@ -3,46 +3,45 @@
  */
 
 /* Estilo para TableView */
-.PanelInicio:hover{
-    -fx-background-color:#000C25;
+.panelTituloTexto {
+    -fx-text-fill: black;
+    -fx-transition-duration: 1s;
+}
 
+.PanelInicio:hover,
+.PanelProductos:hover,
+.PanelVentas:hover,
+.PanelClientes:hover,
+.PanelProveedor:hover {
+    -fx-background-color: #000C25;
+    -fx-transition-duration: 1s;
 }
-.PanelProductos:hover{
-   -fx-background-color:#000C25;
 
+.PanelInicio:hover,
+.PanelClientes:hover {
+    -fx-text-fill: black;
 }
-.PanelVentas:hover{
-    -fx-background-color:#000C25;
-    -fx-transition-duration:1s;
+
+.PanelSalir:hover {
+    -fx-background-color: #C62433;
+    -fx-transition-duration: 1s;
 }
-.PanelClientes:hover{
-    -fx-background-color:#000C25;
-    -fx-transition-duration:1s;
-}
-.PanelProveedor:hover{
-    -fx-background-color:#000C25;
-    -fx-transition-duration:1s;
-}
-.PanelSalir:hover{
-    -fx-background-color:#C62433;
-    -fx-transition-duration:1s;
-}
+
 .carta {
     -fx-background-color: #F1F6F9;
     -fx-background-radius: 60px;
     -fx-border-radius: 59px;
     -fx-border-width: 3px;
     -fx-border-color: black;
-    /*-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10,0,0,1 );*/
     -fx-transition: background-color 0.3s;
 }
 
 .carta:hover {
     -fx-border-radius: 60px;
-      -fx-transition: background-color 0.3s;
     -fx-background-color: #E5E5E5;
 }
-.texto-carta{
+
+.texto-carta {
     -fx-text-fill: black;
 }
 
@@ -51,29 +50,33 @@
     -fx-background-color: #f0f0f0;
 }
 
-/* Estilo para las pestañas cuando están seleccionadas */
 .tab:selected {
     -fx-background-color: #F1F6F9;
-    -fx-border-color: blue; 
+    -fx-border-color: blue;
     -fx-border-width: 0 0 2px 0;
 }
+
 .tab:selected .focus-indicator {
     -fx-border-color: transparent;
 }
-.txtField{
--fx-border-width: 0 0 1 0;
+
+.txtField {
+    -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color: black;
-    -fx-font-family: "Arial"; /* Cambia "Arial" por el nombre de la fuente que desees */
-    -fx-font-size: 18pt; /* Ajusta el tamaño de la fuente */
-    -fx-text-fill: #333; /* Color del texto */
-    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%); /* Color del texto de sugerencia */
+    -fx-font-family: "Arial";
+    -fx-font-size: 18pt;
+    -fx-text-fill: #333;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
 }
 
-}
-/* esta parte es para poner imagen de fondo*/
-.PanelPrincipal{
+/* Imagen de fondo */
+.PanelPrincipal {
     /*-fx-background-image: url("@../../../img/fondo.png");*/
     -fx-background-size: cover;
+}
+
+.PanelNavegacionIzquierda {
+    -fx-background-color: #53D4FF;
 }
 
