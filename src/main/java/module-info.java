@@ -18,6 +18,7 @@ module com.mycompany.la_perla {
     requires java.desktop;
     requires jdk.jfr;
     requires itextpdf;
+    requires java.mail;
 
     exports com.mycompany.la_perla;
     exports CrudControllers;

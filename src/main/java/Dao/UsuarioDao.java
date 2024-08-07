@@ -10,17 +10,33 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Properties;
+import java.util.Random;
 
 public class UsuarioDao {
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
+
+    private Connection connection;
+
+    public UsuarioDao() {
+        try {
+            this.connection = new Conexion().getConexion(); // Inicializa la conexión aquí
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public UsuarioDao(Connection connection) {
+        this.connection = connection;
+    }
 
     public Usuario login(String usuario, String clave) throws IOException {
         String sql = "SELECT * FROM usuario WHERE usuario = ? AND clave = ?";
@@ -107,6 +123,133 @@ public class UsuarioDao {
         }
         return us;
     }
+
+
+
+    public boolean validarUsuarioYCorreo(String usuario, String gmail) throws SQLException {
+        String query = "SELECT id_usuario FROM usuario WHERE usuario = ? AND gmail = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, usuario);
+            stmt.setString(2, gmail);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    public String generarCodigoVerificacion(int longitud) {
+        Random random = new Random();
+        StringBuilder codigo = new StringBuilder(longitud);
+        for (int i = 0; i < longitud; i++) {
+            codigo.append(random.nextInt(10));
+        }
+        return codigo.toString();
+    }
+
+    public void almacenarCodigoVerificacion(int idUsuario, String codigo) throws SQLException {
+        String query = "INSERT INTO codigo_verificacion (id_usuario, codigo, fecha_expiracion) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idUsuario);
+            stmt.setString(2, codigo);
+            stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis() + 3600 * 1000)); // 1 hora de expiración
+            stmt.executeUpdate();
+        }
+    }
+
+    public void enviarCorreo(String toEmail, String codigo) {
+        final String fromEmail = "proyectolaperla18@gmail.com"; // Correo de remitente
+        final String password = "gmxs sofw ikvp zwuw"; // Contraseña del remitente
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(fromEmail, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+            message.setSubject("Código de Verificación");
+            message.setText("Tu código de verificación es: " + codigo);
+
+            Transport.send(message);
+            System.out.println("Correo enviado exitosamente!");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void recuperarContrasena(String usuario, String gmail) throws SQLException {
+        if (validarUsuarioYCorreo(usuario, gmail)) {
+            String codigo = generarCodigoVerificacion(6);
+            int idUsuario = obtenerIdUsuarioPorCorreo(gmail);
+            almacenarCodigoVerificacion(idUsuario, codigo);
+            enviarCorreo(gmail, codigo);
+        } else {
+            throw new SQLException("Usuario o correo no válidos");
+        }
+    }
+
+    private int obtenerIdUsuarioPorCorreo(String gmail) throws SQLException {
+        String query = "SELECT id_usuario FROM usuario WHERE gmail = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, gmail);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_usuario");
+                } else {
+                    throw new SQLException("Correo no encontrado");
+                }
+            }
+        }
+    }
+
+    public boolean validarCodigo(String codigo) throws SQLException {
+        String query = "SELECT id_usuario FROM codigo_verificacion WHERE codigo = ? AND fecha_expiracion > CURRENT_TIMESTAMP";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, codigo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    // Método para actualizar la contraseña
+    public void actualizarContrasena(String codigo, String nuevaContrasena) throws SQLException {
+        // Obtener el id del usuario a partir del código de verificación
+        int idUsuario = obtenerIdUsuarioPorCodigo(codigo);
+
+        // Actualizar la contraseña del usuario
+        String query = "UPDATE usuario SET clave = ? WHERE id_usuario = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, nuevaContrasena);
+            stmt.setInt(2, idUsuario);
+            stmt.executeUpdate();
+        }
+    }
+
+    private int obtenerIdUsuarioPorCodigo(String codigo) throws SQLException {
+        String query = "SELECT id_usuario FROM codigo_verificacion WHERE codigo = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, codigo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_usuario");
+                } else {
+                    throw new SQLException("Código de verificación no encontrado");
+                }
+            }
+        }
+    }
+
 
     private void mostrarErrorConexionError() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/alertas/ErrorConexionBD.fxml"));
