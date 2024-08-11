@@ -178,6 +178,60 @@ public class ProductosDao {
         return productoList;
     }
 
+    public boolean validarStock(int codigoProducto, int cantidadSolicitada) {
+        String sql = "SELECT stock FROM productos WHERE codigo = ?";
+        try {
+            con = cn.getConnection();  // Obtener la conexión desde tu clase Conexion
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigoProducto);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int stockDisponible = rs.getInt("stock");
+                return cantidadSolicitada <= stockDisponible;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;  // Si no se encontró el producto o hubo un error, retornar false
+    }
+
+    public int obtenerStock(int idProducto) {
+        int stock = 0;
+        String sql = "SELECT stock FROM productos WHERE codigo = ?";
+        try {
+            con = cn.getConnection();
+            if (con == null) {
+                throw new SQLException("Failed to establish a database connection.");
+            }
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idProducto);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                stock = rs.getInt("stock");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return stock;
+    }
 
     private void mostrarAlerta(String titulo, String mensaje, String detalles) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);

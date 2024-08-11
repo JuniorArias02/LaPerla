@@ -231,7 +231,7 @@ public class PrincipalController implements Initializable {
                         // Maneja el caso donde se encontró y/o se actualizó el producto
                         System.out.println("Producto agregado/actualizado: " + producto);
                     }
-                    agregarProductoVenta.setText("");
+//                    agregarProductoVenta.setText("");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

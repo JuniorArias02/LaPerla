@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Main-Class: com.mycompany.la_perla.App
+Class-Path: javax.mail-1.6.2.jar mysql-connector-java-8.0.21.jar javafx-
+ fxml-21-win.jar protobuf-java-3.11.4.jar activation-1.1.jar javafx-fxml
+ -21.jar itextpdf-5.5.13.4.jar javafx-base-21.jar javafx-base-21-win.jar
+  javafx-controls-21.jar javafx-controls-21-win.jar javafx-graphics-21.j
+ ar javafx-graphics-21-win.jar AbsoluteLayout-RELEASE90.jar
+
