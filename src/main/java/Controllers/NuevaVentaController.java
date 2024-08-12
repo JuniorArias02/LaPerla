@@ -4,16 +4,13 @@ import Dao.Productos;
 import Dao.ProductosDao;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +22,8 @@ public class NuevaVentaController {
     private TableColumn<Productos, Integer> productoCantidadColumna;
     private TableColumn<Productos, Double> productoPrecioColumna;
     private TableColumn<Productos, Double> productoTotalColumna;
+    private TableColumn<Productos, Integer> productoStockVentaColumn;
+
     private Label TotalVentaPago;
 
     private ProductosDao productosDao = new ProductosDao();
@@ -35,13 +34,14 @@ public class NuevaVentaController {
                                 TableColumn<Productos, Integer> productoCantidadColumna,
                                 TableColumn<Productos, Double> productoPrecioColumna,
                                 TableColumn<Productos, Double> productoTotalColumna,
-                                Label TotalVentaPago) {
+                                Label TotalVentaPago, TableColumn productoStockVentaColumn) {
         this.tablaNuevaVentas = tablaNuevaVentas;
         this.productoIdColumna = productoIdColumna;
         this.productoNombreColumna = productoNombreColumna;
         this.productoCantidadColumna = productoCantidadColumna;
         this.productoPrecioColumna = productoPrecioColumna;
         this.productoTotalColumna = productoTotalColumna;
+        this.productoStockVentaColumn = productoStockVentaColumn;
         this.TotalVentaPago = TotalVentaPago;
 
         initialize();
@@ -57,6 +57,7 @@ public class NuevaVentaController {
         productoCantidadColumna.setCellValueFactory(new PropertyValueFactory<>("cantidadProducto"));
         productoPrecioColumna.setCellValueFactory(new PropertyValueFactory<>("precioProducto"));
         productoTotalColumna.setCellValueFactory(new PropertyValueFactory<>("total"));
+        productoStockVentaColumn.setCellValueFactory(new PropertyValueFactory<>("stockProducto"));
     }
 
     public ObservableList<Productos> getProductosEnVenta() {
@@ -73,7 +74,7 @@ public class NuevaVentaController {
 
 
     public Productos agregarProductoATabla(int id) throws SQLException {
-        Productos productoDevuelto = null; // Variable para almacenar el producto a devolver
+        Productos productoDevuelto = null;
         try {
             Productos productoExistente = null;
             for (Productos producto : tablaNuevaVentas.getItems()) {
@@ -86,19 +87,28 @@ public class NuevaVentaController {
             if (productoExistente != null) {
                 // Si el producto ya existe en la tabla, actualiza la cantidad
                 int nuevaCantidad = productoExistente.getCantidadProducto() + 1;
-                productoExistente.setCantidadProducto(nuevaCantidad);
-                productoExistente.setTotal(productoExistente.getPrecioProducto() * nuevaCantidad);
+                int stockDisponible = productoExistente.getStockProducto();
 
-                tablaNuevaVentas.refresh();
-                productoDevuelto = productoExistente; // Devuelve el producto actualizado
+                if (nuevaCantidad <= stockDisponible) {
+                    productoExistente.setCantidadProducto(nuevaCantidad);
+                    productoExistente.setTotal(productoExistente.getPrecioProducto() * nuevaCantidad);
+                    tablaNuevaVentas.refresh();
+                    productoDevuelto = productoExistente; // Devuelve el producto actualizado
+                } else {
+                    mostrarAlerta("Stock insuficiente", "No hay suficiente stock disponible para este producto.", "");
+                }
             } else {
                 // Si el producto no existe en la tabla, búscalo en la base de datos
                 Productos productoNuevo = productosDao.buscarProducto(id);
                 if (productoNuevo != null) {
-                    productoNuevo.setCantidadProducto(1);
-                    productoNuevo.setTotal(productoNuevo.getPrecioProducto() * productoNuevo.getCantidadProducto());
-                    tablaNuevaVentas.getItems().add(productoNuevo);
-                    productoDevuelto = productoNuevo; // Devuelve el nuevo producto agregado
+                    if (productoNuevo.getStockProducto() > 0) {
+                        productoNuevo.setCantidadProducto(1);
+                        productoNuevo.setTotal(productoNuevo.getPrecioProducto() * productoNuevo.getCantidadProducto());
+                        tablaNuevaVentas.getItems().add(productoNuevo);
+                        productoDevuelto = productoNuevo; // Devuelve el nuevo producto agregado
+                    } else {
+                        mostrarAlerta("Stock insuficiente", "El producto no tiene stock disponible.", "");
+                    }
                 } else {
                     System.out.println("Producto no encontrado");
                 }
@@ -110,7 +120,15 @@ public class NuevaVentaController {
             e.printStackTrace();
         }
 
-        return productoDevuelto; // Devuelve el producto o null si no se encontró
+        return productoDevuelto; //
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje, String detalles) {
+        Alert alerta = new Alert(Alert.AlertType.WARNING);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(mensaje);
+        alerta.setContentText(detalles);
+        alerta.showAndWait();
     }
 
     public void eliminarProductoSeleccionado() {

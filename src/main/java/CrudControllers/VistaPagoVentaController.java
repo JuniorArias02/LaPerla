@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Controllers.NuevaVentaController;
+import Controllers.ProductosController;
 import Controllers.VentasController;
 import Dao.*;
 import com.mycompany.la_perla.PrincipalController;
@@ -42,6 +43,8 @@ public class VistaPagoVentaController implements Initializable {
     PrincipalController principalController;
     NuevaVentaController nuevaVentaController;
     VentasController ventasController;
+
+    ProductosDao productosDao = new ProductosDao();
 
     @javafx.fxml.FXML
     private TextField nombreCliente;
@@ -94,7 +97,7 @@ public class VistaPagoVentaController implements Initializable {
             String montoTotalStr = this.montoTotal.getText();
             String cantidadRecibidaStr = cantidadRecibida.getText();
 
-            if (validarPrecioVenta(montoTotalStr, cantidadRecibidaStr) == false) {
+            if (!validarPrecioVenta(montoTotalStr, cantidadRecibidaStr)) {
                 System.out.println("El monto recibido debe ser mayor o igual al monto total.");
                 ErrorMontoIncorrecto();
                 return;
@@ -112,10 +115,35 @@ public class VistaPagoVentaController implements Initializable {
                 return;
             }
 
+            // Validar stock antes de realizar cualquier cambio en la base de datos
+            boolean stockValido = true;
+            for (Productos producto : productos) {
+                int stockActual = productosDao.obtenerStock(producto.getCodigoProducto());
+                int nuevaCantidad = stockActual - producto.getCantidadProducto();
+
+                if (nuevaCantidad < 0) {
+                    stockValido = false;
+                    break;
+                }
+            }
+
+            if (!stockValido) {
+                ErrorStockInsuficiente();
+                return; // Cancela la operación si el stock no es suficiente
+            }
+
+            // Si el stock es válido, proceder con la actualización y el registro de ventas
+            for (Productos producto : productos) {
+                int stockActual = productosDao.obtenerStock(producto.getCodigoProducto());
+                int nuevaCantidad = stockActual - producto.getCantidadProducto();
+                productosDao.actualizarStock(producto.getCodigoProducto(), nuevaCantidad);
+            }
+
             // Registrar cada detalle de venta
             for (Productos producto : productos) {
                 ventasDao.detalle_venta(producto.getCodigoProducto(), producto.getCantidadProducto());
             }
+            principalController.getProductosController().cargarDatosEnTabla("");
             mostrarOperacionExitosa();
             ventasController.iniciarCargaDatos();
             limpiarTablaYCampos();
@@ -127,6 +155,15 @@ public class VistaPagoVentaController implements Initializable {
             stage.close();
         }
     }
+
+    private void ErrorStockInsuficiente() {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle("Error de Stock");
+        alerta.setHeaderText("Stock insuficiente");
+        alerta.setContentText("No hay suficiente stock para completar la venta. Verifica la cantidad disponible e intenta nuevamente.");
+        alerta.showAndWait();
+    }
+
 
     @javafx.fxml.FXML
     public void operacionCancelarVenta(ActionEvent actionEvent) throws IOException {

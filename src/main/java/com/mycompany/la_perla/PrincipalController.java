@@ -186,6 +186,8 @@ public class PrincipalController implements Initializable {
     public TableColumn productoTotalColumna;
     @FXML
     public Label TotalVentaPago;
+    @FXML
+    private TableColumn productoStockVentaColumn;
 
 
     /**
@@ -216,7 +218,7 @@ public class PrincipalController implements Initializable {
         productosController = new ProductosController(pro, proDao, this);
         clienteController = new ClienteController(cli, cliDao, this);
         ventasController = new VentasController(vent, ventDao, this);
-        nuevaVentaController = new NuevaVentaController(tablaNuevaVentas, productoIdColumna, productoNombreColumna, productoCantidadColumna, productoPrecioColumna, productoTotalColumna, TotalVentaPago);
+        nuevaVentaController = new NuevaVentaController(tablaNuevaVentas, productoIdColumna, productoNombreColumna, productoCantidadColumna, productoPrecioColumna, productoTotalColumna, TotalVentaPago,productoStockVentaColumn);
 
         agregarProductoVenta.setOnAction(event -> {
             String idText = agregarProductoVenta.getText();
@@ -249,6 +251,9 @@ public class PrincipalController implements Initializable {
         clienteController.iniciarCargaDatos();
         ventasController.iniciarCargaDatos();
 
+    }
+    public ProductosController getProductosController() {
+        return productosController;
     }
 
     public void inicializarColumnasNuevaVenta(){
@@ -753,6 +758,7 @@ public class PrincipalController implements Initializable {
     }
 
 
+    @FXML
     public void GenerarFacturaVenta(MouseEvent mouseEvent) {
         Ventas ventaSeleccionada = (Ventas) tablaVentas.getSelectionModel().getSelectedItem();
 
