@@ -13,7 +13,7 @@
 .PanelVentas:hover,
 .PanelClientes:hover,
 .PanelProveedor:hover {
-    -fx-background-color: #000C25;
+    -fx-background-color: #21DDEB;
     -fx-transition-duration: 1s;
 }
 

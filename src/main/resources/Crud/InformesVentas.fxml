@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CrudControllers.GenerarInformesController">
+   <stylesheets>
+      <URL value="@../modelo/estilosSubVentanas.css" />
+   </stylesheets>
+   <children>
+      <Pane layoutX="23.0" layoutY="14.0" prefHeight="46.0" prefWidth="755.0" style="-fx-background-color: F2F2F2;">
+         <children>
+            <Label alignment="CENTER" layoutX="-2.0" prefHeight="50.0" prefWidth="800.0" text="Informes" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Black" size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutY="63.0" prefHeight="538.0" prefWidth="800.0" stylesheets="@../modelo/estilosSubVentanas.css">
+         <children>
+            <Label alignment="BOTTOM_LEFT" layoutX="32.0" layoutY="63.0" prefHeight="50.0" prefWidth="300.0" text="Fecha" textFill="#707070">
+               <font>
+                  <Font name="Arial" size="22.0" />
+               </font>
+            </Label>
+            <Button layoutX="48.0" layoutY="449.0" mnemonicParsing="false" onAction="#salirVentanaInforme" prefHeight="50.0" prefWidth="200.0" text="SALIR" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btn_border" />
+                  <String fx:value="btn_cancelar" />
+               </styleClass>
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button layoutX="272.0" layoutY="449.0" mnemonicParsing="false" onAction="#generarIInforme" prefHeight="50.0" prefWidth="200.0" text="GENERAR" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btn_border" />
+                  <String fx:value="btn_agregar" />
+               </styleClass>
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <DatePicker layoutX="32.0" layoutY="134.0" />
+            <Button layoutX="490.0" layoutY="449.0" mnemonicParsing="false" onAction="#generarIInformeGlobal" prefHeight="50.0" prefWidth="306.0" text="INFORME COMPLETO" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="btn_border" />
+                  <String fx:value="btn_agregar" />
+               </styleClass>
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

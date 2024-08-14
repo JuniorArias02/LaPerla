@@ -11,6 +11,16 @@ public class Productos {
     private String nombreProveedor;
     private int cantidadProducto;
     private int total;
+    private int totalCantidad;
+
+
+    public int getTotalCantidad() {
+        return totalCantidad;
+    }
+
+    public void setTotalCantidad(int totalCantidad) {
+        this.totalCantidad = totalCantidad;
+    }
 
     public int getTotal() {
         return total;

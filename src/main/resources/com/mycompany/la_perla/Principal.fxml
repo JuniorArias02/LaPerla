@@ -306,6 +306,11 @@
                                     <Image url="@../../../img/factura.png" />
                                  </image>
                               </ImageView>
+                              <ImageView fitHeight="63.0" fitWidth="60.0" layoutX="923.0" layoutY="-1.0" onMouseClicked="#AbrirGenerarInforme" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/reporte.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </Pane>
                         <TableView fx:id="tablaVentas" layoutX="119.0" layoutY="191.0" prefHeight="453.0" prefWidth="914.0" style="-fx-background-color: white;" styleClass="table-cell" stylesheets="@../../../modelo/diseñoVistaTabla.css">

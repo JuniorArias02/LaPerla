@@ -777,4 +777,24 @@ public class PrincipalController implements Initializable {
             mostrarAlerta("Advertencia", "Selecciona una venta para generar la factura", "");
         }
     }
+
+    @FXML
+    public void AbrirGenerarInforme(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Crud/InformesVentas.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = PanelPrincipal.getScene();
+
+        BoxBlur blurEffect = new BoxBlur(5, 5, 3);
+        scene.getRoot().setEffect(blurEffect);
+
+        Stage nuevaVentana = new Stage();
+        nuevaVentana.setScene(new Scene(root));
+        nuevaVentana.setTitle("informes");
+        nuevaVentana.initModality(Modality.APPLICATION_MODAL);
+        nuevaVentana.initStyle(StageStyle.UNDECORATED);
+        nuevaVentana.initOwner(((Node) mouseEvent.getSource()).getScene().getWindow());
+        nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
+        nuevaVentana.show();
+    }
 }

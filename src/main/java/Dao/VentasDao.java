@@ -371,5 +371,88 @@ public class VentasDao {
 //        }
 //    }
 
+//    generar informes
+
+    // Obtener productos más vendidos
+    public List<ProductoMasVendido> obtenerProductosMasVendidos() throws SQLException {
+        List<ProductoMasVendido> productosMasVendidos = new ArrayList<>();
+        String sql = "SELECT p.codigo, p.nombre, SUM(dv.cantidad) as totalCantidad " +
+                "FROM detalle_venta dv " +
+                "JOIN productos p ON dv.producto = p.codigo " +
+                "GROUP BY p.codigo, p.nombre " +
+                "ORDER BY totalCantidad DESC";
+
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ProductoMasVendido producto = new ProductoMasVendido();
+                producto.setProductoId(rs.getInt("codigo"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setTotalCantidad(rs.getInt("totalCantidad"));
+                productosMasVendidos.add(producto);
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (con != null) con.close();
+        }
+
+        return productosMasVendidos;
+    }
+
+    // Obtener clientes más frecuentes
+    public List<ClienteFrecuente> obtenerClientesFrecuentes() throws SQLException {
+        List<ClienteFrecuente> clientesFrecuentes = new ArrayList<>();
+        String sql = "SELECT c.codigo, c.nombre, COUNT(v.codigo) as totalCompras " +
+                "FROM ventas v " +
+                "JOIN cliente c ON v.cliente = c.codigo " +
+                "GROUP BY c.codigo, c.nombre " +
+                "ORDER BY totalCompras DESC";
+
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ClienteFrecuente cliente = new ClienteFrecuente();
+                cliente.setClienteId(rs.getInt("codigo"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setTotalCompras(rs.getInt("totalCompras"));
+                clientesFrecuentes.add(cliente);
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (con != null) con.close();
+        }
+
+        return clientesFrecuentes;
+    }
+
+    // Obtener ganancias totales
+    public double obtenerGananciasTotales() throws SQLException {
+        double gananciasTotales = 0;
+        String sql = "SELECT SUM(monto) as totalGanancias FROM ventas";
+
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                gananciasTotales = rs.getDouble("totalGanancias");
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (con != null) con.close();
+        }
+
+        return gananciasTotales;
+    }
 
 }
