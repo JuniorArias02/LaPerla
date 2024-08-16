@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="PanelPrincipal" prefHeight="800.0" prefWidth="1550.0" style="-fx-background-color: FFFFFF;" styleClass="PanelPrincipal" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.la_perla.PrincipalController">
+<Pane fx:id="PanelPrincipal" prefHeight="800.0" prefWidth="1550.0" style="-fx-background-color: FFFFFF;" styleClass="PanelPrincipal" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.la_perla.PrincipalController">
    <children>
       <Pane fx:id="menu" layoutX="-1.0" layoutY="2.0" prefHeight="800.0" prefWidth="286.0" styleClass="PanelNavegacionIzquierda">
          <children>
@@ -146,6 +146,11 @@
             <Label fx:id="numeroTotalVentasAlDia" layoutX="1167.0" layoutY="15.0" prefHeight="42.0" prefWidth="89.0" text="0">
                <font>
                   <Font name="Arial" size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="1012.0" layoutY="20.0" prefHeight="32.0" prefWidth="144.0" text="Ventas totales">
+               <font>
+                  <Font size="22.0" />
                </font>
             </Label>
          </children></Pane>
