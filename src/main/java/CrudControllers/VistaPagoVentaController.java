@@ -145,6 +145,7 @@ public class VistaPagoVentaController implements Initializable {
             }
             principalController.getProductosController().cargarDatosEnTabla("");
             mostrarOperacionExitosa();
+            principalController.actualizarNumeroTotalVentasAlDia();
             ventasController.iniciarCargaDatos();
             limpiarTablaYCampos();
 

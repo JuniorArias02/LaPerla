@@ -20,6 +20,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -188,6 +189,8 @@ public class PrincipalController implements Initializable {
     public Label TotalVentaPago;
     @FXML
     private TableColumn productoStockVentaColumn;
+    @FXML
+    private Label numeroTotalVentasAlDia;
 
 
     /**
@@ -241,7 +244,7 @@ public class PrincipalController implements Initializable {
                 }
             }
         });
-
+        actualizarNumeroTotalVentasAlDia();
         inicializarColumnasProveedor();
         inicializarColumnasProductos();
         inicializarColumnasCliente();
@@ -251,6 +254,35 @@ public class PrincipalController implements Initializable {
         clienteController.iniciarCargaDatos();
         ventasController.iniciarCargaDatos();
 
+    }
+
+//    public void actualizarNumeroTotalVentasAlDia() {
+//        int totalVentasHoy = ventDao.obtenerTotalVentasHoy();
+//        numeroTotalVentasAlDia.setText(String.valueOf(totalVentasHoy));
+//    }
+    public void actualizarNumeroTotalVentasAlDia() {
+        // Crear el Task para obtener el número total de ventas
+        Task<Integer> task = new Task<>() {
+            @Override
+            protected Integer call() throws Exception {
+                // Llamar al método que obtiene las ventas de hoy desde ventDao
+                return ventDao.obtenerTotalVentasHoy();
+            }
+        };
+
+        // Cuando el Task finalice correctamente, actualiza el Label en el hilo de JavaFX
+        task.setOnSucceeded(event -> {
+            int totalVentasHoy = task.getValue();  // Obtener el resultado del Task
+            numeroTotalVentasAlDia.setText(String.valueOf(totalVentasHoy));  // Actualizar el Label
+        });
+
+        // Manejar posibles errores (opcional)
+        task.setOnFailed(event -> {
+            System.err.println("Error al obtener las ventas del día: " + task.getException());
+        });
+
+        // Iniciar el Task en un nuevo hilo para que no bloquee la interfaz
+        new Thread(task).start();
     }
     public ProductosController getProductosController() {
         return productosController;

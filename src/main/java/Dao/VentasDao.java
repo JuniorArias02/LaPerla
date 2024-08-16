@@ -546,6 +546,23 @@ public List<ProductoMasVendido> obtenerProductosPorFecha(LocalDate fecha) {
         return gananciasTotales;
     }
 
+    public int obtenerTotalVentasHoy() {
+        int totalVentas = 0;
+        String query = "SELECT COUNT(*) AS total_ventas FROM ventas WHERE DATE(fecha) = CURDATE()";
 
+        try (Connection con = cn.getConexion();
+             PreparedStatement ps = con.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                totalVentas = rs.getInt("total_ventas");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalVentas;
+    }
 
 }

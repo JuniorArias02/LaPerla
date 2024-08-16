@@ -143,6 +143,11 @@
                   <Font name="Arial Bold" size="25.0" />
                </font>
             </Label>
+            <Label fx:id="numeroTotalVentasAlDia" layoutX="1167.0" layoutY="15.0" prefHeight="42.0" prefWidth="89.0" text="0">
+               <font>
+                  <Font name="Arial" size="26.0" />
+               </font>
+            </Label>
          </children></Pane>
       <TabPane fx:id="ventana" focusTraversable="false" layoutX="284.0" layoutY="73.0" prefHeight="729.0" prefWidth="1264.0" stylesheets="@../../../modelo/Principal.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
