@@ -52,7 +52,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <DatePicker layoutX="32.0" layoutY="134.0" />
+            <DatePicker fx:id="generarInformeFecha" layoutX="32.0" layoutY="134.0" />
             <Button layoutX="490.0" layoutY="449.0" mnemonicParsing="false" onAction="#generarIInformeGlobal" prefHeight="50.0" prefWidth="306.0" text="INFORME COMPLETO" textFill="WHITE">
                <styleClass>
                   <String fx:value="btn_border" />

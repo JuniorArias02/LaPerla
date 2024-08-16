@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -454,5 +455,97 @@ public class VentasDao {
 
         return gananciasTotales;
     }
+
+
+//    generar informe por fecha
+// Obtener productos más vendidos por fecha
+public List<ProductoMasVendido> obtenerProductosPorFecha(LocalDate fecha) {
+    List<ProductoMasVendido> productosMasVendidos = new ArrayList<>();
+    String query = "SELECT p.codigo, p.nombre, SUM(dv.cantidad) AS cantidad_vendida " +
+            "FROM productos p " +
+            "JOIN detalle_venta dv ON p.codigo = dv.producto " +
+            "JOIN ventas v ON dv.codigo = v.codigo " +
+            "WHERE DATE(v.fecha) = ? " +  // Filtrar por fecha
+            "GROUP BY p.codigo, p.nombre " +
+            "ORDER BY cantidad_vendida DESC";
+
+    try (Connection con = cn.getConexion();
+         PreparedStatement ps = con.prepareStatement(query)) {
+
+        ps.setDate(1, java.sql.Date.valueOf(fecha));  // Convertir LocalDate a SQL Date
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                ProductoMasVendido producto = new ProductoMasVendido();
+                producto.setProductoId(rs.getInt("codigo"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setTotalCantidad(rs.getInt("cantidad_vendida"));
+                productosMasVendidos.add(producto);
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return productosMasVendidos;
+}
+    // Obtener clientes más frecuentes por fecha
+    public List<ClienteFrecuente> obtenerClientesPorFecha(LocalDate fecha) {
+        List<ClienteFrecuente> clientesFrecuentes = new ArrayList<>();
+        String query = "SELECT c.codigo, c.nombre, COUNT(v.codigo) AS numero_compras " +
+                "FROM clientes c " +
+                "JOIN ventas v ON c.codigo = v.cliente " +
+                "WHERE DATE(v.fecha) = ? " +  // Filtrar por fecha
+                "GROUP BY c.codigo, c.nombre " +
+                "ORDER BY numero_compras DESC";
+
+        try (Connection con = cn.getConexion();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setDate(1, java.sql.Date.valueOf(fecha));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ClienteFrecuente cliente = new ClienteFrecuente();
+                    cliente.setClienteId(rs.getInt("codigo"));
+                    cliente.setNombre(rs.getString("nombre"));
+                    cliente.setTotalCompras(rs.getInt("numero_compras"));
+                    clientesFrecuentes.add(cliente);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clientesFrecuentes;
+    }
+
+    public double obtenerGananciasPorFecha(LocalDate fecha) {
+        double gananciasTotales = 0;
+        String query = "SELECT SUM(v.monto) AS total_ganancias " +
+                "FROM ventas v " +
+                "WHERE DATE(v.fecha) = ?";  // Filtrar por fecha
+
+        try (Connection con = cn.getConexion();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setDate(1, java.sql.Date.valueOf(fecha));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    gananciasTotales = rs.getDouble("total_ganancias");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return gananciasTotales;
+    }
+
+
 
 }

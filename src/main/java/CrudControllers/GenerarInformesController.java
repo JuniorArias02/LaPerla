@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;;
 import com.itextpdf.text.pdf.PdfPTable;
 
@@ -25,6 +26,7 @@ import Dao.VentasDao;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -32,10 +34,110 @@ import java.util.List;
 public class GenerarInformesController {
 
     VentasDao ventasDao = new VentasDao();
+    @javafx.fxml.FXML
+    private DatePicker generarInformeFecha;
 
 
     @javafx.fxml.FXML
     public void generarIInforme(ActionEvent actionEvent) {
+        LocalDate fechaSeleccionada = generarInformeFecha.getValue();
+
+        if (fechaSeleccionada != null) {
+            try {
+                // Obtener los datos filtrados por fecha
+                List<ProductoMasVendido> productosMasVendidos = ventasDao.obtenerProductosPorFecha(fechaSeleccionada);
+                List<ClienteFrecuente> clientesFrecuentes = ventasDao.obtenerClientesPorFecha(fechaSeleccionada);
+                double gananciasTotales = ventasDao.obtenerGananciasPorFecha(fechaSeleccionada);
+
+                // Crear el informe en PDF
+                String filePath = "reportes/informe_global_" + fechaSeleccionada + ".pdf";
+                Document document = new Document();
+                PdfWriter.getInstance(document, new FileOutputStream(filePath));
+                document.open();
+
+                // Encabezado
+                PdfPTable headerTable = new PdfPTable(1);
+                headerTable.setWidthPercentage(100);
+                PdfPCell headerCell = new PdfPCell(new Phrase("LA PERLA", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 36, Font.BOLD, BaseColor.BLACK)));
+                headerCell.setBorder(PdfPCell.NO_BORDER);
+                headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                headerTable.addCell(headerCell);
+                document.add(headerTable);
+
+                // Informe de productos más vendidos
+                Paragraph productosTitle = new Paragraph("Productos Más Vendidos - " + fechaSeleccionada, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
+                productosTitle.setSpacingBefore(20);  // Espacio antes del título
+                productosTitle.setSpacingAfter(10);   // Espacio después del título
+                document.add(productosTitle);
+
+                PdfPTable productosTable = new PdfPTable(3);
+                productosTable.setWidthPercentage(100);
+
+                // Encabezado de la tabla de productos
+                PdfPCell cell = new PdfPCell(new Phrase("Código", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                productosTable.addCell(cell);
+                cell.setPhrase(new Phrase("Nombre", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+                productosTable.addCell(cell);
+                cell.setPhrase(new Phrase("Cantidad Vendida", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+                productosTable.addCell(cell);
+
+                // Datos de la tabla de productos
+                for (ProductoMasVendido producto : productosMasVendidos) {
+                    productosTable.addCell(String.valueOf(producto.getProductoId()));
+                    productosTable.addCell(producto.getNombre());
+                    productosTable.addCell(String.valueOf(producto.getTotalCantidad()));
+                }
+                document.add(productosTable);
+
+                // Informe de clientes más frecuentes
+                Paragraph clientesTitle = new Paragraph("Clientes Más Frecuentes - " + fechaSeleccionada, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
+                clientesTitle.setSpacingBefore(30);
+                clientesTitle.setSpacingAfter(10);
+                document.add(clientesTitle);
+
+                PdfPTable clientesTable = new PdfPTable(3);
+                clientesTable.setWidthPercentage(100);
+
+                // Encabezado de la tabla de clientes
+                cell.setPhrase(new Phrase("Código", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                clientesTable.addCell(cell);
+                cell.setPhrase(new Phrase("Nombre", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+                clientesTable.addCell(cell);
+                cell.setPhrase(new Phrase("Número de Compras", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+                clientesTable.addCell(cell);
+
+                // Datos de la tabla de clientes
+                for (ClienteFrecuente cliente : clientesFrecuentes) {
+                    clientesTable.addCell(String.valueOf(cliente.getClienteId()));
+                    clientesTable.addCell(cliente.getNombre());
+                    clientesTable.addCell(String.valueOf(cliente.getTotalCompras()));
+                }
+                document.add(clientesTable);
+
+                // Informe de ganancias totales
+                Paragraph gananciasTitle = new Paragraph("Ganancias Totales - " + fechaSeleccionada, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
+                gananciasTitle.setSpacingBefore(30);
+                gananciasTitle.setSpacingAfter(10);
+                document.add(gananciasTitle);
+
+                Paragraph gananciasTotalesParagraph = new Paragraph("Ganancias Totales: $" + gananciasTotales, FontFactory.getFont(FontFactory.HELVETICA, 14));
+                document.add(gananciasTotalesParagraph);
+
+                // Cerrar el documento
+                document.close();
+
+                // Abrir el PDF automáticamente
+                File pdfFile = new File(filePath);
+                if (pdfFile.exists()) {
+                    Desktop.getDesktop().open(pdfFile);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @javafx.fxml.FXML
