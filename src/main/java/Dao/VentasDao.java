@@ -494,7 +494,7 @@ public List<ProductoMasVendido> obtenerProductosPorFecha(LocalDate fecha) {
     public List<ClienteFrecuente> obtenerClientesPorFecha(LocalDate fecha) {
         List<ClienteFrecuente> clientesFrecuentes = new ArrayList<>();
         String query = "SELECT c.codigo, c.nombre, COUNT(v.codigo) AS numero_compras " +
-                "FROM clientes c " +
+                "FROM cliente c " +
                 "JOIN ventas v ON c.codigo = v.cliente " +
                 "WHERE DATE(v.fecha) = ? " +  // Filtrar por fecha
                 "GROUP BY c.codigo, c.nombre " +

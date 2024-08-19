@@ -67,6 +67,13 @@ public class ModificarProveedorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
+        // Filtro para permitir solo números en el campo teléfono del cliente
+        telefonoProveedor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                telefonoProveedor.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     @javafx.fxml.FXML

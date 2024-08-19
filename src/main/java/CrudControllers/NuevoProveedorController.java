@@ -61,6 +61,21 @@ public class NuevoProveedorController implements Initializable {
                 event.consume();
             }
         });
+
+
+        // Filtro para permitir solo números en el campo código del cliente
+        codigoProveedor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                codigoProveedor.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        // Filtro para permitir solo números en el campo teléfono del cliente
+        telefonoProveedor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                telefonoProveedor.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     @javafx.fxml.FXML

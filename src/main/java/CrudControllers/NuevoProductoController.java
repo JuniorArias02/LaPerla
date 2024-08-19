@@ -85,6 +85,31 @@ public class NuevoProductoController implements Initializable {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
+        // TODO
+        proDao = new ProductosDao();
+
+        // Filtro para permitir solo números en el campo código del cliente
+        codigoProducto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                codigoProducto.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        // Filtro para permitir solo números en el campo teléfono del cliente
+        precioProducto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                precioProducto.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        // Filtro para permitir solo números en el campo teléfono del cliente
+        stockProducto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                stockProducto.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
     }
 
     @FXML

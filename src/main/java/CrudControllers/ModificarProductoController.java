@@ -74,6 +74,20 @@ public class ModificarProductoController implements Initializable {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
+        // Filtro para permitir solo números en el campo teléfono del cliente
+        stockProducto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                stockProducto.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        // Filtro para permitir solo números en el campo teléfono del cliente
+        precioProducto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                precioProducto.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     public void setProductosController(ProductosController productosController) {

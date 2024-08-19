@@ -30,6 +30,33 @@ import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 import java.util.List;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Image;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 
 public class GenerarInformesController {
 
@@ -48,6 +75,23 @@ public class GenerarInformesController {
                 List<ProductoMasVendido> productosMasVendidos = ventasDao.obtenerProductosPorFecha(fechaSeleccionada);
                 List<ClienteFrecuente> clientesFrecuentes = ventasDao.obtenerClientesPorFecha(fechaSeleccionada);
                 double gananciasTotales = ventasDao.obtenerGananciasPorFecha(fechaSeleccionada);
+
+                // Crear el gráfico
+                DefaultPieDataset dataset = new DefaultPieDataset();
+                for (ProductoMasVendido producto : productosMasVendidos) {
+                    dataset.setValue(producto.getNombre(), producto.getTotalCantidad());
+                }
+                JFreeChart chart = ChartFactory.createPieChart(
+                        "Productos Más Vendidos - " + fechaSeleccionada, // Título
+                        dataset,                                       // Datos
+                        true,                                          // Leyenda
+                        true,                                          // Tooltips
+                        false                                          // URLs
+                );
+
+                // Guardar el gráfico como una imagen PNG con tamaño ajustado
+                File chartFile = new File("chart.png");
+                ChartUtils.saveChartAsPNG(chartFile, chart, 400, 300); // Cambia el tamaño aquí (ancho x alto)
 
                 // Crear el informe en PDF
                 String filePath = "reportes/informe_global_" + fechaSeleccionada + ".pdf";
@@ -89,6 +133,15 @@ public class GenerarInformesController {
                     productosTable.addCell(String.valueOf(producto.getTotalCantidad()));
                 }
                 document.add(productosTable);
+
+                // Añadir el gráfico al PDF con tamaño ajustado
+                Image chartImage = Image.getInstance(chartFile.getAbsolutePath());
+                chartImage.scaleToFit(400, 300); // Ajusta el tamaño aquí (ancho x alto)
+                chartImage.setAlignment(Image.ALIGN_CENTER);
+                document.add(chartImage);
+
+                // Espacio antes de la tabla de clientes
+                document.add(new Paragraph("\n"));
 
                 // Informe de clientes más frecuentes
                 Paragraph clientesTitle = new Paragraph("Clientes Más Frecuentes - " + fechaSeleccionada, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
