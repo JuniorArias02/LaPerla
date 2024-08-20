@@ -344,8 +344,8 @@ public class PrincipalController implements Initializable {
             usuarioUsuario.setText(us.getUsuario());
             usuarioNombre.setText(us.getNombre());
             usuarioGmail.setText(us.getGmail());
-            usuarioClave.setText(us.getClave());
-            usuarioConfirmarClave.setText(us.getClave());
+//            usuarioClave.setText(us.getClave());
+//            usuarioConfirmarClave.setText(us.getClave());
         } else {
             mostrarAlerta("Error", "No se encontró información para el usuario con ID: " + id_usuario, "");
         }

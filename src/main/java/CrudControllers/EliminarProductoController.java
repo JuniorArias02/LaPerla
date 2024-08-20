@@ -113,6 +113,10 @@ public class EliminarProductoController implements Initializable {
             productosController.iniciarCargaDatos();
 //            mostrarOperacionExitosa();
 //            cancelarEliminarProducto(actionEvent);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Parent root = stage.getOwner().getScene().getRoot();
+            root.setEffect(null);
+            stage.close();
         }
     }
 

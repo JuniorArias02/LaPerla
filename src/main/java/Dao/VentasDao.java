@@ -3,6 +3,7 @@ package Dao;
 import com.itextpdf.text.*;
 
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -210,24 +211,34 @@ public class VentasDao {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(dest));
             document.open();
 
-            // Añadir encabezado con el texto "LA PERLA"
-            PdfPTable headerTable = new PdfPTable(1);
-            headerTable.setWidthPercentage(100); // Ocupa todo el ancho de la página
+            // Añadir encabezado con texto e imagen
+            PdfPTable headerTable = new PdfPTable(2);
+            headerTable.setWidthPercentage(100);
 
-            // Crear una celda para el texto
-            PdfPCell cell = new PdfPCell();
-            cell.setBorder(PdfPCell.NO_BORDER);
+            // Celda para el texto "LA PERLA"
+            PdfPCell textCell = new PdfPCell();
+            textCell.setBorder(PdfPCell.NO_BORDER);
 
-            // Definir la fuente y el tamaño
             BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.EMBEDDED);
             Font font = new Font(baseFont, 36, Font.BOLD, BaseColor.BLACK);
 
-            // Añadir el texto "LA PERLA"
             Paragraph paragraph = new Paragraph("LA PERLA", font);
-            paragraph.setAlignment(Paragraph.ALIGN_CENTER);
-            cell.addElement(paragraph);
+            paragraph.setAlignment(Paragraph.ALIGN_LEFT);
+            textCell.addElement(paragraph);
 
-            headerTable.addCell(cell);
+            headerTable.addCell(textCell);
+
+            // Celda para la imagen
+            PdfPCell imageCell = new PdfPCell();
+            imageCell.setBorder(PdfPCell.NO_BORDER);
+
+            Image image = Image.getInstance("src/main/resources/img/perla.png"); // Ruta de la imagen
+            image.scaleToFit(200, 150); // Escala la imagen al tamaño deseado
+            image.setAlignment(Image.ALIGN_RIGHT);
+
+            imageCell.addElement(image);
+            headerTable.addCell(imageCell);
+
             document.add(headerTable);
 
             // Información de la venta

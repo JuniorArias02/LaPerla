@@ -12,6 +12,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class RestablecerContrasena {
     @javafx.fxml.FXML
     private Button btnRestablecerContrasena;
@@ -22,10 +24,11 @@ public class RestablecerContrasena {
     @javafx.fxml.FXML
     private PasswordField NuevaContrasena;
 
+    OlvidasteContrasena olvidasteContrasena = new OlvidasteContrasena();
 
     private UsuarioDao usuarioDao;
 
-    public RestablecerContrasena() {
+    public RestablecerContrasena() throws SQLException {
         usuarioDao = new UsuarioDao();
     }
 
@@ -46,12 +49,19 @@ public class RestablecerContrasena {
             return;
         }
 
+        if (!nuevaContrasena.matches("^(?=(.*[A-Za-z]){2})(?=(.*\\d){4}).+$")) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "La contraseña debe tener al menos 2 letras y 4 números.");
+            return;
+        }
+
+
         try {
             // Validar el código y actualizar la contraseña
             boolean codigoValido = usuarioDao.validarCodigo(codigoIngresado);
             if (codigoValido) {
                 usuarioDao.actualizarContrasena(codigoIngresado, nuevaContrasena);
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Contraseña actualizada correctamente.");
+                olvidasteContrasena.setLlave("s");
 
                 // Cerrar la ventana actual
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -59,23 +69,19 @@ public class RestablecerContrasena {
                 root.setEffect(null);
                 stage.close();
 
-                // Abrir la vista de inicio de sesión
-                Stage loginStage = new Stage();
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("Login.fxml"));
-                Parent loginView = loader.load();
-                Scene scene = new Scene(loginView);
-                loginStage.setScene(scene);
-                loginStage.setTitle("Login");
-                loginStage.show();
             } else {
                 mostrarAlerta(Alert.AlertType.ERROR, "Error", "Código inválido.");
             }
         } catch (Exception e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Ocurrió un error al actualizar la contraseña.");
+//            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Ocurrió un error al actualizar la contraseña.");
             e.printStackTrace();
         }
     }
+
+    public void limpiarCampos() {
+
+    }
+
 
     @javafx.fxml.FXML
     public void CancelarOperacion(ActionEvent actionEvent) {

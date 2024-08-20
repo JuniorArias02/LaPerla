@@ -74,7 +74,6 @@ public class EliminarClienteController implements Initializable {
 
     @FXML
     public void confirmarEliminarCliente(ActionEvent actionEvent) throws IOException {
-        mostrarOperacionExitosa();
         Long codigo = Long.valueOf(this.codigoCliente.getText());
 
         cliDao.eliminarCliente(codigo);

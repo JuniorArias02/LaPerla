@@ -7,6 +7,7 @@ import Dao.UsuarioDao;
 import com.mycompany.la_perla.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,16 +20,25 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class OlvidasteContrasena {
+public class OlvidasteContrasena implements Initializable {
 
     @javafx.fxml.FXML
     private TextField usuario;
     @javafx.fxml.FXML
     private Button btnRestablecerContrasena;
+
+    private String llave = "n";
     @javafx.fxml.FXML
-    private PasswordField Correo;
+    private TextField Correo;
+
+    public void setLlave(String llave) {
+        this.llave = llave;
+        System.out.println("la letras es " + llave );
+    }
 
     private UsuarioDao usuarioDao = new UsuarioDao(); // Asumiendo que UsuarioDao toma la conexión en el constructor
 
@@ -37,12 +47,23 @@ public class OlvidasteContrasena {
     }
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            validarVerificacionClave();
+            
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @javafx.fxml.FXML
     public void RestablecerContrasena(ActionEvent actionEvent) throws IOException {
         String usuarioIngresado = usuario.getText();
         String correoIngresado = Correo.getText();
 
-        if (usuarioIngresado.isEmpty() || correoIngresado.isEmpty()) {
+        if (usuarioIngresado.isEmpty() || correoIngresado.isEmpty()){
             mostrarAlerta("error", "Por favor, ingrese su usuario y correo.");
             return;
         }
@@ -79,9 +100,18 @@ public class OlvidasteContrasena {
 
     }
 
+    private  void validarVerificacionClave() throws IOException {
+        if (this.llave == "s"){
+            App.setRoot("Login");
+            this.llave = "n";
+        }
+    }
 
     @javafx.fxml.FXML
     public void RegresarLobby(ActionEvent actionEvent) throws IOException {
         App.setRoot("Login");
+
     }
+
+
 }

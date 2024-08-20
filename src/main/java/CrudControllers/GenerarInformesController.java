@@ -99,13 +99,31 @@ public class GenerarInformesController {
                 PdfWriter.getInstance(document, new FileOutputStream(filePath));
                 document.open();
 
-                // Encabezado
-                PdfPTable headerTable = new PdfPTable(1);
+                // Encabezado con imagen en la esquina superior derecha
+                PdfPTable headerTable = new PdfPTable(2);
                 headerTable.setWidthPercentage(100);
-                PdfPCell headerCell = new PdfPCell(new Phrase("LA PERLA", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 36, Font.BOLD, BaseColor.BLACK)));
-                headerCell.setBorder(PdfPCell.NO_BORDER);
-                headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                headerTable.addCell(headerCell);
+
+                // Celda para el texto "LA PERLA"
+                PdfPCell textCell = new PdfPCell();
+                textCell.setBorder(PdfPCell.NO_BORDER);
+                PdfPCell imageCell = new PdfPCell();
+                imageCell.setBorder(PdfPCell.NO_BORDER);
+
+                BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.EMBEDDED);
+                Font font = new Font(baseFont, 36, Font.BOLD, BaseColor.BLACK);
+
+                Paragraph paragraph = new Paragraph("LA PERLA", font);
+                paragraph.setAlignment(Paragraph.ALIGN_LEFT);
+                textCell.addElement(paragraph);
+
+                // Añadir la imagen
+                Image image = Image.getInstance("src/main/resources/img/perla.png"); // Ruta de la imagen
+                image.scaleToFit(100, 50); // Escala la imagen al tamaño deseado
+                image.setAlignment(Image.ALIGN_RIGHT);
+                imageCell.addElement(image);
+
+                headerTable.addCell(textCell);
+                headerTable.addCell(imageCell);
                 document.add(headerTable);
 
                 // Informe de productos más vendidos

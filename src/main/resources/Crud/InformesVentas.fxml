@@ -23,7 +23,7 @@
       </Pane>
       <Pane layoutY="63.0" prefHeight="538.0" prefWidth="800.0" stylesheets="@../modelo/estilosSubVentanas.css">
          <children>
-            <Label alignment="BOTTOM_LEFT" layoutX="32.0" layoutY="63.0" prefHeight="50.0" prefWidth="300.0" text="Fecha" textFill="#707070">
+            <Label alignment="BOTTOM_LEFT" layoutX="165.0" layoutY="207.0" prefHeight="50.0" prefWidth="150.0" text="Fecha">
                <font>
                   <Font name="Arial" size="22.0" />
                </font>
@@ -52,7 +52,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <DatePicker fx:id="generarInformeFecha" layoutX="32.0" layoutY="134.0" />
+            <DatePicker fx:id="generarInformeFecha" layoutX="315.0" layoutY="207.0" prefHeight="50.0" prefWidth="246.0" />
             <Button layoutX="490.0" layoutY="449.0" mnemonicParsing="false" onAction="#generarIInformeGlobal" prefHeight="50.0" prefWidth="306.0" text="INFORME COMPLETO" textFill="WHITE">
                <styleClass>
                   <String fx:value="btn_border" />
