@@ -1,4 +1,5 @@
 package CrudControllers;
+
 import com.itextpdf.text.*;
 
 import com.itextpdf.text.Font;
@@ -30,6 +31,7 @@ import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 import java.util.List;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -61,20 +63,23 @@ import java.util.List;
 public class GenerarInformesController {
 
     VentasDao ventasDao = new VentasDao();
-    @javafx.fxml.FXML
-    private DatePicker generarInformeFecha;
+    @FXML
+    private DatePicker FechaFin;
+    @FXML
+    private DatePicker FechaInicio;
 
 
     @javafx.fxml.FXML
     public void generarIInforme(ActionEvent actionEvent) {
-        LocalDate fechaSeleccionada = generarInformeFecha.getValue();
+        LocalDate fechaInicio = FechaInicio.getValue();
+        LocalDate fechaFin = FechaFin.getValue();
 
-        if (fechaSeleccionada != null) {
+        if (fechaInicio != null && fechaFin != null && !fechaInicio.isAfter(fechaFin)) {
             try {
-                // Obtener los datos filtrados por fecha
-                List<ProductoMasVendido> productosMasVendidos = ventasDao.obtenerProductosPorFecha(fechaSeleccionada);
-                List<ClienteFrecuente> clientesFrecuentes = ventasDao.obtenerClientesPorFecha(fechaSeleccionada);
-                double gananciasTotales = ventasDao.obtenerGananciasPorFecha(fechaSeleccionada);
+                // Obtener los datos filtrados por rango de fechas
+                List<ProductoMasVendido> productosMasVendidos = ventasDao.obtenerProductosPorRangoFechas(fechaInicio, fechaFin);
+                List<ClienteFrecuente> clientesFrecuentes = ventasDao.obtenerClientesPorRangoFechas(fechaInicio, fechaFin);
+                double gananciasTotales = ventasDao.obtenerGananciasPorRangoFechas(fechaInicio, fechaFin);
 
                 // Crear el gráfico
                 DefaultPieDataset dataset = new DefaultPieDataset();
@@ -82,11 +87,11 @@ public class GenerarInformesController {
                     dataset.setValue(producto.getNombre(), producto.getTotalCantidad());
                 }
                 JFreeChart chart = ChartFactory.createPieChart(
-                        "Productos Más Vendidos - " + fechaSeleccionada, // Título
-                        dataset,                                       // Datos
-                        true,                                          // Leyenda
-                        true,                                          // Tooltips
-                        false                                          // URLs
+                        "Productos Más Vendidos - " + fechaInicio + " a " + fechaFin, // Título
+                        dataset,                                                       // Datos
+                        true,                                                          // Leyenda
+                        true,                                                          // Tooltips
+                        false                                                          // URLs
                 );
 
                 // Guardar el gráfico como una imagen PNG con tamaño ajustado
@@ -94,7 +99,7 @@ public class GenerarInformesController {
                 ChartUtils.saveChartAsPNG(chartFile, chart, 400, 300); // Cambia el tamaño aquí (ancho x alto)
 
                 // Crear el informe en PDF
-                String filePath = "reportes/informe_global_" + fechaSeleccionada + ".pdf";
+                String filePath = "reportes/informe_global_" + fechaInicio + "_a_" + fechaFin + ".pdf";
                 Document document = new Document();
                 PdfWriter.getInstance(document, new FileOutputStream(filePath));
                 document.open();
@@ -127,7 +132,7 @@ public class GenerarInformesController {
                 document.add(headerTable);
 
                 // Informe de productos más vendidos
-                Paragraph productosTitle = new Paragraph("Productos Más Vendidos - " + fechaSeleccionada, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
+                Paragraph productosTitle = new Paragraph("Productos Más Vendidos - " + fechaInicio + " a " + fechaFin, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
                 productosTitle.setSpacingBefore(20);  // Espacio antes del título
                 productosTitle.setSpacingAfter(10);   // Espacio después del título
                 document.add(productosTitle);
@@ -162,7 +167,7 @@ public class GenerarInformesController {
                 document.add(new Paragraph("\n"));
 
                 // Informe de clientes más frecuentes
-                Paragraph clientesTitle = new Paragraph("Clientes Más Frecuentes - " + fechaSeleccionada, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
+                Paragraph clientesTitle = new Paragraph("Clientes Más Frecuentes - " + fechaInicio + " a " + fechaFin, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
                 clientesTitle.setSpacingBefore(30);
                 clientesTitle.setSpacingAfter(10);
                 document.add(clientesTitle);
@@ -188,7 +193,7 @@ public class GenerarInformesController {
                 document.add(clientesTable);
 
                 // Informe de ganancias totales
-                Paragraph gananciasTitle = new Paragraph("Ganancias Totales - " + fechaSeleccionada, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
+                Paragraph gananciasTitle = new Paragraph("Ganancias Totales - " + fechaInicio + " a " + fechaFin, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
                 gananciasTitle.setSpacingBefore(30);
                 gananciasTitle.setSpacingAfter(10);
                 document.add(gananciasTitle);
@@ -208,7 +213,11 @@ public class GenerarInformesController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            // Manejar caso donde las fechas son nulas o inválidas
+            System.out.println("Por favor, seleccione un rango de fechas válido.");
         }
+
     }
 
     @javafx.fxml.FXML
@@ -227,6 +236,25 @@ public class GenerarInformesController {
         List<ProductoMasVendido> productosMasVendidos = ventasDao.obtenerProductosMasVendidos();
         List<ClienteFrecuente> clientesFrecuentes = ventasDao.obtenerClientesFrecuentes();
         double gananciasTotales = ventasDao.obtenerGananciasTotales();
+
+        // Crear gráfico de productos más vendidos
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        for (ProductoMasVendido producto : productosMasVendidos) {
+            dataset.setValue(producto.getNombre(), producto.getTotalCantidad());
+        }
+        JFreeChart chart = ChartFactory.createPieChart(
+                "Productos Más Vendidos", // Título
+                dataset,                  // Datos
+                true,                     // Leyenda
+                true,                     // Tooltips
+                false                     // URLs
+        );
+        File chartFile = new File("chart_global.png");
+        try {
+            ChartUtils.saveChartAsPNG(chartFile, chart, 600, 400); // Cambia el tamaño aquí (ancho x alto)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Ruta del archivo PDF
         String filePath = "reportes/informe_global.pdf";
@@ -248,8 +276,8 @@ public class GenerarInformesController {
 
             // Informe de productos más vendidos
             Paragraph productosTitle = new Paragraph("Productos Más Vendidos", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
-            productosTitle.setSpacingBefore(20); // Espacio antes del título
-            productosTitle.setSpacingAfter(10);  // Espacio después del título
+            productosTitle.setSpacingBefore(20);  // Espacio antes del título
+            productosTitle.setSpacingAfter(10);   // Espacio después del título
             document.add(productosTitle);
 
             PdfPTable productosTable = new PdfPTable(3);
@@ -257,7 +285,7 @@ public class GenerarInformesController {
 
             // Encabezado de la tabla de productos más vendidos
             PdfPCell cell = new PdfPCell(new Phrase("Código", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
-            cell.setBackgroundColor(BaseColor.LIGHT_GRAY); // Color de fondo
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
             productosTable.addCell(cell);
             cell.setPhrase(new Phrase("Nombre", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
             productosTable.addCell(cell);
@@ -272,6 +300,12 @@ public class GenerarInformesController {
             }
             document.add(productosTable);
 
+            // Añadir el gráfico al PDF con tamaño ajustado
+            Image chartImage = Image.getInstance(chartFile.getAbsolutePath());
+            chartImage.scaleToFit(600, 400); // Ajusta el tamaño aquí (ancho x alto)
+            chartImage.setAlignment(Image.ALIGN_CENTER);
+            document.add(chartImage);
+
             // Informe de clientes más frecuentes
             Paragraph clientesTitle = new Paragraph("Clientes Más Frecuentes", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
             clientesTitle.setSpacingBefore(30); // Espacio antes del título
@@ -283,7 +317,7 @@ public class GenerarInformesController {
 
             // Encabezado de la tabla de clientes más frecuentes
             cell.setPhrase(new Phrase("Código", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
-            cell.setBackgroundColor(BaseColor.LIGHT_GRAY); // Color de fondo
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
             clientesTable.addCell(cell);
             cell.setPhrase(new Phrase("Nombre", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
             clientesTable.addCell(cell);
