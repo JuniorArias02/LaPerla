@@ -47,21 +47,19 @@ public class LoginController implements Initializable {
 
     @FXML
     private void IniciarSesion(ActionEvent event) throws IOException {
-        if (this.usuario.getText().isEmpty() ||
-                this.clave.getText().isEmpty()) {
+        if (this.usuario.getText().isEmpty() || this.clave.getText().isEmpty()) {
             mostrarInfoCamposVacios();
         } else {
-            String Usuario = this.usuario.getText();
-            String Clave = this.clave.getText();
-            us = usDao.login(Usuario, Clave);
+            String usuarioIngresado = this.usuario.getText();
+            String claveIngresada = this.clave.getText();
 
+            // Usar el método login de UsuarioDao
+            us = usDao.login(usuarioIngresado, claveIngresada);
 
-            int id_user = us.getId_usuario();
-
-            UsuarioSesion sesion = UsuarioSesion.getInstancia(id_user);
-            PrincipalController.setUsuarioSesion(sesion);
-
-            if (us.getUsuario() != null) {
+            if (us != null) {
+                int id_user = us.getId_usuario();
+                UsuarioSesion sesion = UsuarioSesion.getInstancia(id_user);
+                PrincipalController.setUsuarioSesion(sesion);
                 App.setRoot("Principal");
             } else {
                 mostrarErrorLogin();

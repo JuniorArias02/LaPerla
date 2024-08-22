@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-
+import org.mindrot.jbcrypt.BCrypt;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 import java.util.Random;
+
+import static org.mindrot.jbcrypt.BCrypt.*;
 
 public class UsuarioDao {
     Conexion cn = new Conexion();
@@ -39,29 +41,37 @@ public class UsuarioDao {
     }
 
     public Usuario login(String usuario, String clave) throws IOException {
-        String sql = "SELECT * FROM usuario WHERE usuario = ? AND clave = ?";
+        String sql = "SELECT * FROM usuario WHERE usuario = ?";
         Usuario us = new Usuario();
         try {
             con = cn.getConexion();
             ps = con.prepareStatement(sql);
             ps.setString(1, usuario);
-            ps.setString(2, clave);
             rs = ps.executeQuery();
             if (rs.next()) {
-                us.setId_usuario(rs.getInt("id_usuario"));
-                us.setUsuario(rs.getString("usuario"));
-                us.setNombre(rs.getString("nombre"));
-                us.setGmail(rs.getString("gmail"));
-                us.setClave(rs.getString("clave"));
+                String claveEncriptada = rs.getString("clave");
+                // Verificar la contraseña ingresada con la encriptada
+                if (checkpw(clave, claveEncriptada)) {
+                    us.setId_usuario(rs.getInt("id_usuario"));
+                    us.setUsuario(rs.getString("usuario"));
+                    us.setNombre(rs.getString("nombre"));
+                    us.setGmail(rs.getString("gmail"));
+                    us.setClave(rs.getString("clave"));
+                } else {
+                    // Contraseña incorrecta
+                    us = null;
+                }
+            } else {
+                // Usuario no encontrado
+                us = null;
             }
         } catch (SQLException e) {
-           // mostrarAlerta("error", e.toString(), "");
             mostrarErrorConexionError();
         }
         return us;
     }
 
-    public Usuario modificarUsuario(int id_usuario, String usuario, String nombre, String gmail, String clave) {
+    public Usuario modificarUsuario(int id_usuario, String usuario, String nombre, String gmail, String claveEncriptada) {
         Usuario us = new Usuario();
         String sql = "UPDATE usuario SET usuario = ?, nombre = ?, gmail = ?, clave = ? WHERE id_usuario = ?";
         try {
@@ -70,9 +80,10 @@ public class UsuarioDao {
             ps.setString(1, usuario);
             ps.setString(2, nombre);
             ps.setString(3, gmail);
-            ps.setString(4, clave);
+            ps.setString(4, claveEncriptada);  // Usar la clave encriptada
             ps.setInt(5, id_usuario);
-//            pra validar si mas de una fila fue afectada
+
+            // Validar si más de una fila fue afectada
             int filasAfectadas = ps.executeUpdate();
             if (filasAfectadas > 0) {
                 System.out.println("Usuario actualizado correctamente.");
@@ -81,10 +92,11 @@ public class UsuarioDao {
             }
         } catch (SQLException e) {
             mostrarAlerta("error", e.toString(), "");
-
         }
         return us;
     }
+
+
 
     public Usuario informacion(int id_usuario) {
         Usuario us = new Usuario();

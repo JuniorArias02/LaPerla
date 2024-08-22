@@ -20,6 +20,7 @@ module com.mycompany.la_perla {
     requires itextpdf;
     requires java.mail;
     requires org.jfree.jfreechart;
+    requires jbcrypt;
 
     exports com.mycompany.la_perla;
     exports CrudControllers;

@@ -11,7 +11,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import org.mindrot.jbcrypt.BCrypt;
 import Controllers.*;
 import CrudControllers.*;
 import Dao.*;
@@ -693,18 +693,45 @@ public class PrincipalController implements Initializable {
         String gmail = usuarioGmail.getText();
         String clave = usuarioClave.getText();
         String confirmarClave = usuarioConfirmarClave.getText();
-        System.out.printf(clave);
-        System.out.println(confirmarClave);
+
         if (clave.equals(confirmarClave)) {
-            us = usDao.modificarUsuario(1, usuario, nombre, gmail, clave);
-            mostrarUsuarioModificadoAlert();
-            mostrarNombreUsuario(usuarioSesion.getIdUsuario());
+            if (validarClave(clave)) {
+                // Encriptar la clave antes de enviarla a modificarUsuario
+                String claveEncriptada = BCrypt.hashpw(clave, BCrypt.gensalt());
+
+                us = usDao.modificarUsuario(1, usuario, nombre, gmail, claveEncriptada);
+                mostrarUsuarioModificadoAlert();
+                mostrarNombreUsuario(usuarioSesion.getIdUsuario());
+                limpiarCamposUsuario();
+            } else {
+                mostrarClaveNoCumpleRequisitosAlert();
+            }
         } else {
             mostrarClaveDiferenteAlert();
         }
 
-
     }
+
+    private void limpiarCamposUsuario() {
+        usuarioClave.setText("");
+        usuarioConfirmarClave.setText("");
+    }
+
+    private void mostrarClaveNoCumpleRequisitosAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Contraseña Inválida");
+        alert.setHeaderText(null);
+        alert.setContentText("La contraseña debe tener al menos 4 números y 2 letras.");
+        alert.showAndWait();
+    }
+
+
+    private boolean validarClave(String clave) {
+        // La expresión regular asegura que la clave tenga al menos 4 dígitos y 2 letras
+        String regex = "^(?=.*\\d{4,})(?=.*[a-zA-Z]{2,}).{6,}$";
+        return clave.matches(regex);
+    }
+
 
     //    ventanas emergentes
 
