@@ -77,8 +77,13 @@ public class NuevaVentaController {
     public Productos agregarProductoATabla(String identificador) throws SQLException {
         Productos productoDevuelto = null;
         try {
+            // Extraer ID y cantidad del comando
+            String[] partes = identificador.split("x");
+            String idONombre = partes[0];
+            int cantidad = (partes.length > 1) ? Integer.parseInt(partes[1]) : 1;
+
             // Busca el producto por ID o nombre usando el método único
-            Productos productoNuevo = productosDao.buscarProducto(identificador);
+            Productos productoNuevo = productosDao.buscarProducto(idONombre);
 
             if (productoNuevo != null) {
                 // Verifica si el producto ya está en la tabla
@@ -92,7 +97,7 @@ public class NuevaVentaController {
 
                 if (productoExistente != null) {
                     // Si el producto ya existe en la tabla, actualiza la cantidad
-                    int nuevaCantidad = productoExistente.getCantidadProducto() + 1;
+                    int nuevaCantidad = productoExistente.getCantidadProducto() + cantidad;
                     int stockDisponible = productoExistente.getStockProducto();
 
                     if (nuevaCantidad <= stockDisponible) {
@@ -105,13 +110,13 @@ public class NuevaVentaController {
                     }
                 } else {
                     // Si el producto no está en la tabla, agrégalo
-                    if (productoNuevo.getStockProducto() > 0) {
-                        productoNuevo.setCantidadProducto(1);
+                    if (productoNuevo.getStockProducto() >= cantidad) {
+                        productoNuevo.setCantidadProducto(cantidad);
                         productoNuevo.setTotal(productoNuevo.getPrecioProducto() * productoNuevo.getCantidadProducto());
                         tablaNuevaVentas.getItems().add(productoNuevo);
                         productoDevuelto = productoNuevo; // Devuelve el nuevo producto agregado
                     } else {
-                        mostrarAlerta("Stock insuficiente", "El producto no tiene stock disponible.", "");
+                        mostrarAlerta("Stock insuficiente", "El producto no tiene suficiente stock disponible.", "");
                     }
                 }
 
