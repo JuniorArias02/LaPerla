@@ -529,7 +529,12 @@
                               <TableColumn fx:id="productoStockVentaColumn" prefWidth="129.0" styleClass="table-column-header" text="Stock" />
                            </columns>
                         </TableView>
-                        <Label fx:id="TotalVentaPago" layoutX="119.0" layoutY="192.0" prefHeight="27.0" prefWidth="913.0" text="Total de la Venta Pago: 0.0">
+                        <Label fx:id="TotalVentaPago" layoutX="268.0" layoutY="192.0" prefHeight="27.0" prefWidth="764.0" text="0.0">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="101.0" layoutY="192.0" prefHeight="27.0" prefWidth="164.0" text="Total a Pagar:">
                            <font>
                               <Font name="Arial Bold" size="24.0" />
                            </font>
