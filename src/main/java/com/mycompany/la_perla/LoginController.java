@@ -2,10 +2,13 @@ package com.mycompany.la_perla;
 
 import Dao.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -31,7 +34,6 @@ public class LoginController implements Initializable {
     UsuarioDao usDao;
 
 
-
     @FXML
     private Button btniniciarSesion;
     @FXML
@@ -42,6 +44,8 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         usDao = new UsuarioDao();
+
+        mostrarNotificacion("La Perla", "Bienvenido al Software de Inventario La Perla");
     }
 
 
@@ -57,6 +61,9 @@ public class LoginController implements Initializable {
             us = usDao.login(usuarioIngresado, claveIngresada);
 
             if (us != null) {
+                // Configura el ícono y el título del `Stage` principal aquí
+                Stage stage = (Stage) btniniciarSesion.getScene().getWindow();
+                stage.setTitle("Software La Perla");
                 int id_user = us.getId_usuario();
                 UsuarioSesion sesion = UsuarioSesion.getInstancia(id_user);
                 PrincipalController.setUsuarioSesion(sesion);
@@ -64,6 +71,29 @@ public class LoginController implements Initializable {
             } else {
                 mostrarErrorLogin();
             }
+        }
+    }
+
+    private void mostrarNotificacion(String titulo, String mensaje) {
+        if (SystemTray.isSupported()) {
+            SystemTray tray = SystemTray.getSystemTray();
+
+            // Cargar la imagen .ico desde el classpath
+            Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/perlaIcon.png"));
+
+            TrayIcon trayIcon = new TrayIcon(image, "Software La Perla");
+            trayIcon.setImageAutoSize(true);  // Ajustar el tamaño de la imagen automáticamente
+            trayIcon.setToolTip("Software La Perla");
+            try {
+                tray.add(trayIcon);
+            } catch (AWTException e) {
+                System.err.println("Error al añadir el icono a la bandeja del sistema");
+                return;
+            }
+
+            trayIcon.displayMessage(titulo, mensaje, TrayIcon.MessageType.INFO);
+        } else {
+            System.err.println("El sistema no soporta notificaciones");
         }
     }
 

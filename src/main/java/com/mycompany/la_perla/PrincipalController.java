@@ -11,6 +11,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import org.mindrot.jbcrypt.BCrypt;
 import Controllers.*;
 import CrudControllers.*;
@@ -40,6 +41,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import jdk.jfr.Event;
 import javafx.util.Callback;
+
 import java.awt.Desktop;
 import java.net.URI;
 
@@ -71,7 +73,6 @@ public class PrincipalController implements Initializable {
     public ClienteController clienteController;
     public VentasController ventasController;
     public NuevaVentaController nuevaVentaController;
-
 
 
     //    private ProveedorDao proveedorDao;
@@ -207,7 +208,6 @@ public class PrincipalController implements Initializable {
     }
 
 
-
     public List<DetalleVenta> obtenerDetallesVenta() {
         return new ArrayList<>(tablaNuevaVentas.getItems());
     }
@@ -225,7 +225,7 @@ public class PrincipalController implements Initializable {
         productosController = new ProductosController(pro, proDao, this);
         clienteController = new ClienteController(cli, cliDao, this);
         ventasController = new VentasController(vent, ventDao, this);
-        nuevaVentaController = new NuevaVentaController(tablaNuevaVentas, productoIdColumna, productoNombreColumna, productoCantidadColumna, productoPrecioColumna, productoTotalColumna, TotalVentaPago,productoStockVentaColumn);
+        nuevaVentaController = new NuevaVentaController(tablaNuevaVentas, productoIdColumna, productoNombreColumna, productoCantidadColumna, productoPrecioColumna, productoTotalColumna, TotalVentaPago, productoStockVentaColumn);
 
         agregarProductoVenta.setOnAction(event -> {
             String idText = agregarProductoVenta.getText();
@@ -260,7 +260,7 @@ public class PrincipalController implements Initializable {
 
     }
 
-//    public void actualizarNumeroTotalVentasAlDia() {
+    //    public void actualizarNumeroTotalVentasAlDia() {
 //        int totalVentasHoy = ventDao.obtenerTotalVentasHoy();
 //        numeroTotalVentasAlDia.setText(String.valueOf(totalVentasHoy));
 //    }
@@ -288,11 +288,12 @@ public class PrincipalController implements Initializable {
         // Iniciar el Task en un nuevo hilo para que no bloquee la interfaz
         new Thread(task).start();
     }
+
     public ProductosController getProductosController() {
         return productosController;
     }
 
-    public void inicializarColumnasNuevaVenta(){
+    public void inicializarColumnasNuevaVenta() {
         productoIdColumna.setCellValueFactory(new PropertyValueFactory<>("codigoProducto"));
         productoNombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
         productoCantidadColumna.setCellValueFactory(new PropertyValueFactory<>("cantidadProducto"));
@@ -386,22 +387,21 @@ public class PrincipalController implements Initializable {
             ventana.getSelectionModel().select(4);
         } else if (event.getSource() == this.NuevaVenta) {
             ventana.getSelectionModel().select(5);
-        } else if (event.getSource() == this.perfil ) {
+        } else if (event.getSource() == this.perfil) {
             ventana.getSelectionModel().select(6);
             mostrarInformacionUsuario(usuarioSesion.getIdUsuario());
-        } else if (event.getSource() == this.PanelManual){
+        } else if (event.getSource() == this.PanelManual) {
             try {
                 URI uri = new URI("https://pagina-web-la-perla.vercel.app/");
                 Desktop.getDesktop().browse(uri);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else if (event.getSource() == this.PanelSalir) {
+        } else if (event.getSource() == this.PanelSalir) {
             UsuarioSesion.limpiarInstancia();
             App.setRoot("Login");
         }
     }
-
 
 
 //    || event.getSource() == this.PerfilUsuario
@@ -661,6 +661,8 @@ public class PrincipalController implements Initializable {
         }
     }
 
+
+
     //    sub-ventanas  para pagar
     @FXML
     private void abrirVentaPago(MouseEvent event) throws IOException {
@@ -674,7 +676,7 @@ public class PrincipalController implements Initializable {
 
         // Pasar la referencia de NuevaVentaController a VistaPagoVentaController
         vistaPagoVentaController.setNuevaVentaController(nuevaVentaController);
-        vistaPagoVentaController.setMontoTotal(texto+totalVentas);
+        vistaPagoVentaController.setMontoTotal(texto + totalVentas);
         vistaPagoVentaController.setVentasController(ventasController);
         Scene scene = PanelPrincipal.getScene();
 
@@ -692,8 +694,6 @@ public class PrincipalController implements Initializable {
         nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
         nuevaVentana.show();
     }
-
-
 
 
     //modificar usuario

@@ -19,6 +19,13 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("Login"));
+
+        // Establecer el título del `Stage`
+        stage.setTitle("Software La Perla");
+
+        // Establecer el ícono del `Stage`
+        stage.getIcons().add(new javafx.scene.image.Image(App.class.getResourceAsStream("/img/perlaIcon.png")));
+
         stage.setScene(scene);
         stage.show();
     }
