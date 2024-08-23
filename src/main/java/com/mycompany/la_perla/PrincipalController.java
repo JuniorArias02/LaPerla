@@ -242,7 +242,7 @@ public class PrincipalController implements Initializable {
                         System.out.println("Producto agregado/actualizado: " + producto);
                     }
                     // Limpiar el campo de texto si es necesario
-                    agregarProductoVenta.setText("");
+//                    agregarProductoVenta.setText("");
 
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -371,6 +371,15 @@ public class PrincipalController implements Initializable {
     public void eliminarProductoHandler(MouseEvent mouseEvent) {
         if (nuevaVentaController != null) {
             nuevaVentaController.eliminarProductoSeleccionado();
+        } else {
+            System.out.println("NuevaVentaController no inicializado.");
+        }
+    }
+
+    @FXML
+    public void borrarProducto(MouseEvent mouseEvent) {
+        if (nuevaVentaController != null) {
+            nuevaVentaController.borrarProductoSeleccionado();
         } else {
             System.out.println("NuevaVentaController no inicializado.");
         }
@@ -870,4 +879,6 @@ public class PrincipalController implements Initializable {
         nuevaVentana.setOnCloseRequest(e -> scene.getRoot().setEffect(null));
         nuevaVentana.show();
     }
+
+
 }

@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import jdk.jfr.Event;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -133,6 +134,20 @@ public class NuevaVentaController {
         alerta.setHeaderText(mensaje);
         alerta.setContentText(detalles);
         alerta.showAndWait();
+    }
+
+    public void borrarProductoSeleccionado() {
+        // Obtener el producto seleccionado de la tabla
+        Productos productoSeleccionado = tablaNuevaVentas.getSelectionModel().getSelectedItem();
+
+        if (productoSeleccionado != null) {
+            // Eliminar el producto de la tabla
+            tablaNuevaVentas.getItems().remove(productoSeleccionado);
+            tablaNuevaVentas.refresh();
+            actualizarTotalVenta(); // Actualizar el total de la venta
+        } else {
+            System.out.println("No hay producto seleccionado para borrar.");
+        }
     }
 
     public void eliminarProductoSeleccionado() {
