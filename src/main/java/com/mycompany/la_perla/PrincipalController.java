@@ -228,11 +228,12 @@ public class PrincipalController implements Initializable {
         nuevaVentaController = new NuevaVentaController(tablaNuevaVentas, productoIdColumna, productoNombreColumna, productoCantidadColumna, productoPrecioColumna, productoTotalColumna, TotalVentaPago, productoStockVentaColumn);
 
         agregarProductoVenta.setOnAction(event -> {
-            String idText = agregarProductoVenta.getText();
-            if (!idText.isEmpty()) {
-                int id = Integer.parseInt(idText);
+            String identificador = agregarProductoVenta.getText().trim(); // Obtiene el texto ingresado
+
+            if (!identificador.isEmpty()) {
                 try {
-                    Productos producto = nuevaVentaController.agregarProductoATabla(id);
+                    Productos producto = nuevaVentaController.agregarProductoATabla(identificador);
+
                     if (producto == null) {
                         // Maneja el caso donde el producto no se encontró
                         ErrorProductoNoEncontrado();
@@ -240,7 +241,9 @@ public class PrincipalController implements Initializable {
                         // Maneja el caso donde se encontró y/o se actualizó el producto
                         System.out.println("Producto agregado/actualizado: " + producto);
                     }
-//                    agregarProductoVenta.setText("");
+                    // Limpiar el campo de texto si es necesario
+                    agregarProductoVenta.setText("");
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

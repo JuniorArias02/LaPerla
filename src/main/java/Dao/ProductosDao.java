@@ -40,14 +40,19 @@ public class ProductosDao {
             throw new SQLException("Error al actualizar el stock del producto", e);
         }
     }
-
-    public Productos buscarProducto(int id) throws SQLException {
+    public Productos buscarProducto(String identificador) throws SQLException {
         Productos producto = null;
-        String query = "SELECT codigo,nombre,precio,stock FROM productos WHERE codigo = ?";
+        String query = isNumeric(identificador) ?
+                "SELECT codigo, nombre, precio, stock FROM productos WHERE codigo = ?" :
+                "SELECT codigo, nombre, precio, stock FROM productos WHERE nombre = ?";
         Connection con = cn.getConexion();
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setInt(1, id);
+            if (isNumeric(identificador)) {
+                ps.setInt(1, Integer.parseInt(identificador));
+            } else {
+                ps.setString(1, identificador);
+            }
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     producto = new Productos();
@@ -63,6 +68,11 @@ public class ProductosDao {
         }
 
         return producto;
+    }
+
+    // Método auxiliar para verificar si una cadena es numérica
+    private boolean isNumeric(String str) {
+        return str != null && str.matches("[0-9]+");
     }
 
     public Productos agregarProductos(int codigo, String nombre, int precio, String categoria, int proveedorId,

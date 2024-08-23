@@ -73,34 +73,37 @@ public class NuevaVentaController {
     }
 
 
-    public Productos agregarProductoATabla(int id) throws SQLException {
+    public Productos agregarProductoATabla(String identificador) throws SQLException {
         Productos productoDevuelto = null;
         try {
-            Productos productoExistente = null;
-            for (Productos producto : tablaNuevaVentas.getItems()) {
-                if (producto.getCodigoProducto() == id) {
-                    productoExistente = producto;
-                    break;
+            // Busca el producto por ID o nombre usando el método único
+            Productos productoNuevo = productosDao.buscarProducto(identificador);
+
+            if (productoNuevo != null) {
+                // Verifica si el producto ya está en la tabla
+                Productos productoExistente = null;
+                for (Productos producto : tablaNuevaVentas.getItems()) {
+                    if (producto.getCodigoProducto() == productoNuevo.getCodigoProducto()) {
+                        productoExistente = producto;
+                        break;
+                    }
                 }
-            }
 
-            if (productoExistente != null) {
-                // Si el producto ya existe en la tabla, actualiza la cantidad
-                int nuevaCantidad = productoExistente.getCantidadProducto() + 1;
-                int stockDisponible = productoExistente.getStockProducto();
+                if (productoExistente != null) {
+                    // Si el producto ya existe en la tabla, actualiza la cantidad
+                    int nuevaCantidad = productoExistente.getCantidadProducto() + 1;
+                    int stockDisponible = productoExistente.getStockProducto();
 
-                if (nuevaCantidad <= stockDisponible) {
-                    productoExistente.setCantidadProducto(nuevaCantidad);
-                    productoExistente.setTotal(productoExistente.getPrecioProducto() * nuevaCantidad);
-                    tablaNuevaVentas.refresh();
-                    productoDevuelto = productoExistente; // Devuelve el producto actualizado
+                    if (nuevaCantidad <= stockDisponible) {
+                        productoExistente.setCantidadProducto(nuevaCantidad);
+                        productoExistente.setTotal(productoExistente.getPrecioProducto() * nuevaCantidad);
+                        tablaNuevaVentas.refresh();
+                        productoDevuelto = productoExistente; // Devuelve el producto actualizado
+                    } else {
+                        mostrarAlerta("Stock insuficiente", "No hay suficiente stock disponible para este producto.", "");
+                    }
                 } else {
-                    mostrarAlerta("Stock insuficiente", "No hay suficiente stock disponible para este producto.", "");
-                }
-            } else {
-                // Si el producto no existe en la tabla, búscalo en la base de datos
-                Productos productoNuevo = productosDao.buscarProducto(id);
-                if (productoNuevo != null) {
+                    // Si el producto no está en la tabla, agrégalo
                     if (productoNuevo.getStockProducto() > 0) {
                         productoNuevo.setCantidadProducto(1);
                         productoNuevo.setTotal(productoNuevo.getPrecioProducto() * productoNuevo.getCantidadProducto());
@@ -109,18 +112,19 @@ public class NuevaVentaController {
                     } else {
                         mostrarAlerta("Stock insuficiente", "El producto no tiene stock disponible.", "");
                     }
-                } else {
-                    System.out.println("Producto no encontrado");
                 }
-            }
 
-            actualizarTotalVenta();
+                actualizarTotalVenta();
+
+            } else {
+                System.out.println("Producto no encontrado");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return productoDevuelto; //
+        return productoDevuelto;
     }
 
     private void mostrarAlerta(String titulo, String mensaje, String detalles) {
