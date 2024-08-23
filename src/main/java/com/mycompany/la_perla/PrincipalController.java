@@ -40,6 +40,8 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import jdk.jfr.Event;
 import javafx.util.Callback;
+import java.awt.Desktop;
+import java.net.URI;
 
 
 /**
@@ -191,6 +193,8 @@ public class PrincipalController implements Initializable {
     private TableColumn productoStockVentaColumn;
     @FXML
     private Label numeroTotalVentasAlDia;
+    @FXML
+    private Pane PanelManual;
 
 
     /**
@@ -385,7 +389,14 @@ public class PrincipalController implements Initializable {
         } else if (event.getSource() == this.perfil ) {
             ventana.getSelectionModel().select(6);
             mostrarInformacionUsuario(usuarioSesion.getIdUsuario());
-        } else if (event.getSource() == this.PanelSalir) {
+        } else if (event.getSource() == this.PanelManual){
+            try {
+                URI uri = new URI("https://pagina-web-la-perla.vercel.app/");
+                Desktop.getDesktop().browse(uri);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if (event.getSource() == this.PanelSalir) {
             UsuarioSesion.limpiarInstancia();
             App.setRoot("Login");
         }
