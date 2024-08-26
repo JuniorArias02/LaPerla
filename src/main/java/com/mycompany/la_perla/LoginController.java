@@ -32,7 +32,7 @@ public class LoginController implements Initializable {
     Conexion conexion = new Conexion();
     Usuario us;
     UsuarioDao usDao;
-
+    //hola como estas
 
     @FXML
     private Button btniniciarSesion;

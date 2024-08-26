@@ -20,7 +20,7 @@ public class Conexion {
 
     static final String NAME = "la_perla";
     static final String USER = "root";
-    static final String PASS = "";
+    static final String PASS = "1234";
     static final String PORT = "3306";
     static final String TIMEZONE = "UTC";
 
