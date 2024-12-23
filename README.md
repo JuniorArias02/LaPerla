@@ -34,12 +34,3 @@ El sistema de inventario **La Perla** está diseñado para facilitar la gestión
 ## Uso
 
 Este sistema está diseñado para ser utilizado en computadoras con un entorno de escritorio, brindando una experiencia completa para la gestión de inventarios y ventas.
-
-## Contribuciones
-
-Este es un proyecto personal y actualmente no se aceptan contribuciones externas. Cualquier intento de modificación o colaboración será rechazado.
-
----
-
-**Nota:** Este proyecto forma parte de mi portafolio personal y ha sido creado con fines educativos y de autoaprendizaje. ¡Gracias por tu comprensión y por respetar las directrices de contribución!
-
